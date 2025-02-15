@@ -1,10 +1,13 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-//Props are used to pass data from a parent component to a child component.
+//Props are used to pass data from a parent component to a child component and here Header is child components and App is parent component which is described in App.jsx.
 export default function Header(props) {
   return (
     
+// In React anchor is replaced with Link and we need to import the Link function from react-router-dom module . 
+// and href is replaced with to. 
+// class is replaced with className
 <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
     <Link className="navbar-brand" to="/">{props.title}</Link>
@@ -44,6 +47,7 @@ title:"your title here",
 // Header.propTypes ={
 //   title:PropTypes.string.isRequired  // This means that we can pass only string value to title but if we pass a number then in console it shows error but prints in the navbar. 
 // };
+
 
 
 

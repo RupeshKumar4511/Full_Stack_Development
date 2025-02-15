@@ -15,5 +15,19 @@ It uses single thread to manage multiple concurrent task.
 There are two types of modules in node js.
 1. common  js module
 <br>
+```bash 
+const fs = require('fs');
+```
+<br>
 2. Ecmascript module
+
+# Important Point 
+If we want to create any node js application , first of all we need to create node js project by running a command. 
+<br>
+```bash 
+npm init 
+```
+
+# Learn more about Nodejs
+https://nodejs.org/en/learn/getting-started/introduction-to-nodejs
 

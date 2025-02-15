@@ -45,7 +45,7 @@ function App() {
   }, [todos]);
 
   return (
-    <>
+    <>  // This is called React.Fragments 
       <Router>
         <Header title="MyTodosList" />
         <Routes>
@@ -53,7 +53,7 @@ function App() {
             <>
               <AddTodo addTodo={addTodo} />
               
-              <Todos todo={todos} onDelete={onDelete} />
+              <Todos todo={todos} onDelete={onDelete} /> // here todo and onDelete is used for the props to pass data to child Components.
             </>
           } />
           <Route exact path="/about" element={<About />} />
