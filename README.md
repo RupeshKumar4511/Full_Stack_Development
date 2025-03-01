@@ -115,7 +115,25 @@ while write html empty tag like img tag. It is known as self closing tag. It mus
 
 ```
 
-<br>
+
+# Important Point from React (while using Bootstrap):
+
+```bash 
+
+Use "className" in place of "class". 
+
+Use "to" instead of "href" in react. 
+
+Use "Link" in place of "a" and to use "Link" we need to import :
+
+"import {Link} from 'react' "
+
+To use this we need to import :
+
+import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
+and then we can use it. 
+```
+
 
 # In React (and JavaScript in general), there are two main types of imports:
 
@@ -340,11 +358,10 @@ export default function App(){
 
 1. React event use camelCase, e.g:onClick().
    <br>
-2. Uses SyntheticBaseEvents, React will convert direct browser events into SyntheticBaseEvents.
+2. Uses SyntheticBaseEvents, React will convert direct browser events into SyntheticBaseEvents for cross-browser consistency and performance improvements.
    <br>
 3. Event Handlers can be function or arrow function.
-   <br>
-4. Use "onChange()" for controlled form inputs.
+inputs.
    <br>
 5. Avoid Inline arrow functions in jsx for performance.
    <br>
@@ -415,7 +432,7 @@ onKeydown((event) => console.log(event))
 ```
 # spread operator and Functional updates :
 spread operators : Used to maintain immutability while updateing array or objects . 
-But some time it gives old values even after updation. 
+But sometime it gives old values even after updation. 
 It is caused because React is async in nature. 
 <br>
 ```bash 
@@ -428,10 +445,17 @@ let newItem = [...items,newOne]
 <br>
 Functional updates : 
 <br>
-Use 
+To avoid unexpected results, use:  
+```bash
+const currentValue = [{ name: "John", dueDate: "23-02-2025" }];
+
+const newValue = (currentArray) => [...currentArray, { name: "David", dueDate: "23-02-2025" }];
+
+const updatedArray = newValue(currentValue);
+
+console.log(updatedArray);
 ```
-(currentValue) => [...currntValue,{name:newName,dueDate:dueDate}]
-```
+<br>
 To avoid stale values during asynchronous updates. 
 
 
@@ -450,7 +474,7 @@ Hooks should be used inside the Functional Component.
 <br>
 Parent components can pass state down to childeren via props. 
 <br>
-Lifting State Up : share state between components by moving it to their closest ancestor. (means we need to manages the state above and closest those component which requires it.)
+Lifting State Up : share state between components by moving it to their closest ancestor. (means we need to manages the state above and closest to those component which requires it.)
 
 # State Vs Props 
 <b>State : </b>
@@ -504,6 +528,9 @@ whenever the state is changed then component using that useState wiil be repaint
 
 # Important Point from Input :
 If we are using useState() in the input then we need to either assign the values properly or assign nothing.
+<br>
+When we use "useState" to update the state on the basis of input value and input value will be updated according to the state then it is called two-way binding. 
+
 
 # React Icon Library 
 we can use a lot of icons without managing them. 
@@ -521,19 +548,6 @@ import {IconName} from 'react-icons/fc';
 
 
 
-# useEffect hoook
-
-In React, useEffect is a hook that lets you perform side effects in functional components. It's useful for things like fetching data, interacting with browser APIs, subscribing to services, or manipulating the DOM directly. It runs after the component renders and can be set to re-run based on changes to specific state or props.
-<br>
-
-```bash
-useEffect(effectFunction, dependencies);
-
-//effectFunction: The function that contains the side-effect logic.
-
-//dependencies (optional): An array of values that the effect depends on. React will re-run the effect whenever any value in this array changes.
-
-```
 
 # How React Works :
 
@@ -562,7 +576,8 @@ It's a lightweight representation where each node stands for a component and its
 
 # React Libraries :
 React and ReactDOM:
-The actual updating of the browser's DOM isn't done by React itself. • It's handled by a companion library called react-dom.
+The actual updating of the browser's DOM isn't done by React itself.
+• It's handled by a companion library called react-dom.
 <br>
 Root Element:
 <br>
@@ -614,7 +629,7 @@ Vue.js is known for its simplicity and ease of integration, making it beginner-f
 ```
 
 # useRef :
-It is used when we want to manage the state but we don't to repaint the component every time when state is changed. 
+It is used when we want to manage the state but we don't to repaint the component every time when state is changed. It is mostly used in forms.
 <br>
 ```bash 
 1. useRef allows access to DOM elements and retains mutable values without re-renders.
@@ -628,7 +643,8 @@ It is used when we want to manage the state but we don't to repaint the componen
 # Context API :
 It is basically a common Shared storage among all the components. It is used when several components are using same methods or state then we use context api. 
 <br>
-<img src="./my_app/public/Screenshot 2025-02-05 161338.jpg" alt="">
+<img src="./Images/contextapi.jpg.jpg" alt="">
+<br>
 ```bash 
 
 1. Prop Drilling: Context API addresses prop drilling; component composition is an alternative.
@@ -649,7 +665,7 @@ Everything inside the contextName.Provider will be repaint when its value is cha
 # useReducer :
 It is used when updating the state is complex in place of useState.
 <br>
-<img src="./my_app/public/useReducer.jpg" alt="">
+<img src="./Images/useReducer.jpg" alt="">
 <br> 
 ```bash 
 A pure function which does not have a side effect. It takes the argument and returns the output. 
@@ -665,6 +681,9 @@ A pure function which does not have a side effect. It takes the argument and ret
 3. Initialization: It's invoked as
 const [state, dispatch] = useReducer(reducer, initialState).
 
+Here overall "useReducer()" returns new state and dispatch function. 
+
+
 4. Dispatch: Actions are dispatched using the dispatch
 function, which invokes the reducer with the current state and the given action.
 
@@ -677,3 +696,366 @@ previous one.
 ```
 
 
+
+# Working with API data:
+Using Dummy JSON :
+<br>
+<b>How to Fetch data using "fetch" method</b>
+<br>
+```bash 
+
+1. fetch: Modern JavaScript API for network requests.
+2. Promise-Based: Returns a Promise with a Response object.
+3. Usage: Default is GET. For POST use method: 'POST'
+4. Response: Use .then() and response.json() for JSON data. 5. Errors: Doesn't reject on HTTP errors. Check response.ok. 
+6. Headers: Managed using the Headers API.
+```
+<br>
+```bash 
+
+// Fetch data using "GET" method (bydefault)
+fetch('https://dummyjson.com/posts') 
+// return promise and if promise is fullfilled then returns response
+.then(res =>  res.json)
+// return promise and if promise is fullfilled then returns response.json
+.then(obj => console.log(obj.posts));
+
+
+
+// Post data using fetch 
+
+  fetch('https://dummyjson.com/posts/add', method = 'POST',
+            header = { 'Content-Type': 'application/json' },
+            body = JSON.stringify({
+                title: postTitle,
+                body: postContent,
+                reactions: reactions,
+                userID: userID,
+                tags: postTags
+            })
+        ).then(res => res.json())
+            .then(post => addPost(post))
+
+```
+
+# useEffect hoook
+
+In React, useEffect is a hook that lets you perform side effects in functional components. It's useful for things like fetching data, interacting with browser APIs, subscribing to services, or manipulating the DOM directly. It runs after the component renders and can be set to re-run based on changes to specific state or props.
+<br>
+
+```bash
+useEffect(effectFunction, dependencies);
+
+//effectFunction: The function that contains the side-effect logic.
+
+//dependencies (optional): An array of values that the effect depends on. React will re-run the effectFunction whenever any value in this array changes.
+
+```
+<br>
+
+```bash 
+
+1. In function-based components, use Effect handles side effects like data fetching or event listeners. 
+
+2. useEffect runs automatically after every render by default.
+
+3. By providing a dependency array, use Effect will only run when specified variables change. An empty array means the effect runs once at initial render.
+
+4. Multiple useEffect hooks can be used in a single
+component for organizing different side effects separately.
+```
+
+# useEffect Hook Clean Up 
+```bash 
+
+UseEffect(() => {
+    const timerID = setInterval(() => {
+    // do something
+
+    }, 1000);
+
+
+    // This is the cleanup function
+    return () => {
+    clearInterval(timerID);
+    }
+  }, []);
+
+  
+  // A Returning a function from `use Effect' allows for cleanup, ideal for removing event listeners.
+
+```
+<br>
+
+```bash 
+
+const [fetching, setFetching] = useState(false);
+
+
+
+useEffect(() => {
+    setFetching(true);
+
+    const controller = new AbortController();
+    const signal = controller.signal; // signal is a member of controller
+
+    fetch('https://dummyjson.com/posts',{signal})
+        .then(res => res.json())
+        .then(data => {addInitialPosts(data.posts);
+        setFetching(false);}
+    );
+
+
+    // cleanup function
+    return () =>{
+        controller.abort();
+    }
+    
+}, []) // render only once initially.
+
+
+// here "controller.abort()" will abort the api calls. 
+
+
+```
+
+
+# Handling Loading State :
+When we fetch the data from any api then before obtaining the data, we get unexpected results(like "no posts to display" even there are post on the server) because we want make decision afer the data fetched from api. 
+<br>
+To avoid unexpected results:
+<br>
+We use Loading spinner before the data obtained from the server. 
+
+
+
+# useCallback hook :
+The useCallback hook memoizes a function, preventing it from being recreated on every render unless its dependencies change. It's useful for performance optimization, especially when passing functions to child components.
+<br>
+```bash 
+useCallback(function,[dependencies])
+
+// It will change the function reference when the value of dependencies changes. 
+
+```
+<br>
+```bash 
+
+1. Memoization: Preserves function across renders to prevent unnecessary re-renders. 
+
+2. Optimization: Enhances performance in components with frequent updates.
+
+3. Dependency Array: Recreates the function only when specific dependencies change.
+
+4. Event Handlers: Used to keep consistent
+function references for child components.
+
+5. With useEffect: Prevents infinite loops by maintaining function references.
+
+```
+
+<br>
+```bash 
+
+const deletePost = useCallback((postid) => {
+  const deletePostAction = {
+      type: "DELETE_POST",
+      payload: {
+          id:postid
+      }
+  }
+  
+
+  dispatchList(deletePostAction);
+},[dispatchList])
+
+
+// Here "deletePost" depends only on "dispatchList" funtion 
+// if it changes,only then function references will be changes otherwise not. (In general whenever we pass any function to any component as props its references always changes so it causes unnecessary repaint )
+```
+
+# useMemo Hook :
+The useMemo hook memoizes a computed value, preventing expensive recalculations on every render unless its dependencies change. It is useful for optimizing performance, especially when dealing with heavy computations or derived state.
+<br>
+```bash 
+
+1. Memoization: useMemo caches the result of
+expensive calculations to enhance performance. 
+
+2. Re-computation: Only re-computes the memoized value when specific dependencies change. 
+
+3. Optimization: Helps prevent unnecessary recalculations, improving component rendering efficiency.
+
+
+4. Dependency Array: Uses an array of
+dependencies to determine when to recompute the cached value.
+
+5. Comparison with useCallback: While useCallback memoizes functions, useMemo memoizes values or results of functions.
+
+6. Best Use: Ideal for intensive computations or
+operations that shouldn't run on every render.
+
+```
+<br>
+```bash 
+const memoizedValue = useMemo(() => computeExpensiveValue(), [dependencies]);
+
+// The function inside useMemo only runs when dependencies change.
+// If the dependency array [] is empty, it only runs once. 
+
+```
+
+<br>
+
+
+```bash 
+
+const arr = [12,31,11,10,21];
+const sortedArr = useMemo(()=> arr.sort(),[arr]);
+
+// here sorting will be only done when the value of array changes otherwise not. 
+
+
+```
+
+# Custom Hook : 
+```bash 
+
+1. Reusable Logic: Custom hooks allow you to
+extract and reuse component logic across multiple components.
+
+2. Naming Convention: Typically start with "use" (e.g., useWindowSize, use Fetch).
+
+3. Combining Hooks: Custom hooks can combine multiple built-in hooks like useState, useEffect,
+and others.
+
+(imp)4. Sharing State: Enables sharing of stateful logic without changing component hierarchy.
+
+5. Isolation: Helps in isolating complex logic, making components cleaner and easier to maintain.
+
+6. Custom Return Values: Can return any value
+(arrays, objects, or any other data type) based on requirements.
+
+```
+
+<br>
+```bash 
+
+const [value,toggle] = useToggle(true);
+// We can make custom hooks like "useToggle" using "useState" hook.
+
+const [value,{on,off,toggle}] = useBoolean(true);
+
+// we can make this type of custom hooks.
+```
+
+# React Router 
+```bash 
+
+1. Installation: Use npm install react-router-dom.
+
+2. We are going to use the latest version which is 6+ 
+
+3. RouterProvider: Wraps the app for routing
+capabilities. 
+
+4. createBrowserRouter: helps creating the mapping for router provider.
+
+5. Declarative Routing: Easily define application routes.
+
+6. Routes are React components.
+
+```
+
+# Layout Routing :
+```bash 
+
+export default function Router() { return useRoutes ([
+{
+},
+{
+path: '/dashboard',
+element: <DashboardLayout />,
+children: [
+{ element: Navigate to="/dashboard/app" replace /},
+{ path: 'app', element: <DashboardApp /> },
+{ path: 'user', element: <User /> },
+{ path: 'products', element: <Products /> },
+{ path: 'blog', element: <Blog /> }
+]
+}
+
+// Important Point : 
+1. Layout Routes help us to use shared elements
+2. Outlet component is used to render the children at the correct places
+
+```
+
+# Route Link :
+```bash 
+
+import { useNavigate } from "react-router-dom"; // v6
+const Component = () => {
+// Triggers re-renders on every path change const navigate
+    const navigate=useNavigate();
+    ... 
+}
+
+//  useNavigate() hook returns a method which can be used to navigate. 
+
+
+
+// Important Point :
+1. Link Component with to property can be used to avoid reloading 
+2. useNavigate hook can be used to do navigation programmatically.
+```
+
+
+# useLoader Hook 
+```bash 
+
+1. Loader method can be used to load data before a particular route is executed.
+
+2. The loader method must return the data that is loaded or promise.
+
+3. Data is available in component and all
+the child components.
+
+4. useLoaderData hook can be used to get the fetched data.
+
+5. Loading state can also be used.
+
+```
+<br>
+```bash 
+
+export const loadData = () =>{
+  return fetch('https://dummyjson.com/posts')
+  .then(res => res.json())
+  .then(data => {
+      return data.posts;
+      
+  }
+  );
+}
+
+```
+
+
+# Submitting Data using Fetch : 
+```bash 
+
+1. Action method can be used to perform an
+action on submission of Forms.
+
+2. Custom Form component need to be used along with name attribute for all inputs. 
+
+3. Action function will get an data object. To generate correct request object, method="post" attribute should be used.
+
+ 4. Data.request.formData() method can be used to get form data Object.
+
+5. Object.fromEntries(formData) can be used to get actual input data.
+
+6. redirect() response can be returned for navigation after submission.
+
+```
