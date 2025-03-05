@@ -12,21 +12,64 @@ It uses single thread to manage multiple concurrent task.
 
 
 # Node js modules :
-There are two types of modules in node js.
+Node.js supports two types of modules.
 1. common  js module
 <br>
 ```bash 
-const fs = require('fs');
+function add(a, b) {
+    return a + b;
+}
+
+module.exports = add; // Exporting function
+
+
+
+const add = require('./math'); // Importing module
+
+console.log(add(2, 3)); // Output: 5
+
+```
+<br>
+Features : 
+```bash 
+Uses require() to import modules.
+
+Uses module.exports or exports to export modules.
+
+Synchronous execution (modules load at runtime).
+
+Works in all Node.js versions.
+
+Cannot use import/export without additional configuration
 ```
 <br>
 2. Ecmascript module
+<br>
+```bash
+export function add(a, b) {
+    return a + b;
+}
 
-# Important Point 
-If we want to create any node js application , first of all we need to create node js project by running a command. 
+
+import { add } from './math.mjs'; // Importing module
+
+console.log(add(2, 3)); // Output: 5
+
+```
+<br>
+Features: 
 <br>
 ```bash 
-npm init 
+Uses import to load modules.
+Uses export to export functions/variables.
+Asynchronous execution (better for performance).
+Requires "type": "module" in package.json or .mjs extension.
 ```
+<br>
+In ESM, Imports are hoisted and executed before the script runs, meaning they are resolved at parse time (before execution). This improves performance by enabling tree shaking and better optimization.
+<br>
+Tree shaking is a technique used in JavaScript to remove unused code (dead code elimination) from the final bundle, reducing its size and improving performance (when we use node js with webpack like vite).
+
 
 # Learn more about Nodejs
 https://nodejs.org/en/learn/getting-started/introduction-to-nodejs

@@ -177,6 +177,7 @@ import { add, subtract } from './utilities'; // Importing named exports from the
 
 <br>
 <br>
+
 ```bash
 // File: math.js
 export default function multiply(a, b) {
@@ -192,7 +193,7 @@ return a + b;
 // File: index.js
 import multiply, { add } from './math'; // Importing default and named exports
 
-````
+```
 
 
 # React app components :
@@ -1028,6 +1029,10 @@ the child components.
 ```
 <br>
 ```bash 
+const router = createBrowserRouter([
+{ path: '/', element: <PostList />, loader:loadData }
+]);
+
 
 export const loadData = () =>{
   return fetch('https://dummyjson.com/posts')
@@ -1057,5 +1062,257 @@ action on submission of Forms.
 5. Object.fromEntries(formData) can be used to get actual input data.
 
 6. redirect() response can be returned for navigation after submission.
+
+```
+<br>
+
+```bash 
+export async function postDataAction(data) {
+
+  const FormData = await data.request.formData();
+  console.log(FormData);
+  const postData = Object.fromEntries(FormData);
+  postData.tags = postData.tags.split(" ");
+
+  const CompletePostData = {
+      ...postData,  
+      reactions: { likes: 10, dislikes: 0 }, 
+      userId: 5,  
+      views: 23  
+  };
+
+
+  fetch('https://dummyjson.com/posts/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(CompletePostData)
+  }).then(res => res.json())
+      .then(post => {
+          console.log(post);
+          // addPost(post);
+      })
+
+  return redirect('/')
+
+}
+
+```
+
+# useForm :
+useForm state is used for the form validation.
+<br>
+It require "react-hook-form"
+<br>
+It returns an object with several useful methods and properties for managing forms efficiently.
+<br>
+```bash 
+const {
+  register,        // Funtion to Registers input fields
+  handleSubmit,    // Funtion to Handles form submission
+  watch,           // Funtion to Watches field values
+  setValue,        // Funtion to Manually sets a field's value
+  getValues,       // Funtion to Retrieves current form values
+  reset,           // Funtion to Resets form fields
+  trigger,         // Funtion to Manually triggers validation
+  control,         // Property Used with Controller for UI libraries
+  formState: {
+    errors,        // Property : Holds validation errors
+    isValid,       // Property : Boolean indicating if the form is valid
+    isDirty,       // Property : Boolean indicating if any field was changed
+    isSubmitting,  // Property : Boolean indicating if form is submitting
+    touchedFields, // Property : Tracks touched fields
+    dirtyFields,   // Property : Tracks modified fields
+  }
+} = useForm();
+
+
+```
+<br>
+```bash 
+import { useForm } from "react-hook-form";
+
+const OptimizedForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm(); // Efficient state management
+
+  const onSubmit = (data) => {
+    console.log("Form Data:", data);
+    alert("Form submitted successfully!");
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label>Email:</label>
+        // "email" in the register function is name. 
+        <input type="email" {...register("email", { required: "Email is required", pattern: { value: /\S+@\S+\.\S+/, message: "Invalid email" } })} />
+        <span style="color:red" >{errors.email?.message}</span>
+      </div>
+
+      <div>
+        <label>Password:</label>
+        <input type="password" {...register("password", { required: "Password is required", minLength: { value: 6, message: "Min length is 6" } })} />
+        <span style="color:red">{errors.password?.message}</span>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+
+export default OptimizedForm;
+
+```
+<br>
+```bash 
+required :	Field must not be empty.
+minLength:	Minimum character length.
+maxLength:	Maximum character length.
+pattern	: Uses regex for validation.
+validate:	Custom validation function.
+
+```
+# Redux : 
+<img src="./Images/Redux.jpg" alt="">
+<br>
+Redux is a predictable state management Library used in React for cross component or app-wide state. 
+<br>
+<b>Local State</b> : State that belongs to a single component and does not affect others.
+<br>
+like useState() or useReducer inside a component. 
+<br>
+<b>Cross-Component State</b> :
+State that needs to be shared between multiple components.
+<br>
+like useState() with prop drilling 
+<br>
+<b>App-wide State</b>: 
+State that is accessible anywhere in the application.
+<br>
+like useContext or Redux. 
+
+# useContext vs Redux :
+```bash 
+
+1. we can use both.
+
+2. Setup and Coding is tough especially if we have multiple context providers.
+
+3. Performance is slow. Context should only be used for things that rarely change because on change in the context provider value the entire app will be repaint. On the other hand Redux has great performance.
+
+4. If these things don't matter to us then we can choose not to use redux and stay with React Context.
+
+```
+# How Redux works : 
+
+<img src="./Images/Redux2.jpg" alt="Redux">
+```bash 
+
+1. Single Store: Redux uses a single central store to maintain the entire application's state.
+
+2. Actions: Components never directly change the store. Changes to state are made through dispatched actions, which describe events. 
+
+3. Reducers: Actions are processed by reducers, pure functions that return the new state.
+
+4. Immutable: State is immutable; every change results in a new state object.
+
+5. subscribe: It is a consumer method which is used by the components to get the data from the store and store remembers that which data is taken by the component and tells the component when data is changed.  
+
+6. This is different from useReducer hook.
+```
+<br>
+
+# Work with Redux in node project :
+```bash 
+
+1. npm init -y
+2. npm install redux
+3. import in node Const redux = require('redux'); 
+4. We need to setup all 4 basic things:
+1. Reducer
+2. Store
+3. Subscriber
+4. Actions
+5. Node redux-demo.js command to run node server
+
+```
+
+# Work with Redux in react application :
+```bash 
+
+1. Npm install redux 
+2. Npm install react-redux
+3. Create store folder with Index.js file 
+4. Creating the store using
+Import {createStore} from redux.
+5. Providing the store with react
+(I). Provider from react-redux
+(II). <Provider store={store}><App /></Provider> 
+6. Using the store
+(I). useSelector hook gets a slice of the store.
+Const counter = useSelector(state => state.counter); 
+(II). Subscription is already setup and only will re-execute when only your slice is changed. Subscription is automatically cleared also when it is out of memory.
+7. Dispatch Actions using the use Dispatch hook.
+```
+
+# Why Redux ToolKit : 
+```bash 
+
+1. Action types are difficult to maintain.
+
+2. Store becoming too big. 
+
+3. Mistakenly editing store 
+
+4. Reducer becoming too big
+
+```
+# Advantage of Redux : 
+```bash 
+Redux allows us to create multiple chunks of store and then combine them. 
+
+Redux allows us to create multiple reducers . 
+
+```
+
+# Working with Redux-tool kit in react application : 
+```bash 
+
+1. Npm install @reduxjs/toolkit
+
+2. Remove redux from package.json
+
+3. Import {createSlice} from "@reduxjs/toolkit❞
+
+4. Slices of the store can be created using the following syntax:
+
+Const slice = createSlice({
+})
+name:",
+initialState: {countVal:0},
+reducers: {
+}
+small ReducerMethods: (state, action) => {
+},
+
+// how to use the state 
+const {countVal} = useSelector(store => store.slice);
+
+5. ConfigureStore combines multiple reducers and can be used as:
+configureStore({
+  reducer: {name: slice.reducer}
+})
+
+
+
+6. Export actions = slice.actions;
+
+7. Actions can be dispatched like: actions.reducerMethod(payload);
+
+
+Note : Bydefault in redux's reduce expression is considered as return statement so we do not need to explicitly write return But if the returns statement is not a expression then we need to explicitly write return. 
 
 ```

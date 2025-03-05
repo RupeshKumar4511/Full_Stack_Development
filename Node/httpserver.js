@@ -1,5 +1,6 @@
 const http = require('http');
 const fs = require('fs');
+const path = require('path');
 const port = 3000;
 
 
@@ -12,9 +13,9 @@ const server = http.createServer((req,res)=>{
         res.statusCode = 200;
         res.end('<h1> THis is heading  </h1> <p>This is paragraph</p>'); 
     }
-    else if(req.url == '/index'){
+    else if(req.url === '/index'){
         res.statusCode = 200;
-        const data = fs.readFileSync('index.html')
+        const data = fs.readFileSync(path.join(__dirname,'index1.html'))
         res.end(data.toString()); 
         
     }
