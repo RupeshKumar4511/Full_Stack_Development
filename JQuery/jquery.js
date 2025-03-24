@@ -1,8 +1,9 @@
 $(function () {
-    //Your jquery code here
+
     // console.log("We are using jQuery");
     // jQuery Syntax looks like this
     // $('selector').action()
+
 
     //clicks on all the p elements.
     // $('p').click(); //click on p
@@ -62,17 +63,17 @@ $(function () {
 //         console.log("All elements are clicked")
 //     }); 
 
-//     $('p.odd').on('click', function(){
-//         console.log("p elements with odd class is clicked");
-//     });
+    // $('p.odd').on('click', function(){
+    //     console.log("p elements with odd class is clicked");
+    // });
 
-//     $('p:first').on('click', function(){
-//         console.log("first p element is clicked");
-//     });
+    // $('p:first').on('click', function(){
+    //     console.log("first p element is clicked");
+    // });
 
-//     $('p:eq(1)').on('click', function(){
-//         console.log("second p element is clicked");
-//     });
+    // $('p:eq(1)').on('click', function(){
+    //     console.log("second p element is clicked");
+    // });// eq() starts from 0.
 
     // $('ul li:first').on('click', function(){
     //     console.log("first list item is clicked");
@@ -132,14 +133,13 @@ $(function () {
 
 
 
-//     // Mouse Events :
+    // Mouse Events :
     // $('p').on("click", function (){
     //     alert("hello");
     // })
 
 
 
-//     //demoing the on method
     // $('p').on(
     //     {
     //         dblclick:function(){
@@ -175,24 +175,33 @@ $(function () {
     //         },
     //         mouseout:function(){ //Triggered when the mouse pointer is moved out of an element or one of its child elements.
                 
-                
     //             console.log("mouse out");
     //         },
+
+
 
     //    })
 
 
-//     // $('p').hover(function(){
-//     // It was depricated but it binds the mouseenter and mouseleave
-//     // })
+    // $('p').hover(
+    // //It was depricated because it binds the mouseenter and mouseleave
+
+    // function(){
+    //     console.log("we have entered in")
+    // },
+    // function(){
+    //     console.log("we have left the element");
+    // })
 
 
-//     // $(selector).bind(event,data,handlerfunction,map) //depricated
-//     // instead of bind we can use "on"
+    // $(selector).bind(event,data,handlerfunction,map) //depricated
+    // instead of bind we can use "on"
 
 
-//     // $(selector).unbind(event,handlerfunction,eventObj) // depricated
-//     // instead of unbind we can use "off"
+     // $(selector).unbind(event,handlerfunction,eventObj) // depricated
+    // instead of unbind we can use "off"
+
+
     // const eventhandler = function (){
     //     console.log('click event is applied');
     // }
@@ -204,12 +213,29 @@ $(function () {
     // )
 
 
-//        // $(selector).select()  // depricated
-//        // instead of use we can use ".trigger('select')"
+    //    $(selector).select()  // depricated
+       // Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
+       // instead of it  we can use "on" and ".trigger('select')"
+
+    //    $('#subject').on('select',function(){
+    //     console.log($(this).text());
+        
+    //    })
+
+    //    $('#subject').trigger('select');
 
 
-//     //    $(selector).change()  // depricated
-//       // instead of use we can use ".trigger('change')"
+    //    $(selector).change()  // depricated
+    // instead of it we can use "on" ".trigger('change')"
+
+    // $('#subject').on('change',function(){
+    //     console.log($(this).text());
+        
+    //    })
+
+    //    $('#subject').trigger('change');
+
+
 
 
 //     // KeyboardEvent = keypress, keydown,keyup
@@ -243,7 +269,7 @@ $(function () {
 
 
 
-//     //form events = submit, change, focus, blur
+   //form events = submit, change, focus, blur
 
     // $('form').on('submit',function (event){  // when the submit button is pressed
     //         event.preventDefault();
@@ -271,7 +297,7 @@ $(function () {
     // );
  
 //     // $('p').delegate()  // depricated 
-// instead of it we can use "on" 
+        // instead of it we can use "on" 
 
 
 
@@ -300,46 +326,48 @@ $(function () {
         // );
 
    
-//         // ready ->	Fires when the DOM is ready (before full page load).
-//         // click ->	Detects clicks anywhere on the page.
-//         // dblclick	->Detects double clicks.
-//         // mousemove ->	Detects mouse movement.
-//         // keydown / keyup ->	Detects keyboard input.
-//         // contextmenu	-> Detects right-click events.
+        // ready ->	Fires when the DOM is ready (before full page load).
+        // click ->	Detects clicks anywhere on the page.
+        // dblclick	->Detects double clicks.
+        // mousemove ->	Detects mouse movement.
+        // keydown / keyup ->	Detects keyboard input.
+        // contextmenu	-> Detects right-click events.
 
-//         // $(document).on("contextmenu", function (event) {
-//         //     console.log("Clicked at: X=" + event.pageX + ", Y=" + event.pageY);
-//         // });
+        // $(document).on("contextmenu", function (event) {
+        //     console.log("Clicked at: X=" + event.pageX + ", Y=" + event.pageY);
+        // });
 
-//         // we can use all these properties with document.
+        // we can use all these properties with document.
         
 
 
 
-//     $('#wiki').hide(1000, function () {
-//         console.log("hidden");
-//     })   
-//     // When the "Hide Wiki" button is clicked, the #wiki element gradually hides over 1 second.
+    // $('#wiki').hide(1000, function () {
+    //     console.log("hidden");
+    // })   
+//     the #wiki element gradually hides over 1 second.
 
 
-//     $('#wiki').show(1000, function () {
-//         console.log("show");
-//     })  
-//     $('#but').on('click' , function () {
-//         $('#wiki').fadeOut(5000);
-//     })
+    // $('#wiki').show(1000, function () {
+    //     console.log("show");
+    // })  
+
+    // $("#wiki").on('click',function(){
+        // $("p").toggle();
+        // hide the element if it is visible and show the element if it is hide on the click of  #wiki element. 
+    //   });
 
 
 
-//     // syntax : $(selector).fadeIn(duration, callback);
-
-//     //  fadeIn() : invisible to visible
+// syntax : $(selector).fadeIn(duration, callback);
+// callback function is optional 
+//     //  fadeIn() :  fadeIn a hidden element
 //         $('#wiki').fadeIn(1000,function (){
 //             console.log("fade in completed");
 //         })
 
 
-//     // fadeOut() : visible to invisible.
+//     // fadeOut() : fadeOut a visible element.
 //     $('#wiki').fadeOut(1000,function (){
 //         console.log("fade out completed");
 //     })
@@ -363,7 +391,7 @@ $(function () {
 //         console.log('done');
 //     })
 
-//     // slideUp is used when the element's display is visible and we want to move the element up or we can say that we want the element's display will be invisible by animating the element moving up.
+// slideUp is used when the element is visible and we want to slideup the element or we can say that we want to hide the element by animating the element moving up.
 
 
 
@@ -372,44 +400,50 @@ $(function () {
 //         console.log("slide down completed")
 //      })
 
-//     // slideDown is used when the element's display is invisible and we want to display by moving the element down.
+//     slideDown is used when the element is invisible and we want to display by moving the element down.
 
-//     $('#wiki').slideToggle(1000)   // slideUp if visible and slideOut if invisible.
+//     $('#wiki').slideToggle(1000)   // slideUp if visible and slideOut if hidden.
 
 
 
   
 
-//     // Animate function in jQuery
+//   Animate function in jQuery
 
-//     // animate : $('#wiki').animate({property},duration,easing,complete_function)
-//     // property means  css properties
-//     // duration means how long the animation will run.  like : 1000 , slow ,fast.
-//     // easing means the which easing function wil be used. it can be 'swing' and 'linear'.
-//     // complete function is the function which will be called when the animation is completed.
+// The jQuery animate() method is used to create custom animations.
 
-//     $('#box2').animate({
-//        width:'400px',
-//        height : '100px',
-//        opacity:0.3,
+
+    // animate : $('#wiki').animate({property},duration,easing,complete_function)
+    // property means  css properties
+    // duration means how long the animation will run.  like : 400(millisecond) , slow ,fast.
+    // easing means the which easing function wil be used. it can be 'swing'(by default ) and 'linear'.
+    // complete_function is the function which will be called when the animation is completed.
+
+
+    // $('#box2').animate({
+    //    width:'400px',
+    //    height : '100px',
+    //    opacity:0.3,
        
-//     },2000)
+    // },2000)
 
-
-
-    
 
 //     $('#wiki').animate({ opacity: 0.3 }, 4000);
 //     $('#wiki').animate({ opacity: 0.9 }, 1000);
 //     $('#wiki').animate({ width: '350px' }, 12000);
 
 
-//     // we can stop the animation : 
-//     // $("#wiki").stop();
+    // we can stop the animation : 
+    // $("#wiki").stop();
+
+
+
+
+// JQuery CSS methods 
 
 // $('#wiki').css('display','none'); //we can apply css using propertyname and its value
 
-//       // adding multiple css property;
+// adding multiple css property;
     //   $('#wiki').css({
     //     'background-color': 'lightblue',
     //     'font-size': '20px',
@@ -423,12 +457,14 @@ $(function () {
     // });
 
 
-//     // we can find the text inside a particular element .
+
+    // JQuery get Set method
+
+//       we can find the text inside a particular element .
     // $("#wiki").text();
 //     // we can set the text inside a particular element .
 //     $('#wiki').text('you are good');
-//     // we can empty any container element.
-//     $('#wiki').empty();
+
 
 
 
@@ -443,8 +479,6 @@ $(function () {
 //     // we can set the value inside these form elements .
 //     $('#username').val('Please use your user name');
   
-//     // we can remove the element from dom.
-//     $('#wiki').remove()
 
 
 
@@ -452,12 +486,13 @@ $(function () {
 //     $('a').on('click',function(){
 //         console.log($('a').attr('href'));
 //     })
+
 //     // we set the attribute value of any html element
 //     $('a').on('click',function(){
 //         console.log($('a').attr('href','https://www.javatpoint.com'));
 //     })
 
-//     // we can set multiple attributes to an element at the same time 
+//    we can set multiple attributes to an element at the same time 
 
 //      $('a').on('click',function(){
 //         $('a').attr({
@@ -475,12 +510,29 @@ $(function () {
 //     })
 
 
+
+// jQuery methods that are used to add new content
+// append() - Inserts content at the end of the selected elements(inside)
+// prepend() - Inserts content at the beginning of the selected elements(inside)
+// after() - Inserts content after the selected elements
+// before() - Inserts content before the selected elements
  
+// we can set multiple content to html element or after the html element using these four methods(append,prepend,after,brfore)
+
+
+//     // we can empty any container element.
+//     $('#wiki').empty();
+
+//     // we can remove the element from dom.
+//     $('#wiki').remove()
+//      $('p').remove('.cssClass'); // remove the paragraph with ".cssClass"
+//      $('p').remove('.cssClass1','cssClass2'); // remove the paragraph wih '.cssClass1' or 'cssClass2'
+
 
 
 
 //     $('#wiki').addClass('myclass')  // add classes to particular element
-//     $('#wiki').addClass('myclass2')
+//     $('#wiki h1 h2').addClass('myclass myclass2')  // add multiple classes to multiple element
 //     $('#wiki').removeClass('myclass2')
 //     $('#wiki').toggleClass('myclass2')
    
@@ -490,29 +542,39 @@ $(function () {
 
     // AJAX Using jQuery
     // inbuilt method using ajax method
+
+
+    // The serialize() method creates a URL encoded text string by serializing form values.
     // $("form").on('submit',function(event){
     //     event.preventDefault();
     //     $("#message").text($(this).serialize());
         
     //     });
-
+    //Output like this:  name=John&job=swe
     
-    // $('#myform').on('submit',function(event){
-    //     event.preventDefault();    
+
+    $('#myform').on('submit',function(event){
+        event.preventDefault();    
       
-    //    const data = $(this).serializeArray();
-    //    console.log(data);
-    //    const jsonData = {};
-    //    $.each(data,function(index,field) {
-    //      jsonData[field.name] = field.value;
-    //    })
-    //    console.log(JSON.stringify(jsonData));
-    // })
+       const data = $(this).serializeArray();
+       console.log(data);
+       const jsonData = {};
+       $.each(data,function(index,field) {
+         jsonData[field.name] = field.value;
+       })
+       console.log(JSON.stringify(jsonData));
+    })
 
 
     // $('#btn').on('click',function(){
     //     $('#message').load('./load.html',function(responseTxt , statusTxt,xhr){
-        
+        // It loads the .load.html from server to #message element. 
+
+        //    responseTxt - contains the resulting content if the call succeeds
+        // statusTxt - contains the status of the call
+        // xhr - contains the XMLHttpRequest object
+
+
     //     if(statusTxt ==  "success"){
     //         alert("Content loaded successfully");
     //     }else if (statusTxt == "error"){
@@ -522,11 +584,13 @@ $(function () {
     // })
 
 
+    // GET - Requests data from a specified resource
     // $.get('https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js',
     //  function (data, status) { alert(data); })
 
     // $.get('https://code.jquery.com/jquery-3.3.1.js', function (data, status) { alert(status); })
 
+    // POST - Submits data to be processed to a specified resource
     // $.post('https://67b0539ddffcd88a6788e9c8.mockapi.io/api/Users   ',
     //     { id : 12,  name: 'David', job: 'swe' },
     //     function (data, status) { alert(status) });
