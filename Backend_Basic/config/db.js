@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 //mongoose.connect() function is used to connect to a MongoDB database
-const connection = mongoose.connect('mongodb+srv://root:root@cluster0.39dfv.mongodb.net/myDatabase').then(()=>{
+const connection = mongoose.connect('localhost://mongodb/myDatabase').then(()=>{
     console.log('Database Connected');
 }).catch((error)=>{
     console.error('Database Connection Failed',error);
