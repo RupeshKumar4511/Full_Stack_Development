@@ -27,6 +27,7 @@ Vite is a modern tool to create a react app while the official tool is CRA(creat
 <br>
 Vite produces Quick and small bundle size. It dynamically imports the module.
 <br>
+When a file is requested by the browser, Vite transforms it (e.g.,Convert React into JS), then serves it.
 
 # Important Point from the React and Vite
 
@@ -78,7 +79,7 @@ vite.config.js : It contains vite config.
 Javascript syntax execution
 <br>
 
-JSX (JavaScript XML) is a syntax extension for JavaScript that is primarily used with React to describe what the UI should look like. It allows you to write HTML-like syntax directly in JavaScript, which React transforms into JavaScript objects under the hood. JSX makes it easier to visualize the structure of your UI and is compiled by Babel or other tools into regular JavaScript.
+JSX (JavaScript XML) is a syntax extension for JavaScript that is primarily used with React to describe how the UI should look like. It allows you to write HTML-like syntax directly in JavaScript, which React transforms into JavaScript objects under the hood. JSX makes it easier to visualize the structure of your UI and is compiled by Babel or other tools into regular JavaScript.
 <br>
 
 ```bash
@@ -114,6 +115,21 @@ while write html empty tag like img tag. It is known as self closing tag. It mus
 <img src='' alt ='' />
 
 ```
+<br>
+```bash
+// How to import image(jpeg or image file ):
+import myImage from './image.png';
+function App() {
+  return <img src={myImage} alt="Example" />;
+}
+
+
+// How to import svg image 
+import {ReactComponent as Logo} from './logo.svg';
+function App() {
+  return <Logo/>;
+}
+```
 
 
 # Important Point from React (while using Bootstrap):
@@ -131,14 +147,18 @@ Use "Link" in place of "a" and to use "Link" we need to import :
 To use this we need to import :
 
 import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
-and then we can use it. 
+and only then we can use Link.
+
+
+Link is not used for the link that refers to the external page. like : We cannot provide "github" link in the "Link".
+
 ```
 
 
 # In React (and JavaScript in general), there are two main types of imports:
 
-1. Default Imports
-   A default import allows you to import the default export from a module. In a module, there can only be one default export.
+1. Default Imports:
+A default import allows you to import the default export from a module. In a module, there can only be one default export.
 
 ```bash
 
@@ -203,6 +223,7 @@ We can break the React App Components in two different ways :
 
 2. Using class
 <br>
+
 ```bash
 
 Class Components:
@@ -318,6 +339,8 @@ Promotes modular and maintainable CSS.
 
 2. We can import it like "import styles from 'Component_Name.module.css' ".
 
+// we can use like 
+<div className={`card ${styles.postcard} mt-4 mb-3`}></div>
 ```
 
 # Passing Children via props
@@ -334,6 +357,7 @@ export default function Container(props){
 
 
 // App.jsx
+import Container from './Component.jsx';
 
 export default function App(){
   return(
@@ -388,7 +412,7 @@ function eventHandler(event){
 
 Pass dynamic behaviour between components.
 <br>
-Enables upward communication from child to parent.It means we pass the event from child to parent. 
+Enables upward communication from child to parent. It means we pass the event from child to parent. 
 <br>
 Commonly used for event handling.
 <br>
@@ -446,11 +470,14 @@ let newItem = [...items,newOne]
 <br>
 Functional updates : 
 <br>
-To avoid unexpected results, use:  
+To avoid unexpected results, use:
+<br>  
 ```bash
 const currentValue = [{ name: "John", dueDate: "23-02-2025" }];
 
-const newValue = (currentArray) => [...currentArray, { name: "David", dueDate: "23-02-2025" }];
+const newValue = (currentArray) =>{
+  return  [...currentArray, { name: "David", dueDate: "23-02-2025" }]
+};
 
 const updatedArray = newValue(currentValue);
 
@@ -473,7 +500,7 @@ React Functions that starts with "use" words are called hooks. It is basically a
 <br>
 Hooks should be used inside the Functional Component.
 <br>
-Parent components can pass state down to childeren via props. 
+Parent components can pass state down to children via props. 
 <br>
 Lifting State Up : share state between components by moving it to their closest ancestor. (means we need to manages the state above and closest to those component which requires it.)
 
@@ -488,7 +515,7 @@ Lifting State Up : share state between components by moving it to their closest 
 4. It is managed using "useState()". 
 <br>
 <b>Props : </b>
-1. It is immutable in the  receiving component. 
+1. It is immutable in the receiving component. 
 <br>
 2. Passed into components from its parent. 
 <br>
@@ -540,6 +567,8 @@ we can use a lot of icons without managing them.
 
 // install package
 npm install react-icons --save 
+
+--save :  to include the package in package.json under "dependencies"
 
 // use icons 
 import {IconName} from 'react-icons/fc';
@@ -594,23 +623,33 @@ Doesn't have a visual representation.
 Its purpose is to spot potential issues in your React app.
 <br>
 Platform Independence: 
-React's design allows it to be platform-agnostic.
-• While react-dom helps build web Uls using React, React Native can be used to craft mobile app Uls.
+React's design allows it to be platform-Independent.
+• While react-dom helps build web Uls using React, React Native can be used to craft mobile app UIs.
 
 # React Vs Angular and Vue.js 
 ```bash 
 
 React, Angular, and Vue:
-React is a library while Angular and Vue.js are frameworks. React focuses on UI; Angular and Vue.js offer comprehensive tools for full app development.
+React is a library while Angular and Vue.js are frameworks. 
+React focuses on UI; Angular and Vue.js offer comprehensive tools for full app development.
+
+
 Library vs. Framework:
+
 A library offers specific functionality.
+
 A framework provides a set of tools and guidelines.
-• In simpler terms: React is a tool; Angular and Vue.js are toolsets. React's Specialty:
-React's main role is crafting dynamic, interactive Uls.
+
+• In simpler terms: React is a tool; Angular and Vue.js are toolsets.
+
+React's Specialty:
+React's main role is crafting dynamic, interactive UIs.
 • It doesn't handle routing, HTTP calls, state management, and
 more.
+
 React's Flexibility:
 • React doesn't dictate tool choices for other app aspects. Developers pick what fits their project best.
+
 About Angular and Vue.js:
 Angular, developed by Google, provides a robust framework with a steep learning curve.
 Vue.js is known for its simplicity and ease of integration, making it beginner-friendly.
@@ -633,10 +672,15 @@ Vue.js is known for its simplicity and ease of integration, making it beginner-f
 It is used when we want to manage the state but we don't to repaint the component every time when state is changed. It is mostly used in forms.
 <br>
 ```bash 
+
 1. useRef allows access to DOM elements and retains mutable values without re-renders.
+
 2. Used with the ref attribute for direct DOM interactions.
+
 3. Can hold previous state or prop values.
+
 4. Not limited to DOM references; can hold any value.
+
 5. Refs can be passed as props also. 
 
 ```
@@ -703,6 +747,7 @@ Using Dummy JSON :
 <br>
 <b>How to Fetch data using "fetch" method</b>
 <br>
+
 ```bash 
 
 1. fetch: Modern JavaScript API for network requests.
@@ -919,7 +964,8 @@ const sortedArr = useMemo(()=> arr.sort(),[arr]);
 
 ```
 
-# Custom Hook : 
+# Custom Hook :
+
 ```bash 
 
 1. Reusable Logic: Custom hooks allow you to
@@ -1175,6 +1221,7 @@ pattern	: Uses regex for validation.
 validate:	Custom validation function.
 
 ```
+
 # Redux : 
 <img src="./Images/Redux.jpg" alt="">
 <br>
