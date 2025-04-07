@@ -47,7 +47,6 @@ Database -> Collections -> Documents
 Cluster : A cluster in MongoDB is a group of connected servers (nodes) that work together to store and manage data. It helps distribute data, improve performance, and ensure high availability.
 
 # Why NoSQL 
-<br>
 ```bash 
 
 NoSQL databases are used when traditional relational databases (SQL) are not the best fit for a project due to scalability, flexibility, or performance concerns. Here's why you might choose a NoSQL database like MongoDB (which you're using in MongoDB Atlas Cloud) over a relational database:
@@ -99,11 +98,8 @@ Fast Parsing : Compared to XML, JSON parsing is faster and more efficient.
 
 Structured & Scalable : JSON supports nested objects and arrays, making it suitable for complex data structures.
 
-```
-<br>
-<br>
 
-```bash
+
 
 JSON (JavaScript Object Notation) supports six primary data types:
 
@@ -146,40 +142,38 @@ Fast Query Performance : BSON allows MongoDB to index and search documents quick
 Document Embedding : BSON supports nested objects and arrays, making it ideal for NoSQL document databases.
 
 
-```
-<br>
-<br>
-```bash 
+
+
 MongoDB automatically converts JSON to BSON when storing data and converts BSON back to JSON when retrieving data.
 ```
+
+
 # Document Embedding 
 Document Embedding refers to the practice of storing related data within a single document rather than spreading it across multiple collections.
 <br>
+
 ```bash 
-// users collection
-{ "_id": 1, "name": "Rupesh", "email": "rupesh@example.com" }
+  // users collection
+  { "_id": 1, "name": "Rupesh", "email": "rupesh@example.com" }
 
-// orders collection
-{ "_id": 101, "user_id": 1, "items": ["Laptop", "Mouse"], "total": 1200 }
+  // orders collection
+  { "_id": 101, "user_id": 1, "items": ["Laptop", "Mouse"], "total": 1200 }
 
-// The above way is not efficient. 
-
-
-
-// This is more optimized way. 
-
-{
-  "_id": 1,
-  "name": "Rupesh",
-  "email": "rupesh@example.com",
-  "orders": [
-    { "order_id": 101, "items": ["Laptop", "Mouse"], "total": 1200 },
-    { "order_id": 102, "items": ["Phone", "Charger"], "total": 800 }
-  ]
-}
+  // The above way is not efficient. 
 
 
 
+  // This is more optimized way. 
+
+  {
+    "_id": 1,
+    "name": "Rupesh",
+    "email": "rupesh@example.com",
+    "orders": [
+      { "order_id": 101, "items": ["Laptop", "Mouse"], "total": 1200 },
+      { "order_id": 102, "items": ["Phone", "Charger"], "total": 800 }
+    ]
+  }
 
 ```
 
