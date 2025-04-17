@@ -5,7 +5,7 @@ const INITIAL_VALUE = {
 
 }
 const reducer = (store=INITIAL_VALUE,action)=>{
-    console.log("reducer called",action);
+    // console.log("reducer called",action);
     let newStore = store;
     if(action.type ==="INCREMENT"){
       newStore ={counter:store.counter + 1};

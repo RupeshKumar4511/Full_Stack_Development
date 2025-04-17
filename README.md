@@ -702,6 +702,12 @@ components.
 7. Export Functions: Context can also export functions for actions
 8. Logic Separation: This helps keep the UI and business logic separate from each other.
 
+
+createContext() is a built-in function that we use to create a Context object. This Context object allows you to share values (data) between components. 
+
+
+UserContext.Provider is a React component that comes from calling createContext(). It's part of the Context API, and its job is to "provide" a value (like user data) to all components inside it.(In place of UserContext there can be any other name).
+
 ```
 <br>
 Disadvantages: 
@@ -719,9 +725,9 @@ A pure function which does not have a side effect. It takes the argument and ret
 1. useReducer is a hook in React that offers more control over state operations compared to useState, especially for complex state logic.
 
 2. Components: It involves two main components:
-• Reducer: A pure function that takes the current state and an action and returns a new state.
+• Reducer: A pure function that takes the current state and an action and returns a new state. Here action can be an object describing what happened, typically having a type property.
 
-• Action: An object describing what happened, typically having a type property.
+• intialState : It stores the inital Value/State. 
 
 3. Initialization: It's invoked as
 const [state, dispatch] = useReducer(reducer, initialState).
@@ -753,8 +759,10 @@ Using Dummy JSON :
 1. fetch: Modern JavaScript API for network requests.
 2. Promise-Based: Returns a Promise with a Response object.
 3. Usage: Default is GET. For POST use method: 'POST'
-4. Response: Use .then() and response.json() for JSON data. 5. Errors: Doesn't reject on HTTP errors. Check response.ok. 
+4. Response: Use .then() and response.json() for JSON data. 
+5. Errors: Doesn't reject on HTTP errors. Check response.ok. 
 6. Headers: Managed using the Headers API.
+
 ```
 <br>
 ```bash 
@@ -770,9 +778,9 @@ fetch('https://dummyjson.com/posts')
 
 // Post data using fetch 
 
-  fetch('https://dummyjson.com/posts/add', method = 'POST',
-            header = { 'Content-Type': 'application/json' },
-            body = JSON.stringify({
+  fetch('https://dummyjson.com/posts/add', method:'POST',
+            headers:{ 'Content-Type': 'application/json' },
+            body:JSON.stringify({
                 title: postTitle,
                 body: postContent,
                 reactions: reactions,
@@ -784,7 +792,7 @@ fetch('https://dummyjson.com/posts')
 
 ```
 
-# useEffect hoook
+# useEffect hook
 
 In React, useEffect is a hook that lets you perform side effects in functional components. It's useful for things like fetching data, interacting with browser APIs, subscribing to services, or manipulating the DOM directly. It runs after the component renders and can be set to re-run based on changes to specific state or props.
 <br>
@@ -847,8 +855,10 @@ useEffect(() => {
 
     fetch('https://dummyjson.com/posts',{signal})
         .then(res => res.json())
-        .then(data => {addInitialPosts(data.posts);
-        setFetching(false);}
+        .then(data => {
+        addInitialPosts(data.posts);
+        setFetching(false);
+        }
     );
 
 
@@ -893,8 +903,7 @@ useCallback(function,[dependencies])
 
 3. Dependency Array: Recreates the function only when specific dependencies change.
 
-4. Event Handlers: Used to keep consistent
-function references for child components.
+4. Event Handlers: Used to keep consistent function references for child components.
 
 5. With useEffect: Prevents infinite loops by maintaining function references.
 
@@ -911,13 +920,14 @@ const deletePost = useCallback((postid) => {
       }
   }
   
-
   dispatchList(deletePostAction);
 },[dispatchList])
 
 
 // Here "deletePost" depends only on "dispatchList" funtion 
-// if it changes,only then function references will be changes otherwise not. (In general whenever we pass any function to any component as props its references always changes so it causes unnecessary repaint )
+// if it changes,only then function references will be changes otherwise not. (In general whenever we pass any function to any component as props its references always changes so it causes unnecessary repaint ).
+//a new function is created every time the component renders — even if the function looks exactly the same.
+
 ```
 
 # useMemo Hook :
@@ -1003,8 +1013,7 @@ const [value,{on,off,toggle}] = useBoolean(true);
 
 2. We are going to use the latest version which is 6+ 
 
-3. RouterProvider: Wraps the app for routing
-capabilities. 
+3. RouterProvider: Wraps the app for routing capabilities. 
 
 4. createBrowserRouter: helps creating the mapping for router provider.
 
@@ -1017,20 +1026,20 @@ capabilities.
 # Layout Routing :
 ```bash 
 
-export default function Router() { return useRoutes ([
-{
-},
-{
-path: '/dashboard',
-element: <DashboardLayout />,
-children: [
-{ element: Navigate to="/dashboard/app" replace /},
+export default function Router() { 
+  return useRoutes ([{
+path: '/dashboard',element: <DashboardLayout />,children: [
+{ element: <Navigate to="/dashboard/app" replace />},
 { path: 'app', element: <DashboardApp /> },
 { path: 'user', element: <User /> },
 { path: 'products', element: <Products /> },
 { path: 'blog', element: <Blog /> }
 ]
 }
+
+//"<Navigate to="/dashboard/app" replace />"
+//  when the user goes to /dashboard, they get redirected to /dashboard/app
+
 
 // Important Point : 
 1. Layout Routes help us to use shared elements
@@ -1043,7 +1052,8 @@ children: [
 
 import { useNavigate } from "react-router-dom"; // v6
 const Component = () => {
-// Triggers re-renders on every path change const navigate
+// Triggers re-renders on every path change
+
     const navigate=useNavigate();
     ... 
 }
@@ -1055,18 +1065,18 @@ const Component = () => {
 // Important Point :
 1. Link Component with to property can be used to avoid reloading 
 2. useNavigate hook can be used to do navigation programmatically.
+
 ```
 
 
-# useLoader Hook 
+# useLoaderData Hook 
 ```bash 
 
 1. Loader method can be used to load data before a particular route is executed.
 
 2. The loader method must return the data that is loaded or promise.
 
-3. Data is available in component and all
-the child components.
+3. Data is available in component and all the child components.
 
 4. useLoaderData hook can be used to get the fetched data.
 
@@ -1094,10 +1104,10 @@ export const loadData = () =>{
 
 
 # Submitting Data using Fetch : 
+
 ```bash 
 
-1. Action method can be used to perform an
-action on submission of Forms.
+1. Action method can be used to perform an action on submission of Forms.
 
 2. Custom Form component need to be used along with name attribute for all inputs. 
 
@@ -1107,12 +1117,13 @@ action on submission of Forms.
 
 5. Object.fromEntries(formData) can be used to get actual input data.
 
-6. redirect() response can be returned for navigation after submission.
+6. redirect() : response can be returned for navigation after submission.
 
 ```
 <br>
 
 ```bash 
+
 export async function postDataAction(data) {
 
   const FormData = await data.request.formData();
@@ -1171,6 +1182,7 @@ const {
   }
 } = useForm();
 
+// here register function is important and formState properties are important.  
 
 ```
 <br>
@@ -1283,6 +1295,7 @@ like useContext or Redux.
 2. Store
 3. Subscriber
 4. Actions
+
 5. Node redux-demo.js command to run node server
 
 ```
@@ -1317,43 +1330,45 @@ Const counter = useSelector(state => state.counter);
 4. Reducer becoming too big
 
 ```
-# Advantage of Redux : 
+# Advantage of Reduxjs toolkit: 
 ```bash 
-Redux allows us to create multiple chunks of store and then combine them. 
+Redux toolkit allows us to create multiple chunks of store and then combine them. 
 
-Redux allows us to create multiple reducers . 
+Redux toolkit allows us to create multiple reducers . 
 
 ```
 
-# Working with Redux-tool kit in react application : 
+# Working with Reduxjs toolkit in react application : 
 ```bash 
 
 1. Npm install @reduxjs/toolkit
 
 2. Remove redux from package.json
 
-3. Import {createSlice} from "@reduxjs/toolkit❞
+3. Import {createSlice} from "@reduxjs/toolkit"
 
 4. Slices of the store can be created using the following syntax:
 
-Const slice = createSlice({
+const slice = createSlice({
+  name:"counter",
+  initialState:{counter:0},
+  reducers:{
+  increment: (state)=>{
+   state.counter++ }
+  }
 })
-name:",
-initialState: {countVal:0},
-reducers: {
-}
-small ReducerMethods: (state, action) => {
-},
+
+export slice;
 
 // how to use the state 
 const {countVal} = useSelector(store => store.slice);
 
 5. ConfigureStore combines multiple reducers and can be used as:
 configureStore({
-  reducer: {name: slice.reducer}
+  reducer: {counter: slice.reducer}
 })
 
-
+// here counter comes from the name attribute of Slice of counter
 
 6. Export actions = slice.actions;
 

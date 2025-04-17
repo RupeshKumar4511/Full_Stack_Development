@@ -68,7 +68,7 @@ NoSQL databases often provide faster read/write operations compared to SQL for m
 No complex JOIN operations, reducing query execution time.
 
 4. Suitable for Real-Time Applications
-Used in applications like IoT, real-time analytics, social media feeds, recommendation systems, map data etc.
+Used in applications like IoT, real-time analytics, social media feeds, recommendation systems, map data ,Big Data etc.
 
 Example: MongoDB can handle JSON-like data, making it perfect for web applications.
 
@@ -137,6 +137,10 @@ Decimal128 (high-precision floating-point numbers)
 
 ObjectId (unique identifiers)
 
+Code (To store JavaScript code ):
+const scopedCode = new Code("function(x) { return x + y; }", { y: 5 });
+
+
 Fast Query Performance : BSON allows MongoDB to index and search documents quickly.
 
 Document Embedding : BSON supports nested objects and arrays, making it ideal for NoSQL document databases.
@@ -174,6 +178,25 @@ Document Embedding refers to the practice of storing related data within a singl
       { "order_id": 102, "items": ["Phone", "Charger"], "total": 800 }
     ]
   }
+
+```
+
+# Data Model Design
+MongoDB provides two types data model:
+<br>
+1. Embeded Model : 
+Same as Embedded Documents
+<br>
+2. Normalized Data Model : 
+```bash 
+How to Normalize in Practice:
+Identify entities (like Users, Orders, Products).
+
+Create separate collections for each entity.
+
+Use references (_id values) to connect documents across collections.
+
+When querying, use $lookup (MongoDB's equivalent of a JOIN) to combine data if needed.
 
 ```
 

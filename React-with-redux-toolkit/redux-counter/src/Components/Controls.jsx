@@ -16,21 +16,17 @@ export default function Controls(){
   }
 
   const handleAddition =()=>{
-    dispatch(counterActions.Add({num:numberElement.current.value}
-    ))
+    dispatch(counterActions.Add({num:numberElement.current.value}))
     numberElement.current.value ="";
   }
+  
   const handleSubstract =()=>{
-    
-    dispatch(counterActions.substract(
-      {num:numberElement.current.value}))
-
+    dispatch(counterActions.substract({num:numberElement.current.value}));
     numberElement.current.value ="";
   }
 
   const handlePrivacy =()=>{
     dispatch(privacyActions.toggle());
-    
   }
 
  
