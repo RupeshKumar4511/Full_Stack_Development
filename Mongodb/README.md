@@ -6,6 +6,7 @@ NoSql stores data in the raw data form.
 It is open source. 
 
 # Key Features of MongoDB
+
 Document-Oriented :
 <br>
 Stores data in JSON-like BSON format.
@@ -29,8 +30,9 @@ Supports various types of indexing (e.g., compound, geospatial).
 Replication & High Availability
 <br>
 Uses Replica Sets for data redundancy and automatic failover.
+<br>
 Aggregation Framework
-
+<br>
 Performs complex queries, transformations, and analytics like SQL's GROUP BY.
 <br>
 ACID Transactions :
@@ -40,7 +42,8 @@ Supports multi-document transactions, ensuring data consistency.
 Flexible Schema :
 <br>
 Allows dynamic, semi-structured data storage, unlike relational databases.
-<br>
+
+
 # Important Point 
 Database -> Collections -> Documents 
 <br>
@@ -120,6 +123,7 @@ Object : {"name": "Rupesh", "age": 25}
 # BSON : 
 BSON (Binary JSON) is a binary-encoded serialization format used to store documents in MongoDB. It is similar to JSON but supports additional data types and is optimized for fast processing.
 <br>
+
 ```bash 
 MongoDB uses BSON instead of JSON because:
 
@@ -184,10 +188,11 @@ Document Embedding refers to the practice of storing related data within a singl
 # Data Model Design
 MongoDB provides two types data model:
 <br>
-1. Embeded Model : 
+1. Embedded Model : 
 Same as Embedded Documents
 <br>
 2. Normalized Data Model : 
+<br>
 ```bash 
 How to Normalize in Practice:
 Identify entities (like Users, Orders, Products).
@@ -200,6 +205,164 @@ When querying, use $lookup (MongoDB's equivalent of a JOIN) to combine data if n
 
 ```
 
+# MongoDB development Architecture :
+MongoDB's development architecture refers to how its components work together to support application development, data storage, scalability, and performance. 
+<br>
+```bash 
+1. Client Layer (Application)
+The application connects to MongoDB using drivers (e.g., Node.js, Python, Java).
+
+Developers use MongoDB Query Language (MQL) to interact with data.
+
+Operations include: CRUD (Create, Read, Update, Delete), indexing, aggregation, etc.
+
+2. MongoDB Server (mongod)
+This is the core database process responsible for:
+
+Data storage
+
+Query processing
+
+Data replication
+
+Indexing
+
+Memory management
+
+It handles:
+
+Document storage (BSON format)
+
+Collections (analogous to tables)
+
+Databases
+
+3. Mongo Shell / Compass
+Mongo Shell: Command-line interface for interacting with MongoDB.
+
+MongoDB Compass: GUI-based tool for developers to visualize schema, write queries, and manage indexes.
+
+4. Data Model
+MongoDB uses a document-oriented model:
+
+Documents = JSON-like objects (BSON)
+
+Documents are grouped into collections
+
+Collections belong to databases
+
+Example Structure:
+
+Database: ecommerce
+ └── Collection: products
+      └── Document:
+           {
+             name: "Laptop",
+             price: 999,
+             specs: { cpu: "i7", ram: "16GB" }
+           }
+
+
+
+5. Storage Engine
+Default: WiredTiger
+
+Manages how data is written to disk (compression, caching, journaling)
+
+Supports write-ahead logging, checkpoints, and more.
+
+6. Replication (for High Availability)
+MongoDB uses a Replica Set:
+
+One primary node (handles writes)
+
+Multiple secondary nodes (replicas for failover and read scaling)
+
+Automatic failover if the primary goes down
+
+7. Sharding (for Scalability)
+Distributes data across multiple shards (servers)
+
+Managed by:
+
+mongos: Query router
+
+config servers: Metadata management
+
+Used for horizontal scaling
+
+8. Indexing & Aggregation
+Indexes optimize query performance
+
+Aggregation Framework enables complex data processing (like SQL's GROUP BY, JOIN, etc.)
+
+
+```
+# 
+```bash
+RDBMS Term	 MongoDB Term	      Analogy / Description
+Database	   Database	          A logical container for collections (or tables)
+Table	       Collection   	    A group of related records/documents
+Row	         Document	          A single data entry; in MongoDB it's a JSON-like BSON document
+Column	     Field	            A single piece of data in a document
+Primary Key	 _id Field	        Unique identifier for each row/document
+Foreign Key	 Manual Reference	  MongoDB doesn't enforce, but references can be created manually
+Join	       Embedding/Lookup	            Use embedding or $lookup for combining related data
+Schema	     Schema-less/Flexible Schema	Tables require predefined structure; MongoDB documents can vary 
+```
+
+# Challanges for Data Modelling in MongoDB:
+```bash 
+1. Deciding Between Embedding vs Referencing
+Embedding is fast and convenient, but can lead to large documents or data duplication.
+
+Referencing avoids duplication but adds query complexity and may require multiple lookups.
+
+Challenge: Choosing the right strategy for each use case.
+
+2. Handling Large Documents
+MongoDB has a 16MB size limit per document.
+
+Deeply nested or embedded documents (like orders with many items) can hit this limit.
+
+Challenge: Designing around this limit while keeping queries efficient.
+
+3. Lack of Joins (by default)
+Unlike RDBMS, MongoDB doesn't naturally support complex joins.
+
+$lookup (for aggregation joins) exists, but it's not as powerful or performant as SQL joins.
+
+Challenge: Re-structuring data or duplicating data to avoid needing joins.
+
+4. Schema Flexibility Can Be a Double-Edged Sword
+MongoDB allows documents in the same collection to have different fields.
+
+Without discipline, this can lead to inconsistent or messy data.
+
+Challenge: Enforcing schema best practices using tools like Mongoose or MongoDB schema validation.
+
+5. Data Duplication
+Often used for performance (to avoid joins).
+
+But makes updates harder — you must update all duplicated fields manually or with complex queries.
+
+Challenge: Balancing performance with data consistency.
+
+6. Index Management
+MongoDB supports indexes, but wrong or too many indexes can slow down writes and increase storage.
+
+Compound indexes vs single field indexes need careful planning.
+
+Challenge: Optimizing indexes for read/write balance and query patterns.
+
+7. Sharding Considerations
+In distributed systems, picking a good shard key is critical.
+
+A poor shard key can lead to data imbalance, hotspots, or query scatter.
+
+Challenge: Designing shard keys that ensure even distribution and efficient querying.
+
+```
 
 # GridFS 
 GridFS (Grid File System) is MongoDB's built-in file storage system used to store and retrieve large files like images, videos, and documents directly inside MongoDB. It splits large files into smaller chunks and stores them as separate documents.
