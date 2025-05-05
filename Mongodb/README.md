@@ -368,6 +368,69 @@ Challenge: Designing shard keys that ensure even distribution and efficient quer
 GridFS (Grid File System) is MongoDB's built-in file storage system used to store and retrieve large files like images, videos, and documents directly inside MongoDB. It splits large files into smaller chunks and stores them as separate documents.
 
 # CRUD operation Query 
-# sort , limit , skip 
+
+```bash
+db.users.insertOne({
+  name: "Alice",
+  age: 25,
+  email: "alice@example.com"
+})
+
+
+db.users.insertMany([
+  { name: "Bob", age: 30 },
+  { name: "Charlie", age: 28 }
+])
+
+
+
+db.users.find({ age: { $gte: 25 } })
+
+
+db.users.findOne({ name: "Alice" })
+
+db.users.find().limit(5)
+
+
+db.users.find().sort({ age: -1 }) // Descending
+
+db.users.countDocuments({ age: { $gte: 25 } })
+
+
+db.users.updateOne(
+  { name: "Alice" },
+  { $set: { age: 26 } }
+)
+
+
+db.users.updateMany(
+  { age: { $lt: 30 } },
+  { $inc: { age: 1 } }
+)
+// add age 1 to every document
+
+
+db.users.replaceOne(
+  { name: "Bob" },
+  { name: "Robert", age: 31 }
+)
+
+db.students.updateMany(
+  { grade: "B" },
+  { $set: { grade: "A" } }
+)
+
+db.users.deleteOne({ name: "Charlie" })
+
+db.users.deleteMany({ age: { $gt: 40 } })
+
+```
+
+# skip 
+```bash
+
+db.products.find().skip(2)
+// Two documents are skipped..
+```
 # operators and complex queries
-# aggregation piplines 
+# aggregation pipelines 
