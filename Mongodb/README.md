@@ -407,7 +407,7 @@ db.users.updateMany(
   { age: { $lt: 30 } },
   { $inc: { age: 1 } }
 )
-// add age 1 to every document
+// add 1  to age of every document
 
 
 db.users.replaceOne(
@@ -431,6 +431,29 @@ db.users.deleteMany({ age: { $gt: 40 } })
 
 db.products.find().skip(2)
 // Two documents are skipped..
+
 ```
-# operators and complex queries
+# operators
+```bash 
+Operator	Meaning
+$gt	Greater than
+$gte	Greater than or equal
+$lt	Less than
+$lte	Less than or equal
+$eq	Equal to
+$ne	Not equal to
+$in	Matches any in array
+$nin	Not in array
+
+
+
+Operator	Purpose
+$set	Sets the value of a field
+$unset	Removes a field
+$inc	Increments a numeric field
+$rename	Renames a field
+$push	Adds an item to an array
+$pull	Removes an item from an array
+
+```
 # aggregation pipelines 
