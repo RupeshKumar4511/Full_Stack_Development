@@ -75,10 +75,10 @@ Used in applications like IoT, real-time analytics, social media feeds, recommen
 
 Example: MongoDB can handle JSON-like data, making it perfect for web applications.
 
-5. Support for Distributed Data
+5. Highly Availability and Fault tolerance: 
 Data is distributed across multiple servers, ensuring high availability and fault tolerance.
 
-Example: Cassandra is widely used in distributed systems like Facebo
+Example: Cassandra is widely used in distributed systems like Facebook.
 
 ```
 
@@ -167,6 +167,7 @@ Document Embedding refers to the practice of storing related data within a singl
   // orders collection
   { "_id": 101, "user_id": 1, "items": ["Laptop", "Mouse"], "total": 1200 }
 
+  // To fetch related data: use $lookup (similar to a join).
   // The above way is not efficient. 
 
 
@@ -189,9 +190,18 @@ Document Embedding refers to the practice of storing related data within a singl
 MongoDB provides two types data model:
 <br>
 1. Embedded Model : 
-Same as Embedded Documents
+Related data is nested within a single document.
+<br>
+Best for read-heavy operations.
+<br>
+Fast because of fewer joins/lookups.
+<br>
+Same as Embedded Documents.
 <br>
 2. Normalized Data Model : 
+Related data is stored in separate documents and linked by reference.
+<br>
+Best for write-heavy or complex relationships.
 <br>
 ```bash 
 How to Normalize in Practice:
@@ -298,7 +308,7 @@ Aggregation Framework enables complex data processing (like SQL's GROUP BY, JOIN
 
 
 ```
-# 
+# Analogy between RDMS and MongoDB data model : 
 ```bash
 RDBMS Term	 MongoDB Term	      Analogy / Description
 Database	   Database	          A logical container for collections (or tables)
@@ -312,6 +322,7 @@ Schema	     Schema-less/Flexible Schema	Tables require predefined structure; Mon
 ```
 
 # Challanges for Data Modelling in MongoDB:
+
 ```bash 
 1. Deciding Between Embedding vs Referencing
 Embedding is fast and convenient, but can lead to large documents or data duplication.
@@ -370,6 +381,13 @@ GridFS (Grid File System) is MongoDB's built-in file storage system used to stor
 # CRUD operation Query 
 
 ```bash
+// create database 
+use db_name;
+
+// create collection 
+db.createCollection("users")
+
+
 db.users.insertOne({
   name: "Alice",
   age: 25,
@@ -386,6 +404,8 @@ db.users.insertMany([
 
 db.users.find({ age: { $gte: 25 } })
 
+//Projection in MongoDB refers to selecting specific fields to return in query results
+db.students.find({},{age:1,_id:0})   // find only particular attribute.(projection) 
 
 db.users.findOne({ name: "Alice" })
 
@@ -435,6 +455,8 @@ db.products.find().skip(2)
 ```
 # operators
 ```bash 
+
+// Comparisonal operators 
 Operator	Meaning
 $gt	Greater than
 $gte	Greater than or equal
@@ -446,7 +468,7 @@ $in	Matches any in array
 $nin	Not in array
 
 
-
+// Evaluation Operator
 Operator	Purpose
 $set	Sets the value of a field
 $unset	Removes a field
@@ -454,6 +476,42 @@ $inc	Increments a numeric field
 $rename	Renames a field
 $push	Adds an item to an array
 $pull	Removes an item from an array
+$addToSet — Ensures no duplicates are added to the array.
+$text  To perform text search { $text: { $search: "mongo" } }
+$search To search any thing
+$currentDate to set current date                {$currentDate:{lastUpdated:true}}
+$where	JavaScript expression (use with caution)	{ $where: "this.age > 25" }
 
+
+// Element Operators 
+$exists	Checks if field exists or not	{ phone: { $exists: true } }
+$type	Checks BSON data type of a field	{ age: { $type: "number" } }
+
+
+// Logical Operators :
+$and	AND logic    	{ $and: [{ age: { $gt: 18 } }, { age: { $lt: 30 } }] }
+$or	  OR logic	    { $or: [{ name: "Alice" }, { name: "Bob" }] }
+$not	Inverts the condition	          { age: { $not: { $gte: 18 } } }
+$nor	NOT OR (none of the conditions)	{ $nor: [{ age: 18 }, { name: "John" }] }
+
+
+// array operators : 
+
+$all	      Matches all elements in the array	     { tags: { $all: ["node", "express"] } }
+
+$elemMatch	Matches documents in array that meet criteria
+	                                         { scores: { $elemMatch: { $gt: 80, $lt: 90 } } }
+
+$size	Matches array of a specific length	{ tags: { $size: 3 } }
+
+
+// projection operators
+Operator	Description
+1 / 0	  Include (1) or exclude (0) fields
+$slice	Return a subset of array elements
+$elemMatch	Project matching array element(s)
+$meta	     Include metadata like textScore
 ```
+# indexing 
 # aggregation pipelines 
+# mongodb tools

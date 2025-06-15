@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <title>jquery practicals</title>
+    <style>
+      button {
+        height: 2rem;
+        width: fit-content;
+        padding: 0 1rem;
+        border: none;
+        background-color: rgb(141, 2, 175);
+        color: white;
+        border-radius: 1rem;
+      }
+      .show {
+        opacity: 0;
+      }
+
+      .practical2 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .box1 {
+        height: 10rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 12rem;
+        background-color: #eee9e9;
+        border: 1px dashed rgb(0, 12, 15);
+      }
+      .box2 {
+        height: 8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 8rem;
+        background-color: #03afe4;
+        cursor: crosshair;
+      }
+      .box1.active {
+        background-color: green;
+      }
+
+      /* practical 3 */
+      .slider {
+        position: relative;
+        width: 500px;
+        height: 300px;
+        margin: auto;
+        background-color: #d4d4d4;
+        overflow: hidden;
+      }
+
+      .slider img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        /* display: none; */
+      }
+
+      .controls {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      button {
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+      .practical4 {
+        margin-left: 30%;
+      }
+      .error {
+        color: red;
+        display: none;
+      }
+      .valid {
+        border: 2px solid green;
+      }
+      .invalid {
+        border: 2px solid red;
+      }
+
+      form {
+        width: 50%;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      form input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      form button {
+        width: 100%;
+        padding: 10px;
+        background-color: #03afe4;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      form button:hover {
+        background-color: #0288d1;
+      }
+
+      .error {
+        font-size: 12px;
+        margin-top: -8px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>jquery practicals</h1>
+    <div class="practical1">
+      <h3>practical 1.</h3>
+      <br />
+      <div class="text">hello this is practical 1</div>
+      <button>hide</button>
+      <button class="display">show</button>
+      <button class="toggle">toggle!!</button>
+    </div>
+
+    <br />
+    <h2>practical 2 (drag and drop)</h2>
+    <br />
+
+    <div class="practical2">
+      <div class="box1">drop here</div>
+      <div class="box2">drag me!!</div>
+    </div>
+    <!-- practical 3 -->
+    <h2>practical 3 (image slider)</h2>
+    <div class="peactical3">
+      <div class="slider">
+        <img
+          src="https://images.unsplash.com/photo-1745597797513-1ed1bbde4060?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw3fHx8ZW58MHx8fHx8"
+          alt="img1"
+        />
+        <img
+          src="https://plus.unsplash.com/premium_photo-1684179641331-e89c6320b6a9?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D"
+          alt="img2"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1745827216178-96fb0c6a355a?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMnx8fGVufDB8fHx8fA%3D%3D"
+          alt="img3"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1746087867515-e676cb795991?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D"
+          alt="img4"
+        />
+      </div>
+      <div class="controls">
+        <button class="prev">prev</button>
+
+        <button class="next">next</button>
+      </div>
+    </div>
+
+    <!-- practical 4 -->
+    <h2>practical 4</h2>
+    <div class="practical4">
+      <button class="loaduser">load user!</button>
+      <ul class="userlist"></ul>
+    </div>
+
+    <!-- practical 5 -->
+    <h2>practical 5</h2>
+    <div class="practical5">
+      <h2>Registration Form</h2>
+      <form id="myForm">
+        Name: <input type="text" id="name" /><br />
+        <span id="nameError" class="error">Please enter a valid name.</span
+        ><br /><br />
+
+        Email: <input type="text" id="email" /><br />
+        <span id="emailError" class="error">Enter a valid email address.</span
+        ><br /><br />
+
+        Phone: <input type="text" id="phone" /><br />
+        <span id="phoneError" class="error"
+          >Enter a valid 10-digit phone number.</span
+        ><br /><br />
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div>
+        <div id="draggable" style="width: 50px; height: 50px ; background-color: red;">
+        </div>
+        <div id="dropabble" style="width: 50px; height: 50px ; background-color: red;">
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".text").css("color", "red");
+        $(".hide").click(function () {
+          $(".text").hide();
+        });
+        $(".display").click(function () {
+          $(".text").show();
+        });
+        $(".toggle").click(function () {
+          $(".text").toggleClass("show");
+        });
+
+        // practical 2
+
+        $(".box2").draggable();
+        // make the element droppable
+        $(".box1").droppable({
+          over: function () {
+            $(this).addClass("active");
+          },
+          out: function () {
+            $(this).removeClass("active");
+          },
+          drop: function (event, ui) {
+            $(this).html("dropped");
+          },
+        });
+
+        // practical 3
+
+        let currentindex = 0;
+        const slides = $("img");
+        const totalslides = slides.length;
+
+        function showslide(index) {
+          slides.fadeOut(400);
+          slides.eq(index).fadeIn(400);
+        }
+
+        $(".next").click(function () {
+          currentindex = (currentindex + 1) % totalslides;
+          showslide(currentindex);
+        });
+
+        $(".prev").click(function () {
+          currentindex = (currentindex - 1) % totalslides;
+          showslide(currentindex);
+        });
+        //    autoplay
+        // setInterval(function(){
+        //     $('.next').click()
+        // },2000)
+        // autoplay with fade effect
+        setInterval(function () {
+          currentindex = (currentindex + 1) % totalslides;
+          showslide(currentindex);
+        }, 3000);
+
+        // practical 4
+        $(".loaduser").click(function () {
+          $.ajax({
+            url: "https://dummyjson.com/products",
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+              data.products.forEach(function (product) {
+                $(".userlist").append("<li>" + product.title + "</li>");
+              });
+            },
+            error: function () {
+              alert("error loading data");
+            },
+          });
+        });
+
+        // practical 5
+        $("#myForm").submit(function (event) {
+          event.preventDefault();
+
+          var isValid = true;
+
+          // name validation
+          const name = $("#name").val().trim();
+          if (name === "" || !/^[a-zA-Z ]{2,}$/.test(name)) {
+            $("#nameError").html("invalid name : name must be atleast 3 words");
+            $("#nameError").show();
+            $("#name").addClass("invalid").removeClass("valid");
+            isValid = false;
+          } else {
+            $("#nameError").text("name is valid ").css("color", "green").show();
+            $("#name").addClass("valid").removeClass("invalid");
+          }
+          // email validation
+          const email = $("#email").val().trim();
+          if (email === "" || !/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(email)) {
+            $("#emailError").html("invalid email");
+            $("#emailError").show();
+            $("#email").addClass("invalid").removeClass("valid");
+            isValid = false;
+          } else {
+            $("#emailError")
+              .text("email is valid")
+              .css("color", "green")
+              .show();
+            $("#email").addClass("valid").removeClass("invalid");
+          }
+
+          //   phone number validation
+          const phone = $("#phone").val().trim();
+          if (phone === "" || !/^\d{10}$/.test(phone)) {
+            $("#phoneError").html("invalid phone number");
+            $("#phoneError").show();
+            $("#phone").addClass("invalid").removeClass("valid");
+            isValid = false;
+          } else {
+            $("#phoneError")
+              .text("phone number is valid")
+              .css("color", "green")
+              .show();
+            $("#phone").addClass("valid").removeClass("invalid");
+          }
+          if (isValid) {
+            alert("Form submitted successfully!");
+            $("#myForm")[0].reset(); // Optionally reset the form
+            $(".error").hide();
+            $("input").removeClass("valid invalid");
+          }
+        });
+      });
+
+      
+    </script>
+  </body>
+</html>

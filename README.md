@@ -6,7 +6,7 @@ React application is tree of components with App component as the root bringing 
 
 # Features of React
 
-1. React has simple mental model.
+1. React has simple mental model which means React is easy to understand.
    <br>
 2. No need to worry about querying and updating DOM.
    <br>
@@ -14,7 +14,7 @@ React application is tree of components with App component as the root bringing 
    <br>
 4. React will take care of creating and updating the dom element.
    <br>
-5. React is declarative means we need to define the target UI state and react figures out how to reach that state while in JS we need to define the each steps to reach our desired state and dom manipulation in JS is also very difficult.
+5. React is declarative means we need to define the target UI state and react figures out how to reach that state while in JS(imperative language) we need to define the each steps to reach our desired state and dom manipulation in JS is also very difficult.
    <br>
 
 # npx :
@@ -40,9 +40,6 @@ npx create-react-app Test
 // To create react + vite project
 npm  create vite@latest Test
 
-
-// After creating the project
-Remove imports of App.css and index.css file from App.jsx and main.jsx(in case of vite) and index.js(in case of react).
 
 
 // To run the project using Vite
@@ -70,9 +67,22 @@ styles : CSS
 package.json : package.json is a crucial file in any Node.js project that provides metadata about the project and handles the management of its dependencies.
 
 package-lock.json : It provides a detailed snapshot of the entire dependency tree, including the specific versions of each installed package and their sub-dependencies. The main purpose of package-lock.json is to ensure consistent installs across different environments by "locking" the dependency versions.
+
+
+eslint.config.js : The eslint.config.js file contains your ESLint configuration — rules, plugins, environments, and parser settings — that tell ESLint how to analyze and lint your code.
+
+eslint: ESLint is a tool that automatically checks your JavaScript or TypeScript code for problems.
+
+
 vite.config.js : It contains vite config.
 
 ```
+# React Component : 
+React component is a function which returns jsx. 
+<br>
+It is reusable. 
+
+
 
 # jsx :
 
@@ -105,10 +115,10 @@ const greeting = <h1>Hello, {name}!</h1>;
 ```
 
 <br>
-In jsx , every html code must be enclosed in some opening and closing tag . This opening and closing tag may be like "<>" some html code "</>".
+In jsx , every html code must be enclosed in some opening and closing tag . This opening and closing tag may be like "<> html code </>".
 
 <br>
-while write html empty tag like img tag. It is known as self closing tag. It must be written like :
+while writing html empty tag like img tag which is known as self closing tag. It must be written like :
 <br>
 
 ```bash
@@ -116,7 +126,10 @@ while write html empty tag like img tag. It is known as self closing tag. It mus
 
 ```
 <br>
+<br>
+
 ```bash
+
 // How to import image(jpeg or image file ):
 import myImage from './image.png';
 function App() {
@@ -129,6 +142,8 @@ import {ReactComponent as Logo} from './logo.svg';
 function App() {
   return <Logo/>;
 }
+
+
 ```
 
 
@@ -138,13 +153,15 @@ function App() {
 
 Use "className" in place of "class". 
 
+Usse "htmlFor" in place of "for" in label tag.
+
 Use "to" instead of "href" in react. 
 
 Use "Link" in place of "a" and to use "Link" we need to import :
 
 "import {Link} from 'react' "
 
-To use this we need to import :
+To use Link we need to import :
 
 import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
 and only then we can use Link.
@@ -247,7 +264,13 @@ Components must be captialized while the lowercase is used for HTML.
 <br>
 In React, CSS can be directly imported into the component files allowing for modular and components specific styling.
 <br>
-we can write inline css in the react like "<pstyle={{'background-color':'aqua','width':'100vw','height':'10vh'}} > Hello World </p>"
+
+```bash 
+// we can write inline css in the react like 
+
+<p style={{'background-color':'aqua','width':'100vw','height':'10vh'}} > Hello World </p>
+```
+ 
 
 # React Fragments :
 
@@ -292,7 +315,7 @@ let items = ['item1','item2'];
 # Conditional Statement
 
 ```bash
-// we can use the if-else statement  and it is chosed b/w to blocks of contents.
+// we can use the if-else statement  and it is chosed b/w two blocks of contents.
 
 if(items.length ===0 ){
     return <h2>Items list is empty</h2>
@@ -386,9 +409,8 @@ export default function App(){
 2. Uses SyntheticBaseEvents, React will convert direct browser events into SyntheticBaseEvents for cross-browser consistency and performance improvements.
    <br>
 3. Event Handlers can be function or arrow function.
-inputs.
    <br>
-5. Avoid Inline arrow functions in jsx for performance.
+4. Avoid Inline arrow functions in jsx for performance.
    <br>
 
 ```bash
@@ -472,6 +494,7 @@ Functional updates :
 <br>
 To avoid unexpected results, use:
 <br>  
+
 ```bash
 const currentValue = [{ name: "John", dueDate: "23-02-2025" }];
 
@@ -482,6 +505,7 @@ const newValue = (currentArray) =>{
 const updatedArray = newValue(currentValue);
 
 console.log(updatedArray);
+
 ```
 <br>
 To avoid stale values during asynchronous updates. 
@@ -765,6 +789,7 @@ Using Dummy JSON :
 
 ```
 <br>
+
 ```bash 
 
 // Fetch data using "GET" method (bydefault)
@@ -895,6 +920,7 @@ useCallback(function,[dependencies])
 
 ```
 <br>
+
 ```bash 
 
 1. Memoization: Preserves function across renders to prevent unnecessary re-renders. 
@@ -910,6 +936,7 @@ useCallback(function,[dependencies])
 ```
 
 <br>
+
 ```bash 
 
 const deletePost = useCallback((postid) => {
@@ -933,6 +960,7 @@ const deletePost = useCallback((postid) => {
 # useMemo Hook :
 The useMemo hook memoizes a computed value, preventing expensive recalculations on every render unless its dependencies change. It is useful for optimizing performance, especially when dealing with heavy computations or derived state.
 <br>
+
 ```bash 
 
 1. Memoization: useMemo caches the result of
@@ -953,6 +981,7 @@ operations that shouldn't run on every render.
 
 ```
 <br>
+
 ```bash 
 const memoizedValue = useMemo(() => computeExpensiveValue(), [dependencies]);
 
@@ -996,6 +1025,7 @@ and others.
 ```
 
 <br>
+
 ```bash 
 
 const [value,toggle] = useToggle(true);
@@ -1006,7 +1036,8 @@ const [value,{on,off,toggle}] = useBoolean(true);
 // we can make this type of custom hooks.
 ```
 
-# React Router 
+# React Router
+
 ```bash 
 
 1. Installation: Use npm install react-router-dom.
@@ -1024,6 +1055,7 @@ const [value,{on,off,toggle}] = useBoolean(true);
 ```
 
 # Layout Routing :
+
 ```bash 
 
 export default function Router() { 
@@ -1048,6 +1080,7 @@ path: '/dashboard',element: <DashboardLayout />,children: [
 ```
 
 # Route Link :
+
 ```bash 
 
 import { useNavigate } from "react-router-dom"; // v6
@@ -1069,7 +1102,8 @@ const Component = () => {
 ```
 
 
-# useLoaderData Hook 
+# useLoaderData Hook
+
 ```bash 
 
 1. Loader method can be used to load data before a particular route is executed.
@@ -1084,6 +1118,8 @@ const Component = () => {
 
 ```
 <br>
+
+
 ```bash 
 const router = createBrowserRouter([
 { path: '/', element: <PostList />, loader:loadData }
@@ -1162,6 +1198,7 @@ It require "react-hook-form"
 <br>
 It returns an object with several useful methods and properties for managing forms efficiently.
 <br>
+
 ```bash 
 const {
   register,        // Funtion to Registers input fields
@@ -1186,6 +1223,7 @@ const {
 
 ```
 <br>
+
 ```bash 
 import { useForm } from "react-hook-form";
 
@@ -1224,7 +1262,9 @@ const OptimizedForm = () => {
 export default OptimizedForm;
 
 ```
+
 <br>
+
 ```bash 
 required :	Field must not be empty.
 minLength:	Minimum character length.
@@ -1268,6 +1308,7 @@ like useContext or Redux.
 # How Redux works : 
 
 <img src="./Images/Redux2.jpg" alt="Redux">
+
 ```bash 
 
 1. Single Store: Redux uses a single central store to maintain the entire application's state.
