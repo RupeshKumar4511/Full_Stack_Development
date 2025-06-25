@@ -102,6 +102,8 @@ Definition: JSX determines how the UI will look wherever the component is used.
 
 4. Babeljs.io/repl is a tool that allows you to see how JSX is transformed into JavaScript.
 
+5. jsx must have a single parent.
+
 ```
 
 <br>
@@ -171,6 +173,8 @@ Link is not used for the link that refers to the external page. like : We cannot
 
 ```
 
+# NavLink in React :
+A NavLink is a component provided by the react-router-dom used for navigation between routes. It’s similar to the Link component, but with extra functionality: it can apply styling (like an active class)when the link is currently active
 
 # In React (and JavaScript in general), there are two main types of imports:
 
@@ -510,7 +514,6 @@ console.log(updatedArray);
 <br>
 To avoid stale values during asynchronous updates. 
 
-
 # Managing State 
 state represents data that changes over time.
 <br>
@@ -551,7 +554,9 @@ Lifting State Up : share state between components by moving it to their closest 
 
 # useState hook :
 
-The React useState Hook allows us to track state in a function component.
+The React useState Hook allows us to track state in a function component. 
+<br>
+In simple words, it is used when we want to store and update data over time. 
 <br>
 State generally refers to data or properties that need to be tracking in an application.
 <br>
@@ -572,17 +577,15 @@ The second value, setColor, is the function that is used to update our state.
 <br>
 The useState Hook can be used to keep track of strings, numbers, booleans, arrays, objects, and any combination of these!
 <br>
+Intial value should be passed in the useState hook to avoid the unexpected result. 
+<br>
 We could create multiple state Hooks to track individual values.
 <br>
 Disadvantage of useState: 
 <br>
 whenever the state is changed then component using that useState wiil be repaint. 
-
-# Important Point from Input :
-If we are using useState() in the input then we need to either assign the values properly or assign nothing.
 <br>
-When we use "useState" to update the state on the basis of input value and input value will be updated according to the state then it is called two-way binding. 
-
+Note : While setState itself is a synchronous function call, the state update it triggers is processed asynchronously by React. This means that the UI will not be updated immediately after calling setState. React queues these updates and applies them in batches, typically before the next browser paint.
 
 # React Icon Library 
 we can use a lot of icons without managing them. 
@@ -622,32 +625,44 @@ It's a lightweight representation where each node stands for a component and its
 <b>Reconciliation Process:</b>
 <br>
 • When component data changes, React updates the virtual DOM's state to mirror these changes.
+<br>
 • React then compares the current and previous versions of the virtual DOM.
+<br>
 • It identifies the specific nodes that need updating.
+<br>
 • Only these nodes are updated in the real browser DOM, making it efficient.
 
 <br>
 
 # React Libraries :
+
 React and ReactDOM:
+<br>
 The actual updating of the browser's DOM isn't done by React itself.
+<br>
 • It's handled by a companion library called react-dom.
 <br>
 Root Element:
 <br>
 • The root div acts as a container for the React app.
+<br>
 • The script tag is where the React app starts executing.
+<br>
 • If you check main.jsx, the component tree is rendered inside this
 root element.
 <br>
 Strict Mode Component:
 <br>
 • It's a special component in React.
+<br>
 Doesn't have a visual representation.
+<br>
 Its purpose is to spot potential issues in your React app.
 <br>
-Platform Independence: 
+Platform Independence:
+<br> 
 React's design allows it to be platform-Independent.
+<br>
 • While react-dom helps build web Uls using React, React Native can be used to craft mobile app UIs.
 
 # React Vs Angular and Vue.js 
@@ -679,97 +694,6 @@ Angular, developed by Google, provides a robust framework with a steep learning 
 Vue.js is known for its simplicity and ease of integration, making it beginner-friendly.
 
 ```
-# Use of forms in React :
-```bash 
-
-1. State Management: Each input's state is stored in the component's state.
-
-2. Handling Changes: Use onChange to detect input changes.
-
-3. Submission: Utilize onSubmit for form submissions and prevent default with event.preventDefault().
-
-4. Validation: Implement custom validation or use third-party libraries.
-
-```
-
-# useRef :
-It is used when we want to manage the state but we don't to repaint the component every time when state is changed. It is mostly used in forms.
-<br>
-```bash 
-
-1. useRef allows access to DOM elements and retains mutable values without re-renders.
-
-2. Used with the ref attribute for direct DOM interactions.
-
-3. Can hold previous state or prop values.
-
-4. Not limited to DOM references; can hold any value.
-
-5. Refs can be passed as props also. 
-
-```
-
-# Context API :
-It is basically a common Shared storage among all the components. It is used when several components are using same methods or state then we use context api. 
-<br>
-<img src="./Images/contextapi.jpg.jpg" alt="">
-<br>
-```bash 
-
-1. Prop Drilling: Context API addresses prop drilling; component composition is an alternative.
-2. Folder Setup: Use a store folder for context files.
-3. Initialization: Use React.createContext with initial state and export it.
-4. Provider: Implement with contextName.Provider in
-components.
-5. Access Value: Use the useContext hook.
-6. Dynamic Data: Combine context value with state.
-7. Export Functions: Context can also export functions for actions
-8. Logic Separation: This helps keep the UI and business logic separate from each other.
-
-
-createContext() is a built-in function that we use to create a Context object. This Context object allows you to share values (data) between components. 
-
-
-UserContext.Provider is a React component that comes from calling createContext(). It's part of the Context API, and its job is to "provide" a value (like user data) to all components inside it.(In place of UserContext there can be any other name).
-
-```
-<br>
-Disadvantages: 
-Everything inside the contextName.Provider will be repaint when its value is changed. 
-
-# useReducer :
-It is used when updating the state is complex in place of useState.
-<br>
-<img src="./Images/useReducer.jpg" alt="">
-<br> 
-```bash 
-A pure function which does not have a side effect. It takes the argument and returns the output. 
-
-
-1. useReducer is a hook in React that offers more control over state operations compared to useState, especially for complex state logic.
-
-2. Components: It involves two main components:
-• Reducer: A pure function that takes the current state and an action and returns a new state. Here action can be an object describing what happened, typically having a type property.
-
-• intialState : It stores the inital Value/State. 
-
-3. Initialization: It's invoked as
-const [state, dispatch] = useReducer(reducer, initialState).
-
-Here overall "useReducer()" returns new state and dispatch function. 
-
-
-4. Dispatch: Actions are dispatched using the dispatch
-function, which invokes the reducer with the current state and the given action.
-
-5. Use Cases: Particularly useful for managing state in large components or when the next state depends on the
-previous one.
-
-6. Predictable State Management: Due to its strict structure, it leads to more predictable and maintainable state management.
-
-  
-```
-
 
 
 # Working with API data:
@@ -819,7 +743,11 @@ fetch('https://dummyjson.com/posts')
 
 # useEffect hook
 
-In React, useEffect is a hook that lets you perform side effects in functional components. It's useful for things like fetching data, interacting with browser APIs, subscribing to services, or manipulating the DOM directly. It runs after the component renders and can be set to re-run based on changes to specific state or props.
+In React, useEffect is a hook which allows us to perform side effects in functional components.
+<br>
+In simple words, It is used When something changes, do a side effect (e.g., fetch data, log, update title).
+<br>
+It's useful for things like fetching data, interacting with browser APIs, subscribing to services, or manipulating the DOM directly. It runs after the component renders and can be set to re-run based on changes to specific state or props.
 <br>
 
 ```bash
@@ -838,7 +766,7 @@ useEffect(effectFunction, dependencies);
 
 2. useEffect runs automatically after every render by default.
 
-3. By providing a dependency array, use Effect will only run when specified variables change. An empty array means the effect runs once at initial render.
+3. By providing a dependency array, use Effect will only run when specified variables change. An empty array means the effect runs once at initial render. And if we do not pass an dependency array it will be render continuously. 
 
 4. Multiple useEffect hooks can be used in a single
 component for organizing different side effects separately.
@@ -875,7 +803,7 @@ const [fetching, setFetching] = useState(false);
 useEffect(() => {
     setFetching(true);
 
-    const controller = new AbortController();
+    const controller = new AbortController();  // Browser API is used to cancel an ongoing task like a fetch request.
     const signal = controller.signal; // signal is a member of controller
 
     fetch('https://dummyjson.com/posts',{signal})
@@ -906,8 +834,277 @@ When we fetch the data from any api then before obtaining the data, we get unexp
 <br>
 To avoid unexpected results:
 <br>
-We use Loading spinner before the data obtained from the server. 
+We use Loading spinner before the data obtained from the server.
+or
+We can show the shimmer effect before the data obtained from the server.  
 
+
+# react-router-dom
+```bash 
+
+1. Installation: Use npm install react-router-dom.
+
+2. RouterProvider: Wraps the app for routing capabilities.
+
+RouterProvider is a component from react-router-dom v6.4+ (and newer) that injects routing configuration into our React app using React's Context API.
+
+Behind the scene, It is a higher-level component that uses React's Context API to provide routing state and behavior throughout your app
+
+
+3. createBrowserRouter: helps in creating the mapping for router provider.
+
+createBrowserRouter is a function provided by react-router-dom v6.4+ that 
+creates a data-aware router using the HTML5 history API (like BrowserRouter)
+
+
+4. Declarative Routing: Easily define application routes.
+
+5. Routes are React components.
+
+```
+<br>
+<br>
+
+```bash 
+// Inside main.jsx
+
+
+
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { RouterProvider, BrowserRouter, createBrowserRouter } from 'react-router-dom';
+import App from '../routes/App.jsx';
+import PostList,{loadData} from './Components/PostList.jsx';
+import UserPostList,{loadUserData} from './Components/UserPostList.jsx';
+import Login ,{LoginAction} from './Components/Login.jsx'
+import SignUp, { RegisterAction } from './Components/SignUp.jsx'
+import CreateUser,{createUserAction} from './Components/CreateUser.jsx'
+import CreatePost, { postDataAction } from './Components/CreatePost.jsx';
+import ErrorPage from './Components/ErrorPage.jsx';
+
+
+const router = createBrowserRouter([
+  {
+    path: '/', element: <App />,
+     errorElement: <ErrorPage />,
+     children: [
+      { path: '/', element: <PostList />, loader:loadData },
+      { path: '/create-post', element: <CreatePost /> ,action:postDataAction},
+      { path: '/yourposts', element: <UserPostList /> ,loader:loadUserData},
+      { path: '/signin', element: <Login/>,action:LoginAction},
+      { path: '/signup', element: <CreateUser/>,action:createUserAction},
+      { path: '/register', element: <SignUp/>,action:RegisterAction},
+    ]
+  }, 
+  
+
+])
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>,
+);
+
+
+
+// Put the component(App.jsx) in separate folder(named routes). which changes according to routes. 
+
+// inside app.jsx  
+
+<>
+    <Header />
+    <Outlet />
+</>
+
+// Here <Outlet /> tells react-router-dom where to render the child route's component inside the parent layout.
+
+It is used for nested routing.
+```
+
+# ErrorPage : 
+
+```bash 
+import { useRouteError } from 'react-router-dom'
+
+const ErrorPage = () => {
+
+    const error = useRouteError();
+  return (
+    <div>
+      Something went Wrong {error.status}
+    </div>
+  )
+}
+
+export default ErrorPage
+
+
+// useRouteError hook is used inside an errorElement component to get the error that caused a route to fail.
+
+```
+
+# Dynamic Routing: 
+Inside Dynamic Routing we use "useParams()" hook . 
+<br>
+useParams() is a hook provided by react-router-dom  that returns an object of key/value pairs from the URL path parameters.
+<br>
+
+```bash 
+
+import { useParams } from "react-router-dom";
+
+function UserProfile() {
+  const params = useParams();
+  console.log(params.userId); // Logs the value from the URL, like '42'
+
+  return <h1>User ID: {params.userId}</h1>;
+}
+
+```
+
+
+
+# Pass data with react-router-dom: 
+
+```bash 
+// One Page
+<Link to={`/${title}`} state={data}>
+
+
+
+// Another page 
+import { useLocation } from 'react-router-dom';
+const {state} = useLocation();
+
+
+In React Router, useLocation() is a hook that gives we access to the current 
+location object, which represents the current URL. 
+
+It's very useful when we want to read:
+query parameters
+
+the path
+
+or access state passed during navigation
+
+```
+
+# Layout Routing :
+
+```bash 
+
+export default function Router() { 
+  return useRoutes ([
+    {
+      path: '/dashboard',element: <DashboardLayout />,children: [
+      { element: <Navigate to="/dashboard/app" replace />},
+      { path: 'app', element: <DashboardApp /> },
+      { path: 'user', element: <User /> },
+      { path: 'products', element: <Products /> },
+      { path: 'blog', element: <Blog /> }
+    }
+  ])
+}
+
+//"<Navigate to="/dashboard/app" replace />"
+//  when the user goes to /dashboard, they get redirected to /dashboard/app
+
+
+// Important Point : 
+1. Layout Routes help us to use shared elements
+2. Outlet component is used to render the children at the correct places
+
+```
+
+# Route Link :
+
+```bash 
+
+import { useNavigate } from "react-router-dom"; // v6
+const Component = () => {
+// Triggers re-renders on every path change
+
+    const navigate=useNavigate();
+    ... 
+}
+
+//  useNavigate() hook returns a method which can be used to navigate. 
+
+
+
+// Important Point :
+1. Link Component with to property can be used to avoid reloading 
+2. useNavigate hook can be used to do navigation programmatically.
+
+```
+
+
+
+
+# Context API :
+It is basically a common Shared storage among all the components. It is used when several components are using same methods or state. 
+<br>
+<img src="./Images/contextapi.jpg.jpg" alt="">
+<br>
+
+```bash 
+
+1. Prop Drilling: Context API addresses prop drilling; component composition is an alternative.
+2. Folder Setup: Use a store folder for context files.
+3. Initialization: Use React.createContext with initial state and export it.
+4. Provider: Implement with contextName.Provider in
+components.
+5. Access Value: Use the useContext hook.
+6. Dynamic Data: Combine context value with state.
+7. Export Functions: Context can also export functions for actions
+8. Logic Separation: This helps keep the UI and business logic separate from each other.
+
+
+createContext() is a built-in function that we use to create a Context object. This Context object allows you to share values (data) between components. 
+
+
+UserContext.Provider is a React component that comes from calling createContext(). It's part of the Context API, and its job is to "provide" a value (like user data) to all components inside it.(In place of UserContext there can be any other name).
+
+```
+<br>
+Disadvantages: 
+Everything inside the contextName.Provider will be repaint when its value is changed. 
+
+
+
+# useReducer :
+It is used when updating the state is complex in place of useState.
+<br>
+<img src="./Images/useReducer.jpg" alt="">
+<br> 
+
+```bash 
+A pure function which does not have a side effect. It takes the argument and returns the output. 
+
+
+1. useReducer is a hook in React that offers more control over state operations compared to useState, especially for complex state logic.
+
+2. Components: It involves two main components:
+• Reducer: A pure function that takes the current state and an action and returns a new state. Here action can be an object describing what happened, typically having a type property.
+
+• intialState : It stores the inital Value/State. 
+
+3. Initialization: It's invoked as
+const [state, dispatch] = useReducer(reducer, initialState).
+
+Here overall "useReducer()" returns new state and dispatch function. 
+
+
+4. Dispatch: Actions are dispatched using the dispatch
+function, which invokes the reducer with the current state and the given action.
+
+5. Use Cases: Particularly useful for managing state in large components or when the next state depends on the
+previous one.
+
+6. Predictable State Management: Due to its strict structure, it leads to more predictable and maintainable state management.
+
+  
+```
 
 
 # useCallback hook :
@@ -1010,7 +1207,7 @@ const sortedArr = useMemo(()=> arr.sort(),[arr]);
 1. Reusable Logic: Custom hooks allow you to
 extract and reuse component logic across multiple components.
 
-2. Naming Convention: Typically start with "use" (e.g., useWindowSize, use Fetch).
+2. Naming Convention: Typically start with "use" (e.g., useWindowSize, useFetch).
 
 3. Combining Hooks: Custom hooks can combine multiple built-in hooks like useState, useEffect,
 and others.
@@ -1034,71 +1231,6 @@ const [value,toggle] = useToggle(true);
 const [value,{on,off,toggle}] = useBoolean(true);
 
 // we can make this type of custom hooks.
-```
-
-# React Router
-
-```bash 
-
-1. Installation: Use npm install react-router-dom.
-
-2. We are going to use the latest version which is 6+ 
-
-3. RouterProvider: Wraps the app for routing capabilities. 
-
-4. createBrowserRouter: helps creating the mapping for router provider.
-
-5. Declarative Routing: Easily define application routes.
-
-6. Routes are React components.
-
-```
-
-# Layout Routing :
-
-```bash 
-
-export default function Router() { 
-  return useRoutes ([{
-path: '/dashboard',element: <DashboardLayout />,children: [
-{ element: <Navigate to="/dashboard/app" replace />},
-{ path: 'app', element: <DashboardApp /> },
-{ path: 'user', element: <User /> },
-{ path: 'products', element: <Products /> },
-{ path: 'blog', element: <Blog /> }
-]
-}
-
-//"<Navigate to="/dashboard/app" replace />"
-//  when the user goes to /dashboard, they get redirected to /dashboard/app
-
-
-// Important Point : 
-1. Layout Routes help us to use shared elements
-2. Outlet component is used to render the children at the correct places
-
-```
-
-# Route Link :
-
-```bash 
-
-import { useNavigate } from "react-router-dom"; // v6
-const Component = () => {
-// Triggers re-renders on every path change
-
-    const navigate=useNavigate();
-    ... 
-}
-
-//  useNavigate() hook returns a method which can be used to navigate. 
-
-
-
-// Important Point :
-1. Link Component with to property can be used to avoid reloading 
-2. useNavigate hook can be used to do navigation programmatically.
-
 ```
 
 
@@ -1138,6 +1270,48 @@ export const loadData = () =>{
 
 ```
 
+# Use of forms in React :
+
+```bash 
+
+1. State Management: Each input's state is stored in the component's state.
+
+2. Handling Changes: Use onChange to detect input changes.
+
+3. Submission: Utilize onSubmit for form submissions and prevent default with event.preventDefault().
+
+4. Validation: Implement custom validation or use third-party libraries.
+
+```
+
+
+# One Way Data binding | Unidirection data flow | Controlled components:
+
+When we use "useState" to update the state on the basis of input value and input value will be updated according to the state then it is called One-way binding. 
+<br>
+Data can update the ui but ui cannot update data.
+<br>
+Controlled Components : use "useState" for each input in form. 
+
+
+
+# useRef :
+It is used when we want to manage the state but we don't to repaint the component every time when state is changed. It is mostly used in forms.
+<br>
+
+```bash 
+
+1. useRef allows access to DOM elements and retains mutable values without re-renders.
+
+2. Used with the ref attribute for direct DOM interactions.
+
+3. Can hold previous state or prop values.
+
+4. Not limited to DOM references; can hold any value.
+
+5. Refs can be passed as props also. 
+
+```
 
 # Submitting Data using Fetch : 
 
@@ -1225,6 +1399,7 @@ const {
 <br>
 
 ```bash 
+
 import { useForm } from "react-hook-form";
 
 const OptimizedForm = () => {
@@ -1271,6 +1446,337 @@ minLength:	Minimum character length.
 maxLength:	Maximum character length.
 pattern	: Uses regex for validation.
 validate:	Custom validation function.
+
+```
+
+
+# createPortal : 
+React Portal is a way to render a component outside the normal DOM hierarchy of its parent — into a different part of the DOM tree.
+<br>
+This is especially useful for:
+<br>
+Modals : Uses:  login form, popup message
+<br>
+Tooltips : Uses : Providing short instructions
+<br>
+Dropdowns
+<br>
+Overlays : An Overlay is a general term for any element that covers the screen, often used to focus attention or dim the background.
+<br>
+
+```bash 
+
+// index.html 
+<div id="portal"></div> // extra space for react-portal 
+
+// modal.jsx 
+import { createPortal } from "react-dom";
+
+
+export default function Modal({ isOpen, setOpen, children, header, footer }) {
+  return (
+    createPortal(
+      <div className={`fixed flex items-center px-4 justify-center inset-0 bg-black/40 ${isOpen ? '' : 'hidden'}`}
+        onClick={() => setOpen(false)}>
+
+        <div className="rounded-lg grow max-w-96 bg-white p-4 shadow-lg" onClick={(event) => event.stopPropagation()}>
+          {header}
+          {children}
+          {footer}
+
+
+        </div>
+      </div>,
+      document.getElementById('portal')
+    )
+  )
+}
+
+
+```
+
+# Lazy loading and Code Splitting : 
+React apps can get large and slow if everything is loaded at once. That's where lazy loading and code splitting come in — they help load only what's needed, only when needed.
+<br>
+
+```bash 
+// App.jsx 
+
+
+import { Suspense } from 'react';
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Outlet />
+      </Suspense>
+
+// lazy() tells React to load the component asynchronously
+
+// "Suspense" wraps the lazy component and shows a fallback while loading
+
+
+// main.jsx 
+import { lazy, StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx';
+import { createBrowserRouter,RouterProvider } from 'react-router-dom';
+
+// This works for deafult export but not for named imports
+const About = lazy(()=> import('./components/About.jsx'))
+
+
+//This Works for named export  
+const About = lazy(()=> import('./components/About.jsx').then(module)=>({default:module.About}))
+
+const router = createBrowserRouter([
+  {
+    path:'/',element:<App/ >,children:[
+      {path:'/about',element:<About/>},
+    ]
+  }
+])
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <RouterProvider router={router}/>
+  </StrictMode>,
+)
+
+
+
+
+
+
+
+
+
+
+
+
+// lazy loading of large data 
+<!-- 
+
+
+<button className="btn cursor-pointer"
+      onClick={()=>import('./data').then(module=>setTodos(module.todos))}
+>Load Data</button> 
+      
+
+-->
+
+```
+
+# Class Components  :
+
+```bash 
+
+import { Component } from "react";
+
+class Counter extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { count: 0 } // create state 
+        console.log(this)
+    }
+    render() {
+
+        // access the props
+        const {name} = this.props;
+
+        return (
+            <>
+                <h2>{name}</h2>
+                <h2>{this.state.count}</h2>
+                <button className="bg-blue-500 p-2
+                " onClick={() => this.setState({ count: this.state.count + 1 })}>Increase</button>
+            </>
+        )
+    }
+}
+
+export default Counter;
+
+```
+
+# 3 Main Phases of Lifecycle in Class Components
+1. Mounting Phase :
+(When the component is first added to the DOM)
+<br>
+Method :
+<br>	
+constructor()	: Initialize state and bind methods
+<br>
+render()	: Return JSX
+<br>
+componentDidMount()	: Run side effects (API calls, DOM access)
+<br>
+<br>
+
+2. Updating Phase
+(When props/state change and component re-renders)
+<br>
+Method : 	
+<br>
+render()	Re-render JSX
+<br>
+componentDidUpdate()	: Run side effects after DOM updates
+<br>
+<br>
+
+3. Unmounting Phase : 
+(When the component is removed from the DOM)
+<br>
+Method	:
+<br>
+componentWillUnmount()	: Cleanup (e.g. clear timers, subscriptions)
+
+<br><br>
+
+```bash
+
+import { Component } from "react";
+
+class Counter extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { count: 0 } // create state 
+        console.log('constructor')
+    }
+
+    componentDidMount(){
+        console.log('componentDidMount')
+        // we can use this function as useEffect with empty array
+    }
+
+    componentDidUpdate(){
+        console.log('componentDidUpdate')
+
+        //we can use this function as useEffect with dependecy array. 
+    } 
+
+    componentWillUnmount(){
+        console.log('componentWillUnmount')
+    }
+    render() {
+        console.log('render')
+        
+        // access the props
+        const {name} = this.props;
+
+        return (
+            <>
+                <h2>{name}</h2>
+                <h2>{this.state.count}</h2>
+                <button className="bg-blue-500 p-2
+                " onClick={() => this.setState({ count: this.state.count + 1 })}>Increase</button>
+            </>
+        )
+    }
+}
+
+export default Counter;
+
+```
+
+# this keyword in react :
+Arrow function inherits "this" from parent scope. 
+<br>
+In Regular function "this" is dynamic(depends on call).
+<br> 
+In React, in the regular function which handles the event "this" refers to 
+"undefined". so we need to bind it with "this". 
+<br>
+
+<br>
+
+```bash 
+import { Component } from "react";
+
+class Counter extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { count: 0 } // create state 
+        console.log('constructor')
+    }
+
+    render() {
+        // access the props
+        const {name} = this.props;
+  
+        return (
+            <>
+                <h2>{name}</h2>
+                <h2>{this.state.count}</h2>
+                <button className="bg-blue-500 p-2 " onClick={function() { 
+                    this.setState({ count: this.state.count + 1 })}.bind(this)}>Increase</button>
+            </>
+        )
+    }
+}
+
+export default Counter;
+
+```
+# High Order Components : 
+It is a design pattern to reuse the main logic in class component. 
+<br>
+
+```bash 
+
+// Example of Higher order function : 
+import { Component } from "react"
+
+const  withCounter = (WrappedComponent) =>{
+    return class NewComponent extends Component {
+        constructor(props) {
+            super(props);
+            this.state = { count: 0 } // create state 
+            console.log(this.props)
+            
+        
+        }
+        render(){
+
+            const increaseCounter = () => {
+                this.setState({ count: this.state.count + 1 })
+                
+            }
+            
+            return (
+
+                    <WrappedComponent count={this.state.count}  increaseCounter = {increaseCounter} {...this.props} />  
+
+                    // {...this.props} is used to accept the props from parent 
+                    // WrappedComponent
+            )
+        }
+    }
+}
+
+export default withCounter;
+
+
+```
+<br>
+<br>
+
+```bash 
+
+import { Component } from "react";
+import withCounter from "./withCounter";
+
+class Counter extends Component {
+    render() {
+        return (
+            <>
+                <h2>{this.props.name}</h2>
+                <h2>{this.props.count}</h2>
+                <button className="bg-blue-500 p-2 " onClick={()=> this.props.increaseCounter()}>Increase</button>
+            </>
+        )
+    }
+}
+
+export default withCounter(Counter);
+
 
 ```
 
