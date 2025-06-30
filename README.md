@@ -1110,6 +1110,7 @@ previous one.
 # useCallback hook :
 The useCallback hook memoizes a function, preventing it from being recreated on every render unless its dependencies change. It's useful for performance optimization, especially when passing functions to child components.
 <br>
+
 ```bash 
 useCallback(function,[dependencies])
 
@@ -1800,6 +1801,7 @@ State that is accessible anywhere in the application.
 like useContext or Redux. 
 
 # useContext vs Redux :
+
 ```bash 
 
 1. we can use both.
@@ -1854,16 +1856,123 @@ like useContext or Redux.
 2. Npm install react-redux
 3. Create store folder with Index.js file 
 4. Creating the store using
+
 Import {createStore} from redux.
 5. Providing the store with react
 (I). Provider from react-redux
 (II). <Provider store={store}><App /></Provider> 
+
 6. Using the store
 (I). useSelector hook gets a slice of the store.
 Const counter = useSelector(state => state.counter); 
 (II). Subscription is already setup and only will re-execute when only your slice is changed. Subscription is automatically cleared also when it is out of memory.
+
 7. Dispatch Actions using the use Dispatch hook.
+
 ```
+<br>
+
+```bash 
+import { createStore } from "redux";
+import {data} from '../../data.js';
+const INITIAl_STATE =  {
+    products:data,
+    cartItems:[],
+    wishList:[]
+}
+const reducer = (state=INITIAl_STATE,action) => {
+
+  // this is not mutating the original object. Always returns object.
+    if(action.type == 'cart/ADD_ITEM'){
+        const existingCart = state.cartItems.find(cart=>cart.productId == action.payload.productId)
+        if(existingCart){
+            return {
+                ...state,cartItems:state.cartItems.map(cart=> {
+                    if(cart.productId== existingCart.productId){
+                        return {...cart,quantity:cart.quantity+1}
+                    }
+                    return cart;
+                })
+            }
+        }
+
+        return {...state, cartItems:[...state.cartItems,action.payload]}
+    }
+    else if(action.type == 'cart/INCREASE_CART_QUANTITY'){
+        return {...state, cartItems:state.cartItems.map((cart)=>{
+            if(cart.productId == action.payload.productId){
+                return {...cart,quantity:cart.quantity+1}
+            }
+            return cart;
+        })}
+    
+    }
+
+    else if(action.type == 'cart/DECREASE_CART_QUANTITY'){
+        const existingCart = state.cartItems.find(item=>item.productId==action.payload.productId)
+        console.log(existingCart.quantity)  
+        if(existingCart.quantity == 1){
+            return {...state,cartItems:state.cartItems.filter(cart=>cart.productId != action.payload.productId)}
+        }
+
+        return {...state, cartItems:state.cartItems.map((cart)=>{
+            if(cart.productId == action.payload.productId){
+                return {...cart,quantity:cart.quantity-1}
+            }
+            return cart;
+        })}
+    
+    }
+
+    else if(action.type == 'cart/REMOVE_ITEM'){
+        return {...state, cartItems:state.cartItems.filter((cart)=> cart.productId != action.payload.productId)}
+    }
+    return state;
+}
+
+
+
+// createStore() is a function from Redux (not Redux Toolkit) used 
+// to create a store that holds your app state.
+
+// It return mainly three function 
+// 1. getState() // Returns the current state of the store.
+// 2. dispatch() // Dispatches an action to change the state
+// 3. subscribe()  
+// It registers a listener (callback) that runs whenever the state changes.
+// It returns an unsubscribe function to remove the listener.
+
+
+const store = createStore(reducer)
+store.dispatch({type:'cart/ADD_ITEM',payload:{productId:1,quantity:1}})
+store.dispatch({type:'cart/ADD_ITEM',payload:{productId:1,quantity:1}})
+store.dispatch({type:'cart/ADD_ITEM',payload:{productId:2,quantity:1}})
+
+
+
+console.log(store.getState())
+
+export default store;
+
+````
+
+# combineReducers(): 
+This is a function which is used to combine multiple reducers which are loacated at different files or folder and returns a function which is a combined reducer. 
+
+
+<br>
+
+```bash 
+
+combineReducers({
+  products:productsReducer,
+  cartItems:cartItemReducer,
+  wishList:wishListReducer,
+})
+
+```
+
+
 
 # Why Redux ToolKit : 
 ```bash 
@@ -1877,7 +1986,8 @@ Const counter = useSelector(state => state.counter);
 4. Reducer becoming too big
 
 ```
-# Advantage of Reduxjs toolkit: 
+# Advantage of Reduxjs toolkit:
+
 ```bash 
 Redux toolkit allows us to create multiple chunks of store and then combine them. 
 
@@ -1885,7 +1995,8 @@ Redux toolkit allows us to create multiple reducers .
 
 ```
 
-# Working with Reduxjs toolkit in react application : 
+# Working with Reduxjs toolkit in react application :
+
 ```bash 
 
 1. Npm install @reduxjs/toolkit
@@ -1896,32 +2007,263 @@ Redux toolkit allows us to create multiple reducers .
 
 4. Slices of the store can be created using the following syntax:
 
-const slice = createSlice({
+const counterSlice = createSlice({
   name:"counter",
   initialState:{counter:0},
   reducers:{
-  increment: (state)=>{
-   state.counter++ }
-  }
+  add:(state,action)=>{
+        state.countVal += Number(action.payload.num);
+  },
 })
 
-export slice;
+export default slice;
 
-// how to use the state 
-const {countVal} = useSelector(store => store.slice);
+// createSlice creates the actions, actionCreaters and reducer.
+// Example
+// action : const INCREMENT = 'counter/increment
+// actionCreaters : const increment = () => ({ type: 'INCREMENT' });
+// reducer : A pure function 
+
 
 5. ConfigureStore combines multiple reducers and can be used as:
-configureStore({
+const store = configureStore({
   reducer: {counter: slice.reducer}
 })
+export default store;
 
-// here counter comes from the name attribute of Slice of counter
+// here counter comes from the name attribute of counterSlice
 
-6. Export actions = slice.actions;
 
-7. Actions can be dispatched like: actions.reducerMethod(payload);
+
+6. Export actions from different slice : 
+// Example
+export const CounterActions = CounterSlice.actions;
+
+
+
+7. Actions can be dispatched like: 
+// Example
+import {counterAction} from '../store/counterSlice'
+const dispatch = useDispatch();
+dispatch(counterAction.add({num:2}));
+
+// Here "{num:2}" is considered as payload. 
+// so we need to write it explicitly. 
+
+
+8. How to use the state :
+//Example
+const {countVal} = useSelector(store => store.CounterSlice);
+
 
 
 Note : Bydefault in redux's reduce expression is considered as return statement so we do not need to explicitly write return But if the returns statement is not a expression then we need to explicitly write return. 
 
 ```
+# Middlewares in Redux : 
+Middleware in Redux is a function which executes before action is dispatched to store. 
+<br>
+
+```bash 
+const store = configureStore({
+    reducer:{
+        productList:productListSlice.reducer,
+        cartItems:cartItemSlice.reducer,
+        wishList:wishListSlice.reducer
+        
+
+    },
+    middleware:(getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+})
+
+// Here logger is a custom middleware which is a curried function. 
+// export const logger = (store)=>(next)=>(action)=>{
+    console.log(store,next,action);
+    return next(action);
+}
+
+```
+
+# selectors in Redux : 
+Selectors are functions that extract specific pieces of state from our Redux store.
+<br>
+
+```bash 
+const products = useSelector(store=>store.products);
+// Here "store=>store.products" is selector. 
+
+```
+
+# createSelector: 
+createSelector is a function provided by Redux Toolkit that lets us create memoized selectors.
+<br>
+It prevents from unnecessary renders. 
+
+<br>
+
+```bash 
+const getCartItems = ({productList,cartItems})=>{
+    return cartItems.list.map(({quantity,productId})=>{
+      const cartproducts = productList.list.find(product =>product.id === productId)
+
+      return {...cartproducts,quantity}
+    }).filter(({title})=>title)
+  }
+
+export const getAllCartItems = createSelector(getCartItems,(state)=>state);
+
+```
+
+# Thunk middleware : 
+redux-thunk is a middleware for Redux that lets us write async logic (like API calls) inside your action creators.
+<br>
+Without thunk, Redux actions must be plain objects. With thunk, actions can be functions.
+<br>
+Thunk middlewares allows to dispatch a function to slice of redux-store. 
+
+<br>
+
+```bash 
+
+// In React Component 
+useEffect(()=>{
+  dispatch(fetchProductsData())
+  },[])
+
+
+
+// when we dispatch something:
+I// If it's a function, thunk middleware executes it, passing dispatch and getState.
+
+// If it's a plain object, it passes it to the next middleware or the reducer directly.
+
+
+
+// Thunk middleware code which is inbuit in reduxjs/toolkit. 
+export const func = ({dispatch,getState})=>(next)=>(action)=>{
+
+    if(typeof action === 'function'){
+        action(dispatch,getState)
+    }else{
+        next(action)
+    }
+}
+// "{dispatch,getState}" functions are provide store. 
+
+
+
+
+// Thunk action creators
+export const fetchProductsData = ()=> (dispatch)=>{
+    fetch('https://fakestoreapi.com/carts/5')
+          .then(response => response.json())
+          .then(data => 
+            dispatch(productListAction.updateAllProducts(data))).
+          catch(()=>dispatch(productListAction.fetchProductsError));
+}
+
+
+
+
+
+// ProductListSlice code
+
+const productListSlice = createSlice({
+    name:'productList',
+    initialState:{
+        loading:false,
+        list:[],
+        error:''
+    },
+    reducers:{
+        fetchProducts:(state)=>{
+            state.loading= true;
+        },
+        fetchProductsError:(state,action)=>{
+            state.loading = false;
+            state.error = action.payload || 'Something went wrong'
+
+        },
+        updateAllProducts:(state,action)=>{
+            state.loading = false;
+            state.error = '';
+            state.list = action.payload
+        },
+
+    }
+})
+
+
+
+```
+
+# createAsyncThunk() :
+createAsyncThunk() is a function provided by Redux Toolkit to handle async actions (like API calls) in a clean and automatic way.
+<br>
+It internally uses thunk middleware, but we don't have to write manual dispatch logic ourself.
+<br>
+
+
+
+```bash 
+
+export const fetchProductsData = createAsyncThunk(
+    'productList/fetchProducts' // action types
+    ,async()=>{
+    try{
+        const response = await fetch('https://fakestoreapi.com/products')
+        return response.json()
+    }catch(error){
+        throw error;
+    }
+
+})
+
+// fetchProductsData
+
+// It automatically creates pending, fulfilled, and rejected actions.
+// It helps manage loading and error states cleanly inside slices.
+
+const productListSlice = createSlice({
+    name:'productList',
+    initialState:{
+        loading:false,
+        list:[],
+        error:''
+    },
+
+    // way of writing reducers in reduxjs/toolkit
+    extraReducers:(builder)=>{
+            builder.
+            addCase(fetchProductsData.pending,(state)=>{
+                state.loading = true
+            })
+            .addCase(fetchProductsData.fulfilled,(state,action)=>{
+                state.loading = false;
+                state.error='';
+                state.list = action.payload
+            })
+            .addCase(fetchProductsData.rejected,(state,action)=>{
+                state.loading= false;
+                state.error = action.payload || "Something went wrong"
+            })
+        }
+})
+
+
+```
+
+
+# RTK query : 
+RTK Query is a powerful data fetching & caching tool built into Redux Toolkit.
+<br>
+It helps us:
+<br>
+Fetch data from APIs (REST or GraphQL)
+<br>
+Automatically handle caching
+<br>
+Manage loading, error, and success states
+<br>
+Avoid writing extra reducers, actions, or thunks
+

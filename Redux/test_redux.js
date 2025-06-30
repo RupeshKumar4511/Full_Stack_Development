@@ -2,17 +2,18 @@ const redux = require('redux');
 
 const INITIAL_VALUE = {
     counter:0,
+    name:"counter"
 
 }
 const reducer = (store=INITIAL_VALUE,action)=>{
     // console.log("reducer called",action);
     let newStore = store;
     if(action.type ==="INCREMENT"){
-      newStore ={counter:store.counter + 1};
+      newStore ={...newStore,counter:store.counter + 1};
     }else if(action.type ==="DECREMENT"){
-        newStore ={counter:store.counter - 1};
+        newStore ={...newStore,counter:store.counter - 1};
     }else if(action.type ==="ADDITION"){
-        newStore ={counter:store.counter + action.payload.number};
+        newStore ={...newStore,counter:store.counter + action.payload.number};
     }
 
     return newStore;
