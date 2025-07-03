@@ -1,0 +1,11 @@
+{
+    "scripts":{
+    "file_info": "ls", 
+    "start":"node app.js",
+    "test":"pwd",
+    "restart": "node",
+    "stop":"git -v",
+    "dev":"node --watch app.js"
+    }
+
+}

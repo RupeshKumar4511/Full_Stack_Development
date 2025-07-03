@@ -1,0 +1,10 @@
+{
+  "name":"rupesh-product",
+  "version": "1.0.0",
+  "main":"product.cjs",
+  "module": "product.mjs",
+  "exports":{
+    "import":  "./product.mjs",
+    "require":"./product.cjs"
+  }
+}

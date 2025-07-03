@@ -1,0 +1,15 @@
+{
+  "name": "timer",
+  "bin":"app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "pkg . -t node16-win-x64"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "pkg": "^5.8.1"
+  }
+}
