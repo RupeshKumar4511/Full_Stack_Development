@@ -41,10 +41,6 @@ console.log(path.format({
 
 
 
-
-
-
-
 // we can also make consistent path for different os 
 // like for linux ,path is "/admin/this.txt"
 // for window , path is "C://home//this.txt"

@@ -25,3 +25,23 @@ console.log(process.pid)
 
 // Memory usage
 console.log(process.memoryUsage()) 
+
+// To get the argument from terminal :
+console.log(process.argv)
+// Bydefault it contains array of 2 elements. 
+/*
+when we type "node fileName"
+ [
+  'C:\\Program Files\\nodejs\\node.exe',  
+  'd:\\Full_Stack\\Stack\\Node\\process.js'
+]
+
+
+But when we type "node filename other" then  we access the "other" property. 
+
+[
+  'C:\\Program Files\\nodejs\\node.exe',  
+  'D:\\Full_Stack\\Stack\\Node\\process.js',
+  'other'
+]
+  */
