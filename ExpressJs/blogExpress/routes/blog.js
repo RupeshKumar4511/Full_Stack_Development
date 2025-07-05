@@ -15,6 +15,8 @@ router.get('/blog', (req, res)=>{
     });
 })
 
+// Route parameter
+
 router.get('/blogpost/:slug', (req, res)=>{  
     myBlog = blogs.filter((e)=>{
         return e.slug == req.params.slug

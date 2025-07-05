@@ -1,6 +1,8 @@
 # Express 
 Express (or Express.js) is a minimal and flexible Node.js web application framework used for building APIs and web applications. It provides a set of features to simplify handling routes, middleware, and HTTP requests/responses.
 
+<br>
+
 ```bash
 //imports the Express module into your Node.js application.
 const express = require('express'); 
@@ -15,17 +17,27 @@ const app = express();
 Middleware in Express.js is a function that runs before the final request handler. It has access to the request (req), response (res), and next() function.
 we can also create middlewares in express.
 <br>
+
 ```bash 
-Middleware is useful for: ✅ Logging requests
-✅ Authentication & Authorization
-✅ Parsing request bodies (JSON, form-data, etc.)
-✅ Error handling
-✅ Modifying request & response objects
+Middleware is useful for: 
+
+Logging requests
+
+Authentication & Authorization
+
+Parsing request bodies (JSON, form-data, etc.)
+
+Error handling
+
+Modifying request & response objects
+
 ```
 <br>
-Generally we don render any thing inside middleware. We basically do some authentication like check and if some error found then only we render some error message. 
+Generally we don't render any thing inside middleware. We basically do some authentication like check and if some error found then only we render some error message. 
 <br>
+
 ```bash
+
 // we can add custom properties to the req object inside middleware.
 This is useful for storing user data, request metadata, or pre-processed values before passing the request to the next middleware or route handler.
 

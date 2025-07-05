@@ -8,21 +8,13 @@ const port = 3000;
 
 
 
-// application level middleware  in express 
-// By default Middleware is applied to every request.
+// application level middleware in express 
+// By default application level Middleware is applied to every request.
 // app.use(express.static(path.join(__dirname,"public"))); 
 
 // If index.html exists in public/, Express will automatically serve it at http://localhost:3000/.
 // If there's a conflicting app.get('/'), it overrides the static file.
 // we can serve static files of any folder like "css,js" files placed in a folder. 
-
-// custom middleware
-// app.use((err,req, res, next) => {
-//   console.error(err.stack); // if error occurs
-//   console.log('Request URL:', req.url);
-//   next(); // Pass control to the next function.
-// });
-
 
 
 
@@ -36,14 +28,29 @@ const port = 3000;
 app.get('/', (req, res) => {
   res.send('hello world')
 })
+// Here req and res are objects which have several properties. 
 
 
-// we can make middleware for only one route 
+// we can make middleware for only one route which is called Route middleware. 
+
 app.get('/',(req,res)=>{
   console.log(req.url);
+  // if we want to pass error in the error handling routes 
+  // next(new Error("Something went wrong.."))
+  next() ; // If we do not call next() then route will not be served. 
 } ,(req, res) => {
-  res.send('hello world')
+  res.send('hello world');
 })
+
+
+// custom middleware for Error Handling
+// app.use((err,req,res, next) => {
+//   console.error(err.stack); // if error occurs
+//   console.log('Request URL:', req.url);
+//   next(); // Pass control to the next function.
+// });
+
+
 
 
 // we can also pass parameters with the filename
