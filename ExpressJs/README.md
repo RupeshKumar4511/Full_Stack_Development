@@ -33,7 +33,7 @@ Modifying request & response objects
 
 ```
 <br>
-Generally we don't render any thing inside middleware. We basically do some authentication like check and if some error found then only we render some error message. 
+Generally we don't render any thing inside middleware. We basically do some authentication like check and if some error found only then we render some error message. 
 <br>
 
 ```bash
@@ -60,6 +60,135 @@ app.get('/', (req, res) => {
 app.listen(3000, () => console.log('Server running on port 3000'));
 
 ```
+# Route parameter : 
+We can have many route parameter. 
+<br>
+
+```bash 
+route.get('/:id',(req,res)=>{
+    const parseId = parseInt(req.params.id);
+    if(isNaN(parseId)){
+        return res.status(404).send({msg:"Bad request. Invalid ID"})
+    }
+    const product = carts.find((cart)=>cart.id === parseId);
+    if(!product){
+        return res.status(404).send({msg:"Bad request. Invalid ID"})
+    }
+    return res.send(product);
+})
+
+// Multiple route example
+app.get('/user/:id/:name') 
+
+```
+
+# Query Parameters : 
+when a request comes in, Express automatically parses the query string and attaches it to "req.query" as a JavaScript object.
+<br>
+
+```bash 
+
+// endpoint : http://localhost:3000/api/carts/filter=name&value=Butter
+
+route.get('/',(req,res)=>{
+    const {filter,value}= req.query;
+    if(filter&& value){
+        const result = carts.filter((cart)=>cart[filter].includes(value))
+        return res.send(result);
+    }
+
+    return res.send(carts);
+})
+
+```
+
+# POST, PUT, PATCH and DELETE http requests:
+```bash
+
+route.post('/',(request,response)=>{
+    const {id,name,price,type}= request.body;
+    carts.push({id,name,price,type});
+    return response.status(201).send({id,name,price,type})
+})
+
+
+// Put Request is used when we want to update the whole data about any object.
+// In the put request we need to send the whole data about any object to server
+// to update even if we don't want to upadate whole data about any object. 
+
+// In put request we never update "id" field. 
+
+route.put('/:id',(req,res)=>{
+    const {body,params:{id}} = req;
+    const parsedId = parseInt(id);
+    if(isNaN(parsedId)){
+        return res.status(400);
+    }
+
+    const cartIndex = carts.findIndex((cart)=>cart.id === parsedId)
+
+    if(cartIndex === -1){
+        return res.status(404);
+    }
+
+    carts[cartIndex] = {id:parsedId,...body}
+
+    return res.status(200).send({
+        msg:"cart updated successfully.."
+    })
+})
+
+
+
+// PATCH request is used when we want to update the certain field about any object. 
+// In the patch request we don't need to send the whole data to server to update
+// any particular field.
+route.patch('/:id',(req,res)=>{
+    const {body,params:{id}} = req;
+    const parsedId = parseInt(id);
+    if(isNaN(parsedId)){
+        return res.status(400);
+    }
+
+    const cartIndex = carts.findIndex((cart)=>cart.id === parsedId)
+
+    if(cartIndex === -1){
+        return res.status(404);
+    }
+
+    carts[cartIndex] = {...carts[cartIndex],...body};
+
+    return res.status(200).send({
+        msg:"cart updated successfully.."
+    })
+})
+
+
+
+route.delete('/:id',(req,res)=>{
+    const {params:{id}} = req;
+    const parsedId = parseInt(id);
+    if(isNaN(parsedId)){
+        return res.status(400);
+    }
+
+    const cartIndex = carts.findIndex((cart)=>cart.id === parsedId)
+
+    if(cartIndex === -1){
+        return res.status(404);
+    }
+
+    carts.splice(cartIndex,1);
+
+    return res.status(200).send({
+        msg:"cart deleted successfully.."
+    })
+})
+
+
+```
+
+
 
 
 # View Engine : 

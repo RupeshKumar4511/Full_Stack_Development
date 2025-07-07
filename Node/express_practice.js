@@ -9,8 +9,14 @@ const port = 3000;
 
 
 // application level middleware in express 
-// By default application level Middleware is applied to every request.
+// By default this application level Middleware is applied to every request.
 // app.use(express.static(path.join(__dirname,"public"))); 
+
+
+// app.use(express.json()) 
+// order of defining the middleware matters. 
+// Here this middlware is registered for all the routes below it.
+
 
 // If index.html exists in public/, Express will automatically serve it at http://localhost:3000/.
 // If there's a conflicting app.get('/'), it overrides the static file.
@@ -51,7 +57,9 @@ app.get('/',(req,res)=>{
 // });
 
 
-
+// we can also registered as many middlewares as we want and they will
+// execute in a sequence.
+// app.use(middleware1,middleware2)
 
 // we can also pass parameters with the filename
 // these parameters can be used to retrieve data from database.
@@ -60,6 +68,10 @@ app.get('/index/:name',(req,res)=>{
 //   res.sendFile(path.join(__dirname,"index1.html"));
 //   res.json({"Rupesh":21});
 })
+
+
+// Here req.params is an object. 
+
 
 
 app.listen(port, () => {
