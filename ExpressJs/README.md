@@ -88,7 +88,7 @@ when a request comes in, Express automatically parses the query string and attac
 
 ```bash 
 
-// endpoint : http://localhost:3000/api/carts/filter=name&value=Butter
+// endpoint : http://localhost:3000/api/carts?filter=name&value=Butter
 
 route.get('/',(req,res)=>{
     const {filter,value}= req.query;
@@ -188,6 +188,80 @@ route.delete('/:id',(req,res)=>{
 
 ```
 
+# express-validator :
+express-validator is a external middleware for validating and sanitizing user input in an Express.js application. It helps prevent SQL injection, XSS attacks, and incorrect data formats. It is used in server-side validation. 
+<br>
+
+```bash 
+const { query, validationResult } = require('express-validator');
+
+
+// query function (a middleware) is used to validate the query parameters.
+// It mainly add validation result to the "request" object. 
+
+
+// validationResult fetches the validation result of query validator. 
+// It may contains error or may empty. 
+
+
+
+
+
+
+// How to validate the query parameters
+
+
+route.get('/',query('filter').isString().notEmpty().withMessage("Query must be not empty.").isLength({ min: 3, max: 10 }).withMessage("query must be atleast 3-10 characters."), (req, res) => {
+
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).send({
+            errors:errors.array()
+        })
+    }
+    const { filter, value } = req.query;
+
+    if (filter && value) {
+        const result = carts.filter((cart) => cart[filter].includes(value))
+        return res.send(result);
+    }
+
+    return res.send(carts);
+})
+
+
+
+
+
+
+
+// How to validate body 
+
+ 
+route.post('/',[
+    body('id').notEmpty().withMessage('id must not be empty.').isInt().withMessage("id must be a string.")
+    .isLength({min:5,max:32}).withMessage("id should be atleast 5-32 characters long."),
+
+    body('name').isString().withMessage("name must be string!").notEmpty().withMessage("Name must not be empty")
+    
+
+] ,(request, response) => {
+
+    const result = validationResult(request);
+    if(!result.isEmpty()){
+        return response.status(400).send({
+            errors: result.array()
+        })
+    }
+    const { id, name, price, type } = request.body;
+    carts.push({ id, name, price, type });
+    return response.status(201).send({ id, name, price, type })
+})
+
+
+```
+
+
 
 
 
@@ -225,8 +299,7 @@ Express Handlebars is a view engine for Express.js that extends Handlebars (hbs)
 
 ```
 
-# express-validator 
-express-validator is a external middleware for validating and sanitizing user input in an Express.js application. It helps prevent SQL injection, XSS attacks, and incorrect data formats.
+
 
 
 # bcrypt :
@@ -239,9 +312,9 @@ We can also send a cookie from the server to the client using res.cookie().
 
 
 # multer 
-Multer is a middleware for handling multipart/form-data, which is primarily used for file uploads in Node.js and Express applications. It helps in storing files either on the server’s disk or in memory before processing them.
+Multer is a middleware for handling multipart/form-data, which is primarily used for file uploads in Node.js and Express applications. It helps in storing files either on the server's disk or in memory before processing them.
 
 # method-override 
 It is a middleware for Express.js that allows you to override the HTTP method of a request, typically for requests sent through forms. It is particularly useful when you're working with forms that only support the GET or POST methods, but you need to use other HTTP methods like PUT or DELETE for RESTful APIs.
-
+<br>
 In situations where browsers only support GET and POST methods for HTML forms, method-override allows you to send other HTTP methods by passing an additional _method field (or other custom fields) in the request body or query string.
