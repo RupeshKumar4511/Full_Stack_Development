@@ -285,6 +285,7 @@ EJS, Pug, Handlebars
 Express Handlebars is a view engine for Express.js that extends Handlebars (hbs) with additional features like layouts, partials, and helpers, making it more powerful for dynamic web applications.
 
 <br>
+
 ```bash 
 // Project Structure using handlebars. 
 
@@ -299,7 +300,57 @@ Express Handlebars is a view engine for Express.js that extends Handlebars (hbs)
 
 ```
 
+# EJS project structure :
+ejs is also a template engine. 
+<br>
 
+```bash 
+
+my-app/
+├── node_modules/
+├── public/
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── views/
+│   ├── partials/
+│   │   ├── header.ejs
+│   │   ├── footer.ejs
+│   │   └── sidebar.ejs
+│   ├── pages/
+│   │   ├── home.ejs
+│   │   ├── about.ejs
+│   │   └── contact.ejs
+│   └── error.ejs
+
+
+
+```
+
+# Ejs syntax : 
+
+```bash 
+
+<%- include('partials/header') %>
+
+<h1>Welcome <%= user.name %></h1>
+
+<ul>
+  <% items.forEach(item => { %>
+    <li><%= item %></li>
+  <% }) %>
+</ul>
+
+<% if (user.isAdmin) { %>
+  <p>You have admin access.</p>
+<% } else { %>
+  <p>Standard user.</p>
+<% } %>
+
+<%- include('partials/footer') %>
+
+
+```
 
 
 # bcrypt :
@@ -318,3 +369,8 @@ Multer is a middleware for handling multipart/form-data, which is primarily used
 It is a middleware for Express.js that allows you to override the HTTP method of a request, typically for requests sent through forms. It is particularly useful when you're working with forms that only support the GET or POST methods, but you need to use other HTTP methods like PUT or DELETE for RESTful APIs.
 <br>
 In situations where browsers only support GET and POST methods for HTML forms, method-override allows you to send other HTTP methods by passing an additional _method field (or other custom fields) in the request body or query string.
+
+# Passport.js 
+Passport.js is a popular authentication middleware for Node.js.
+<br>
+It helps us handle user login, signup, social login (Google, Facebook, etc.), and more.

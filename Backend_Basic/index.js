@@ -1,28 +1,28 @@
 const express = require('express');
 const path = require('path');
 const userModel = require('./models/users');
-const dbConnection = require('./config/db');
+// const dbConnection = require('./config/db.js');
 const app = express();
 const port = 3000;
 
 app.set('view engine','ejs');
 // this set the "ejs" as default template engine
-
+app.set('views',path.resolve('./views'))
 
 // built in middleware
 // app.use(express.static(path.join(__dirname,'public')));
 
 app.use(express.json());
 // Uses :
-// ✔ Parses JSON data from the request body.
-// ✔ Required when sending data as application/json.
-// ✔ Stores parsed data in req.body.
+// Parses JSON data from the request body.
+// Required when sending data as application/json.
+// Stores parsed data in req.body.
 
 app.use(express.urlencoded({extended:true}))
 // Uses 
-// ✔ Parses URL-encoded form data (like HTML form submissions).
-// ✔ Required when sending data as application/x-www-form-urlencoded.
-// ✔ extended: true allows nested objects in the request body.
+// Parses URL-encoded form data (like HTML form submissions).
+// Required when sending data as application/x-www-form-urlencoded.
+// extended: true allows nested objects in the request body.
 
 
 app.get('/',(req,res)=>{
@@ -32,12 +32,15 @@ app.get('/',(req,res)=>{
 
 app.get('/home',(req,res)=>{
     // console.log(userModel);
-    res.render('home');
+    const user = ["John","David"]
+    res.render('home',{
+        name:"Users",
+        user:user
+    });
 })
 
 
 app.get('/register',(req,res)=>{
-    
     res.sendFile(path.join(__dirname,'form.html'))
 })
 

@@ -1381,7 +1381,7 @@ const {
   watch,           // Funtion to Watches field values
   setValue,        // Funtion to Manually sets a field's value
   getValues,       // Funtion to Retrieves current form values
-  reset,           // Funtion to Resets form fields
+  reset,           // Funtion to Resets all form fields
   trigger,         // Funtion to Manually triggers validation
   control,         // Property Used with Controller for UI libraries
   formState: {
