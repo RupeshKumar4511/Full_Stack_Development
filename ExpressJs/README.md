@@ -370,7 +370,113 @@ It is a middleware for Express.js that allows you to override the HTTP method of
 <br>
 In situations where browsers only support GET and POST methods for HTML forms, method-override allows you to send other HTTP methods by passing an additional _method field (or other custom fields) in the request body or query string.
 
+# JWT 
+jsonwebtoken (jwt) is a Node.js library used to create and verify JSON Web Tokens (JWTs) for authentication and secure data exchange.But it is not inbuilt, we need to install it explicitly.
+
 # Passport.js 
 Passport.js is a popular authentication middleware for Node.js.
 <br>
 It helps us handle user login, signup, social login (Google, Facebook, etc.), and more.
+
+# Mongoose module :
+Mongoose is an Object Data Modeling (ODM) library for MongoDB, used with Node.js. It helps in:
+<br>
+Defining schemas and models for structured data.
+<br>
+Performing CRUD operations easily.
+<br>
+Managing data validation, relationships, and middleware.
+
+
+# How to work with mongoose module:
+Learn more : https://mongoosejs.com/docs/index.html
+<br>
+
+
+```bash 
+
+// 1. create a schema for any particular object. 
+
+// 2. create the model for that schema and export it. 
+
+// 3. Import that model inside routes and use it to 
+// create,read,update and delete.
+
+
+// Note : Always wrap the CRUD operation in try-catch block.
+
+
+
+
+
+
+// Create : 
+
+
+
+//Ist way
+const {username,password} = req.body;
+const newUser = new userModel({username,password});
+newUser.password = await bcrypt.hash(password,10)
+await newUser.save()
+
+//IInd way: 
+const hashedPassword = await bcrypt.hash(password,10)
+userModel.create({username,password:hashedPassword})
+
+
+
+
+
+// Read : 
+
+// find all user
+const users = userModel.find({})  
+//returns an array of all matching documents.
+
+// find user by id 
+const user = userModel.findById(id)  
+// It returns object containing single document.
+
+// find user using any conditions
+const user = userModel.findOne({username}) 
+//returns the first document that matches the condition.
+
+
+
+
+
+// Update: 
+
+
+// find the document by id and update it. 
+const user = await userModel.findByIdAndUpdate(id,{username:"newusername"},{new:true})
+// Returns the updated document. 
+
+// IInd way 
+const user = await userModel.updateOne({id:id},{$set:{username:"newname"}})
+
+
+// update many documents 
+await userModel.updateMany({role:'user'},{$set:{role:"member"}})
+
+
+
+
+// Delete : 
+
+// delete a document by using id 
+await userModel.findByIdAndDelete(id)
+
+// IInd way 
+await userModel.deleteOne({id:id})
+
+// delete multiple document : 
+await userModel.deleteMany({isInactive:true})
+
+
+```
+
+
+
+

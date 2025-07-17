@@ -1,7 +1,7 @@
 mockUsers = [
     {   id:1,
         username:"John",
-        password:"john@123"
+        password:"John@123"
     },
     {   
         id:2,

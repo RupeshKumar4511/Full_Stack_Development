@@ -282,21 +282,8 @@ Search Step-5
 ```
 
 
-
-# Mongoose module :
-Mongoose is an Object Data Modeling (ODM) library for MongoDB, used with Node.js. It helps in:
-<br>
-Defining schemas and models for structured data.
-<br>
-Performing CRUD operations easily.
-<br>
-Managing data validation, relationships, and middleware.
-
 # nodemon 
-Nodemon is a command-line tool that automatically restarts a Node.js application when it detects changes to the application's js files.
-
-# JWT 
-jsonwebtoken (jwt) is a Node.js library used to create and verify JSON Web Tokens (JWTs) for authentication and secure data exchange.But it is not inbuilt, we need to install it explicitly. 
+Nodemon is a command-line tool that automatically restarts a Node.js application when it detects changes to the application's js files. 
 
 
 # multer-gridfs-storage:

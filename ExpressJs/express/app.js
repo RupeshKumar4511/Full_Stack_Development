@@ -6,8 +6,9 @@ require('./strategies/local-strategy.js')
 const app= express();
 const port = 3000;
 
-const userRoutes = require('./userRoutes.js')
-const cartRoutes = require('./cartRoutes.js')
+const userRoutes = require('./routes/userRoutes.js')
+const cartRoutes = require('./routes/cartRoutes.js')
+const connection = require('./config/db.js');
 
 
 app.use(express.json());
@@ -24,7 +25,7 @@ app.use(session({
         maxAge:60000*60 // this means 1 hour
     }
 }))
-
+ 
 // Intializes Passport for incoming requests, allowing authentication strategies to be applied.
 app.use(passport.initialize())
 

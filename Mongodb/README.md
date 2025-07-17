@@ -203,6 +203,7 @@ Related data is stored in separate documents and linked by reference.
 <br>
 Best for write-heavy or complex relationships.
 <br>
+
 ```bash 
 How to Normalize in Practice:
 Identify entities (like Users, Orders, Products).
@@ -218,6 +219,7 @@ When querying, use $lookup (MongoDB's equivalent of a JOIN) to combine data if n
 # MongoDB development Architecture :
 MongoDB's development architecture refers to how its components work together to support application development, data storage, scalability, and performance. 
 <br>
+
 ```bash 
 1. Client Layer (Application)
 The application connects to MongoDB using drivers (e.g., Node.js, Python, Java).
@@ -308,7 +310,9 @@ Aggregation Framework enables complex data processing (like SQL's GROUP BY, JOIN
 
 
 ```
+
 # Analogy between RDMS and MongoDB data model : 
+
 ```bash
 RDBMS Term	 MongoDB Term	      Analogy / Description
 Database	   Database	          A logical container for collections (or tables)

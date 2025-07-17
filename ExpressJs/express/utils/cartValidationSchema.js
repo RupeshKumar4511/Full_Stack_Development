@@ -18,6 +18,10 @@ const cartValidationSchema = {
             },
             errorMessage: "name must be atleast 5-32 characters long."
         },
+    //     matches: {
+    //     options: /^[A-Za-z\s]+$/,
+    //     errorMessage: "Name can only contain letters and spaces."
+    // }
         
     }
 }

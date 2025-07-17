@@ -1,9 +1,9 @@
 const express = require('express');
 const { query,body,matchedData,checkSchema, validationResult } = require('express-validator');
-const cartValidationSchema = require('./utils/cartValidationSchema.js')
-const cartQueryValidationSchema = require('./utils/cartQueryValidationSchema.js')
+const cartValidationSchema = require('../utils/cartValidationSchema.js')
+const cartQueryValidationSchema = require('../utils/cartQueryValidationSchema.js')
 const route = express.Router();
-const carts = require('./Carts')
+const carts = require('../Carts.js')
 route.get('/api/carts', (req, res) => {
      if(!req.session.user){
         return res.status(401).send({

@@ -1,5 +1,5 @@
 const express = require('express');
-const mockUsers = require('./mockUsers')
+const mockUsers = require('../mockUsers')
 const route = express.Router();
 
 
