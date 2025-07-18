@@ -1,14 +1,16 @@
 const express = require('express');
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
-require('./strategies/local-strategy.js')
+// require('./strategies/local-strategy.js')
 const app= express();
 const port = 3000;
 
 const userRoutes = require('./routes/userRoutes.js')
 const cartRoutes = require('./routes/cartRoutes.js')
 const connection = require('./config/db.js');
+const { default: mongoose } = require('mongoose');
 
 
 app.use(express.json());
@@ -23,7 +25,11 @@ app.use(session({
     resave:false, // The session will only be saved if it is actually modified, which reduces unnecessary writes and improves performance.
     cookie:{
         maxAge:60000*60 // this means 1 hour
-    }
+    },
+    store:MongoStore.create({
+        client:mongoose.connection.getClient()
+    })
+
 }))
  
 // Intializes Passport for incoming requests, allowing authentication strategies to be applied.
@@ -34,26 +40,28 @@ app.use(passport.initialize())
 // request object
 app.use(passport.session())
 
-// for github, we use "passport.authenticate("github")"
+// Example : For github, we use "passport.authenticate("github")"
 app.post('/api/auth',passport.authenticate('local'),(req,res)=>{
-    console.log('Inside /api/auth')
+    console.log('Inside /api/auth');
+    req.session.user = req.user
     res.sendStatus(200)
 })
 
 app.get('/api/auth/status',(req,res)=>{
     console.log('inside /api/auth/status');
-    console.log(req.session)
-    if(!req.user) return res.sendStatus(401);
-    return res.send(req.user);
+    console.log(req.session.user)
+    if(!req.session.user) return res.status(401).send({message:"Unauthorized"})
+    return res.send(req.session.user);
 })
 
 app.post('/api/auth/logout',(req,res)=>{
-    if(!req.user) return res.sendStatus(401);
+    if(!req.session.user) return res.sendStatus(401);
     //Terminate an existing login session.
     req.logOut((err)=>{
-        if(err) res.sendStatus(400);
-        res.sendStatus(200);
+        if(err) return res.sendStatus(400);
+        
     })
+    return res.sendStatus(200);
 })
                                            
 

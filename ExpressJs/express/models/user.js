@@ -14,9 +14,7 @@ const userSchema = mongose.Schema({
         type:String,
         required:true,
         trim:true,
-        lowercase:true,
-        minLength:[8,"password must atleast 8-20 characters long"],
-        maxLength:[20,"password must atleast 8-20 characters long"]
+        minLength:[8,"password must atleast 8-20 characters long"]
     }
 })
 

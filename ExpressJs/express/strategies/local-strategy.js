@@ -1,12 +1,13 @@
 const passport = require('passport');
-const {Strategy} =require("passport-local");
-const mockUsers = require('../mockUsers')
+const { Strategy } = require("passport-local");
+const userModal = require('../models/user')
+const bcrypt = require('bcrypt')
 
 // Registers a function used to serialize user objects into the session.
 // this is called only once for user login 
-passport.serializeUser((user,done)=>{
+passport.serializeUser((user, done) => {
     console.log('Inside serializeuser')
-    done(null,user.id);
+    done(null, user.id);
 })
 // user.id will be used to find the user so it should be unique and it is saved to session
 // we can acess it: 
@@ -14,35 +15,43 @@ passport.serializeUser((user,done)=>{
 
 // And this "user.id" will be  passed to deserializeUser's callback function. 
 // this will be called always after user login
-passport.deserializeUser((id,done)=>{
-     console.log('Inside deserializeuser')
+passport.deserializeUser((id, done) => {
+    console.log('Inside deserializeuser')
     // find the user
-    try{
-        const findUser = mockUsers.find(user =>user.id ===id);
-        if(!findUser) throw new Error("User not found");
-        done(null,findUser)
+    try {
+        console.log(id)
+        const findUser = userModal.findById(id)
+        if (!findUser) throw new Error("User not found");
+        done(null, findUser)
 
-    }catch(error){
-        done(error,null)
+    } catch (error) {
+        done(error, null)
     }
 })
 
 
 // Register a strategy for later use when authenticating requests.
 module.exports = passport.use(
-    new Strategy((username,password,done)=>{
+    new Strategy(async (username, password, done) => {
         console.log(username)
         console.log(password)
-        try{
-            const findUser = mockUsers.find((user)=>user.username === username)
-            if(!findUser) throw new Error("User not found")
-            if(findUser.password !== password) throw new Error("Invalid Credentials")
+        try {
+            const findUser = await userModal.findOne({ username })
+            console.log(findUser)
+            if (!findUser) throw new Error("User not found")
             
-            // user is found and password is matched. 
-            done(null,findUser)
 
-        }catch(error){
-            done(error,null)  // here null is for invalid user
+            const isMatch = await bcrypt.compare(password, findUser.password)
+
+            if (!isMatch) {
+                return res.status(403).send({ msg: "Bad Credentials" })
+            }
+
+            // user is found and password is matched. 
+            done(null, findUser)
+
+        } catch (error) {
+            done(error, null)  // here null is for invalid user
         }
     })
 )

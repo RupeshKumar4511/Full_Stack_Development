@@ -469,7 +469,7 @@ await userModel.updateMany({role:'user'},{$set:{role:"member"}})
 await userModel.findByIdAndDelete(id)
 
 // IInd way 
-await userModel.deleteOne({id:id})
+await userModel.deleteOne({id:id}) 
 
 // delete multiple document : 
 await userModel.deleteMany({isInactive:true})
