@@ -1,9 +1,9 @@
-const express = require('express');
-const { query,body,matchedData,checkSchema, validationResult } = require('express-validator');
-const cartValidationSchema = require('../utils/cartValidationSchema.js')
-const cartQueryValidationSchema = require('../utils/cartQueryValidationSchema.js')
-const route = express.Router();
-const carts = require('../Carts.js')
+import { Router } from 'express';
+import { query, body, matchedData, checkSchema, validationResult } from 'express-validator';
+import cartValidationSchema from '../utils/cartValidationSchema.mjs';
+import cartQueryValidationSchema from '../utils/cartQueryValidationSchema.mjs';
+const route = Router();
+import carts from '../Carts.mjs'
 route.get('/api/carts', (req, res) => {
      if(!req.session.user){
         return res.status(401).send({
@@ -197,4 +197,4 @@ route.delete('api/carts/:id', findCartIndexById, (req, res) => {
 
 
 
-module.exports = route;
+export default route;

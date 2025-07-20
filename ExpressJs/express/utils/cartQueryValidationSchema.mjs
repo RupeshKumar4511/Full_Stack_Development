@@ -20,4 +20,5 @@ const cartQueryValidationSchema = {
 
 }
 
-module.exports = cartQueryValidationSchema
+export default cartQueryValidationSchema;
+

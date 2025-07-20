@@ -378,6 +378,9 @@ Passport.js is a popular authentication middleware for Node.js.
 <br>
 It helps us handle user login, signup, social login (Google, Facebook, etc.), and more.
 
+# arctic : 
+Arctic is a collection of OAuth 2.0 clients for popular providers. Only the authorization code flow is supported. Built on top of the Fetch API, it's light weight, fully-typed, and runtime-agnostic.
+
 # Mongoose module :
 Mongoose is an Object Data Modeling (ODM) library for MongoDB, used with Node.js. It helps in:
 <br>

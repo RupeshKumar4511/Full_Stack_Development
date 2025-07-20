@@ -1,4 +1,4 @@
-mockUsers = [
+const mockUsers = [
     {   id:1,
         username:"John",
         password:"John@123"
@@ -10,4 +10,4 @@ mockUsers = [
     }
 ]
 
-module.exports = mockUsers;
+export default mockUsers

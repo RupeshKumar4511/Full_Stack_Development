@@ -1,6 +1,6 @@
-const mongose = require('mongoose')
+import mongoose from 'mongoose'
 
-const userSchema = mongose.Schema({
+const userSchema = mongoose.Schema({
     username:{
         type:String,
         required:true,
@@ -10,6 +10,14 @@ const userSchema = mongose.Schema({
         minLength:[3,"username must atleast 3-10 characters long"],
         maxLength:[10,"username must atleast 3-10 characters long"]
     },
+    email:{
+        type:String,
+        required:true,
+        trim:true,
+        unique:true,
+        lowercase:true,
+        maxLength:[70,"Length of the email must not exceeds 70 characters"]
+    },
     password:{
         type:String,
         required:true,
@@ -18,5 +26,5 @@ const userSchema = mongose.Schema({
     }
 })
 
-const userModel = mongose.model('users',userSchema);
-module.exports =  userModel;
+const userModel = mongoose.model('users',userSchema);
+export default userModel;

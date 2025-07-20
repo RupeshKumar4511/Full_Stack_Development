@@ -1,22 +1,33 @@
-const express = require('express');
-const cookieParser = require('cookie-parser')
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const passport = require('passport');
-// require('./strategies/local-strategy.js')
-const app= express();
+import express from 'express';
+import cookieParser from 'cookie-parser'
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import auth from './routes/github.auth.js'
+import passport from 'passport';
+import './strategies/local-strategy.mjs'
+import  './config/db.mjs';
+const app = express();
 const port = 3000;
 
-const userRoutes = require('./routes/userRoutes.js')
-const cartRoutes = require('./routes/cartRoutes.js')
-const connection = require('./config/db.js');
-const { default: mongoose } = require('mongoose');
+import userRoutes from './routes/userRoutes.js'
+import cartRoutes from './routes/cartRoutes.js'
+import path from 'path'
+import mongoose from 'mongoose';
+
 
 
 app.use(express.json());
+app.set('view engine','ejs');
+app.set('views',path.resolve('./views'))
+
 
 // app.use(cookieParser());
 app.use(cookieParser('helloworld')) // "helloworld" is secret which is used to parse the signed cookie. 
+
+app.get('/',(req,res)=>{
+    res.render('index');
+})
+
 
 
 app.use(session({
@@ -84,6 +95,7 @@ app.get('/',(req,res,next)=>{
 
 app.use(userRoutes)
 app.use(cartRoutes)
+app.use(auth);
 
 app.listen(port,()=>{
     console.log("server is listening at port",port)

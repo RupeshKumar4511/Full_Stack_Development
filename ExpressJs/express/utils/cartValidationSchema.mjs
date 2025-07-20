@@ -1,4 +1,4 @@
-const cartValidationSchema = {
+export const cartValidationSchema = {
     id:{
         notEmpty:{
             errorMessage:"ID must not be empty."
@@ -26,4 +26,5 @@ const cartValidationSchema = {
     }
 }
 
-module.exports = cartValidationSchema;
+export default cartValidationSchema
+
