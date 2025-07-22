@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     //     enum:['male','female']
     // }
 })
+
 // It returns schema object 
 // {
 //     "obj": {
@@ -47,6 +48,10 @@ const userSchema = new mongoose.Schema({
 //       }
 //     }
 //   }
+
+// Here, the paths property of a schema contains metadata about each 
+// field (or "path") in the schema, including their types, validation rules, 
+// and other internal configurations.
 
 
 

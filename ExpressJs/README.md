@@ -478,6 +478,46 @@ await userModel.deleteOne({id:id})
 await userModel.deleteMany({isInactive:true})
 
 
+
+
+await userModel.findOneAndUpdate({
+        username:'Rohan'
+    },
+    {
+        email:'rohan.kumar.123@gmail.com'
+    })
+
+// This method finds one document that matches the query and updates it
+// and it also returns old documents.
+// If we want replaced one then we need to pass "{new:true}" as arguments.
+
+// If document is not found then it returns null
+
+
+await userModel.findOneAndReplace({
+        username:'Akash'
+    },{
+        username:'AkashKumar',
+        email:'akash.kumar.123@gmail.com',
+        password:'Akash@123'
+    })
+
+// This method finds one document that matches the query and replaces it with a new document and it also returns old documents.
+// If we want replaced one then we need to pass "{new:true}" as arguments.
+
+// If document is not found then it returns null
+
+
+
+
+await userModel.findOneAndDelete({
+        username:'Rohan'
+    })
+
+// This method finds one document that matches the query and deletes it
+// and it also returns the deleted user.
+// If document is not found then it returns null
+
 ```
 
 

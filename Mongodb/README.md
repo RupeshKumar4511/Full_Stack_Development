@@ -50,6 +50,7 @@ Database -> Collections -> Documents
 Cluster : A cluster in MongoDB is a group of connected servers (nodes) that work together to store and manage data. It helps distribute data, improve performance, and ensure high availability.
 
 # Why NoSQL 
+
 ```bash 
 
 NoSQL databases are used when traditional relational databases (SQL) are not the best fit for a project due to scalability, flexibility, or performance concerns. Here's why you might choose a NoSQL database like MongoDB (which you're using in MongoDB Atlas Cloud) over a relational database:
@@ -385,6 +386,7 @@ GridFS (Grid File System) is MongoDB's built-in file storage system used to stor
 # CRUD operation Query 
 
 ```bash
+
 // create database 
 use db_name;
 
@@ -458,6 +460,7 @@ db.products.find().skip(2)
 
 ```
 # operators
+
 ```bash 
 
 // Comparisonal operators 
@@ -473,49 +476,205 @@ $nin	Not in array
 
 
 // Evaluation Operator
-Operator	Purpose
-$set	Sets the value of a field
-$unset	Removes a field
-$inc	Increments a numeric field
-$rename	Renames a field
-$push	Adds an item to an array
-$pull	Removes an item from an array
-$addToSet — Ensures no duplicates are added to the array.
-$text  To perform text search { $text: { $search: "mongo" } }
-$search To search any thing
-$currentDate to set current date                {$currentDate:{lastUpdated:true}}
-$where	JavaScript expression (use with caution)	{ $where: "this.age > 25" }
+Operator	    Purpose                                        
+$set	        Sets the value of a field
+
+$unset	 :      Removes a field  
+
+User.updateOne(
+  { username: "john" },
+  { $unset: { "profile.bio": "" } }
+);  // This will remove the bio field from profile.
+
+
+
+$inc	    :    Increments a numeric field
+
+$rename	   :   Renames a field
+
+User.updateOne(
+  { fullname: "Alice Smith" },
+  { $rename: { "fullname": "name" } }
+);
+// The fullname field is removed.
+// A new field called name is created with the same value.
+
+
+
+$push	    :   Adds an item to an array
+
+User.updateOne(
+  { username: "john" },
+  { $push: { bio: "a cricket player" } }
+); // Adds "a cricket player" to the bio array, even if it’s already there.
+
+
+$pull	      :  Removes an item from an array
+
+User.updateOne(
+  { username: "john" },
+  { $pull: { bio: "a cricket player" } }
+); // Remove "a cricket player" to the bio array.
+
+
+
+$addToSet   :  Ensures no duplicates are added to the array.
+
+User.updateOne(
+  { username: "john" },
+  { $addToSet: { tags: "uniqueTag" } }
+); //  Adds "uniqueTag" only if it doesn't already exist in the tags array (prevents duplicates)
+
+
+$text         To perform text search                              { $text: { $search: "mongodb" } }
+$search       To search any thing
+$currentDate  to set current date                                 {$currentDate:{lastUpdated:true}}
+$where	      JavaScript expression (use with caution)	          { $where: "this.age > 25" }
 
 
 // Element Operators 
-$exists	Checks if field exists or not	{ phone: { $exists: true } }
-$type	Checks BSON data type of a field	{ age: { $type: "number" } }
+$exists	 : Checks if field exists or not	      { phone: { $exists: true } }
+
+$type	   : Checks BSON data type of a field	    { age: { $type: "number" } }
 
 
 // Logical Operators :
-$and	AND logic    	{ $and: [{ age: { $gt: 18 } }, { age: { $lt: 30 } }] }
-$or	  OR logic	    { $or: [{ name: "Alice" }, { name: "Bob" }] }
-$not	Inverts the condition	          { age: { $not: { $gte: 18 } } }
-$nor	NOT OR (none of the conditions)	{ $nor: [{ age: 18 }, { name: "John" }] }
+$and	AND logic    	                    { $and: [{ age: { $gt: 18 } }, { age: { $lt: 30 } }] }
+$or	  OR logic	                        { $or: [{ name: "Alice" }, { name: "Bob" }] }
+$not	Inverts the condition	            { age: { $not: { $gte: 18 } } }
+$nor	NOT OR (none of the conditions)	  { $nor: [{ age: 18 }, { name: "John" }] }
 
 
 // array operators : 
 
-$all	      Matches all elements in the array	     { tags: { $all: ["node", "express"] } }
+$all	    :  Matches all elements in the array	     
 
-$elemMatch	Matches documents in array that meet criteria
-	                                         { scores: { $elemMatch: { $gt: 80, $lt: 90 } } }
+Example : { tags: { $all: ["node", "express"] } }
 
-$size	Matches array of a specific length	{ tags: { $size: 3 } }
+
+
+$elemMatch	: Matches documents in array that meet criteria.
+	                                         
+Example : 
+
+User.find(
+  { username: "alice" },
+  { scores: { $elemMatch: { subject: "english" } } }
+);
+
+
+
+$size	 : Matches array of a specific length	
+
+Example : { tags: { $size: 3 } }
 
 
 // projection operators
-Operator	Description
-1 / 0	  Include (1) or exclude (0) fields
-$slice	Return a subset of array elements
-$elemMatch	Project matching array element(s)
-$meta	     Include metadata like textScore
+Operator	  Description
+1 / 0	      :  Include (1) or exclude (0) fields
+
+$slice	    :  Return a subset of array elements
+
+Example :   User.find({ username: "john" }, { tags: { $slice: 2 } });
+// It returns only two tags
+
+
+$match	: $match is a stage in MongoDB's aggregation pipeline used to filter documents — similar to a find() query, but inside an aggregation.
+
+Example :   
+
+db.users.aggregate([
+  { $match: { age: { $gte: 25 } } }
+])
+
+
+
+$meta	      :  Include metadata like textScore
+
+Example : 
+
+Let's say our schema has a text index:
+
+userSchema.index({ username: "text", bio: "text" });
+
+User.find(
+  { $text: { $search: "developer" } },
+  {
+    score: { $meta: "textScore" }
+  }
+).sort({ score: { $meta: "textScore" } });
+
+// Adds a score field showing how relevant each document is to the search.
+// Sorts by relevance.
+
+
+Note : MongoDB sorts from most relevant to least relevant, i.e., descending order of textScore by default, even though we are not specifying ".sort({ score: -1 })". 
+
+
 ```
-# indexing 
-# aggregation pipelines 
+
+# indexing : 
+There are mainly four type of indexing : 
+<br>
+1. Single Field Index
+<br>
+2.Compound Index 
+<br>
+3. MultiKey Index
+<br>
+4. Text Index
+<br>
+<br>
+when we create index then Index Scan happens otherwise COLLSCAN happens.
+<br>
+Bydefault mongodb creates an index on "_id" field. 
+<br>
+partialFilterExpression is used when creating indexes to only include documents that match a specific condition. 
+
+
+# aggregation pipelines :
+$unwind :This is an aggregation stage that deconstructs an array field from the input documents and outputs a separate document for each element in the array.
+<br>
+Example : 
+<br>
+
+```bash 
+// user collection 
+
+// a document 
+{
+  name: "Alice",
+  hobbies: ["reading", "cycling", "swimming"]
+}
+
+
+// Query 
+db.users.aggregate([
+  { $unwind: "$hobbies" }
+])
+
+
+// Output 
+{ name: "Alice", hobbies: "reading" }
+{ name: "Alice", hobbies: "cycling" }
+{ name: "Alice", hobbies: "swimming" }
+
+
+```
+
+
+
+# How to optimize mongodb query : 
+
+1. Use projection : Don't include the unnecessary field in the query. 
+<br>
+2. Use indexing to fast search. 
+<br>
+3. Use aggregation pipelines 
+<br>
+4. Don't use unnecessary operations in the queries and Don't arrange the documents in the ascending or descending order until required.
+
+
+
+
 # mongodb tools

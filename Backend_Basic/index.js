@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const userModel = require('./models/users');
-// const dbConnection = require('./config/db.js');
+const dbConnection = require('./config/db.js');
 const app = express();
 const port = 3000;
 
@@ -46,7 +46,7 @@ app.get('/register',(req,res)=>{
 
 app.post('/register',async (req,res)=>{
     const {username,email,password} = req.body;
-    const data = await userModel.create({
+    const newUser = await userModel.create({
         username:username,
         email:email,
         password:password
@@ -54,7 +54,7 @@ app.post('/register',async (req,res)=>{
 
     // userModel.create({...}) is a Mongoose method that creates and inserts a new document into the MongoDB collection.
     // It returns a Promise, which resolves to the created document.
-    res.send(data);
+    res.send(newUser);
 })
 // whenever we create document then mongoose will create two more attributes in each document. Those attributes are : 
 // 1. id : which is unique
@@ -65,7 +65,7 @@ app.post('/register',async (req,res)=>{
 
 app.get('/get-user-data',(req,res)=>{
     userModel.find({
-        username:'asdf'
+        username:'Rohan'
     }).then((users)=>{
         res.send(users);
     }).catch((error)=>{
@@ -75,14 +75,14 @@ app.get('/get-user-data',(req,res)=>{
 // Note : when the no document matches the condition then it returns an empty array. 
 
 
-// userModel.findOne() : this will return only on document at a time . But when the no document matches the condition then it returns "null".
+// userModel.findOne() : this will return only on document at a time. But when the no document matches the condition then it returns "null".
 
 
-app.get('/update-user',async(req,res)=>{
+app.patch('/update-user',async(req,res)=>{
     await userModel.findOneAndUpdate({
-        username:'a'
+        username:'Rohan'
     },{
-        email:'david@gmail.com'
+        email:'rohan.kumar.123@gmail.com'
     })
     
     res.send("user updated")
@@ -90,28 +90,36 @@ app.get('/update-user',async(req,res)=>{
 
 // This method finds one document that matches the query and updates it
 
-app.get('/delete-user',async(req,res)=>{
-    await userModel.findOneAndDelete({
-        username:'a'
+app.delete('/delete-user',async(req,res)=>{
+    const deleteduser = await userModel.findOneAndDelete({
+        username:'Rohan'
     })
-    
-    res.send("user : a deleted")
+    console.log(deleteduser)
+    res.send("User is deleted")
 })
 // This method finds one document that matches the query and deletes it
 
 
 
 
-app.get('/replace-user',async(req,res)=>{
-    await userModel.findOneAndReplace({
-        username:'a'
+app.put('/replace-user',async(req,res)=>{
+    try {
+        const replacedUser = await userModel.findOneAndReplace({
+        username:'Akash'
     },{
-        username:'b',
-        email:'b@gmail.com',
-        password:'base'
-    })
-    
+        username:'AkashKumar',
+        email:'akash.kumar.123@gmail.com',
+        password:'Akash@123'
+    },{new:true})
+    console.log(replacedUser)
+
     res.send("user Replaced")
+    
+    } catch (error) {
+        console.log(error)
+    }
+    
+    
 })
 // This method finds one document that matches the query and replaces it with a new document.
 
