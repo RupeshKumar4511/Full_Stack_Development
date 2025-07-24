@@ -2,8 +2,11 @@ const express = require('express');
 const path = require('path');
 const userModel = require('./models/users');
 const dbConnection = require('./config/db.js');
+const mysqlConnection = require('./config/mysql-db.js')
+const studentRoutes = require('./routes/student.routes.js')
+require('dotenv').config();
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 app.set('view engine','ejs');
 // this set the "ejs" as default template engine
@@ -125,8 +128,29 @@ app.put('/replace-user',async(req,res)=>{
 
 
 
-app.listen(port,()=>{
+
+
+// student routes (using mysql db)
+app.use(studentRoutes);
+
+
+
+// mysql connection
+mysqlConnection.query('SELECT 1').then(()=>{
+    
+    console.log("Mysql connected");
+
+    app.listen(port,()=>{
     console.log('Server is running ',port);
-})
+    })
+}
+).catch((error)=>console.log(error))
 
 
+
+// mongodb connection
+// dbConnection.then(()=>{
+//     app.listen(port,()=>{
+//     console.log('Server is running ',port);
+// })
+// })
