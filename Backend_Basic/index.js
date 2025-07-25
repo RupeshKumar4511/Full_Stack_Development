@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const userModel = require('./models/users');
-const dbConnection = require('./config/db.js');
+// const dbConnection = require('./config/db.js');
 const mysqlConnection = require('./config/mysql-db.js')
 const studentRoutes = require('./routes/student.routes.js')
 require('dotenv').config();
@@ -141,10 +141,18 @@ mysqlConnection.query('SELECT 1').then(()=>{
     console.log("Mysql connected");
 
     app.listen(port,()=>{
-    console.log('Server is running ',port);
+    console.log('Server is running on ',port);
     })
 }
 ).catch((error)=>console.log(error))
+
+// Here 
+// SELECT 1 is a simple, lightweight SQL query that returns the value 1. 
+// It mainly ping/test the connection. 
+
+
+
+
 
 
 
