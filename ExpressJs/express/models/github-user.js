@@ -1,39 +1,18 @@
-import mongoose from 'mongoose'
+import { int, mysqlEnum, mysqlTable,timestamp,varchar } from 'drizzle-orm/mysql-core';
 
-const githubUserSchema = mongoose.Schema({   
-    githubId:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    username:{
-        type:String,
-        required:true,
-        trim:true,
-        unique:true,
-        lowercase:true,
-        minLength:[3,"username must atleast 3-10 characters long"],
-        maxLength:[10,"username must atleast 3-10 characters long"]
-    },
-    email:{
-        type:String,
-        required:true,
-        trim:true,
-        unique:true,
-        lowercase:true,
-        maxLength:[70,"Length of the email must not exceeds 70 characters"]
-    },
-    providerAccountId:{
-        type:String,
-        required:true,
-        trim:true,
-    },
-    provider:{
-        type:String,
-        required:true,
-        trim:true
-    }
+export const oauthAccountTable = mysqlTable("oauthAccount",{   
+    id:int().autoincrement().primaryKey(),
+    userId:int("user_id").notNull().references(()=>users.id,{onDelete:"cascade"}),
+    providerAccountId:varchar("provider_account_id",{length:255}).notNull().unique(),
+    provider:mysqlEnum('provider',['github']).notNull(),
+    createdAt:timestamp("created_at").defaultNow().notNull()
 })
 
-const githubUserModel = mongoose.model('users',githubUserSchema);
-export default githubUserModel;
+
+export const users = mysqlTable('users',{
+    id:int().autoincrement().primaryKey(),
+    username:varchar({length:255}).notNull(),
+    email:varchar({length:255}).notNull().unique(),
+    password:varchar({length:255}),
+})
+

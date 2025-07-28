@@ -521,5 +521,8 @@ await userModel.findOneAndDelete({
 ```
 
 
+# How to work with Drizzle ORM module (for sql db): 
+Learn from : https://orm.drizzle.team/docs/sql-schema-declaration
+
 
 
