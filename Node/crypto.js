@@ -5,26 +5,28 @@ import crypto from 'node:crypto'
 
 
 
-// const hash = crypto.createHash('sha256');
+const hash = crypto.createHash('sha256');
+console.log(hash)
 // Creates a hash object using a specified algorithm (e.g., 'sha256')
 
-// hash.update("John Smith");
 
-// console.log(hash.digest('hex'))
-
-
-
+hash.update("John Smith");
+console.log(hash)
+console.log(hash.digest('hex'))
 
 
-// crypto.generateKeyPair('rsa', {
-//   modulusLength: 2048,
-//   publicKeyEncoding: { type: 'pkcs1', format: 'pem' },
-//   privateKeyEncoding: { type: 'pkcs1', format: 'pem' },
-// }, (err, publicKey, privateKey) => {
-//   if (err) throw err;
-//   console.log('Public Key:', publicKey);
-//   console.log('Private Key:', privateKey);
-// });
+
+
+
+crypto.generateKeyPair('rsa', {
+  modulusLength: 2048,
+  publicKeyEncoding: { type: 'pkcs1', format: 'pem' },
+  privateKeyEncoding: { type: 'pkcs1', format: 'pem' },
+}, (err, publicKey, privateKey) => {
+  if (err) throw err;
+  console.log('Public Key:', publicKey);
+  console.log('Private Key:', privateKey);
+});
 
 // Generates public/private key pairs (e.g., RSA or EC).
 

@@ -42,7 +42,7 @@ PATCH: Bug fixes, backward-compatible
 
 ```
 
-# Asynchronous non blocking I/O model:
+# Asynchronous and non blocking I/O model:
 In Node.js, the asynchronous non-blocking I/O model uses a single-threaded event loop to manage multiple concurrent tasks. Instead of waiting for I/O operations (like file reads, database queries, or network requests) to complete, Node.js initiates the operation and continues executing other code. When the operation finishes, a callback (or a Promise) handles the result. This makes Node.js highly efficient and scalable, especially for I/O-heavy applications.
 
 # module : 
@@ -51,7 +51,7 @@ In Node.js, every file is treated as a separate module.
 When we write code in a file, Node.js wraps our code inside a special function to provide some helpful objects and variables — one of these is the module object.
 
 # module wrapper function : 
-While using "commonjs module", Node js wrapps our code into a special function and this is the reason of why our variables defined comes in local scope. 
+While using "commonjs module", Node js wraps our code into a special function and this is the reason of why our variables defined comes in local scope. 
 <br>
 
 ```bash 
@@ -107,9 +107,9 @@ Uses require() to import modules.
 
 Uses module.exports or exports to export modules.
 
-Synchronous file loading .
+file loading takes place at runtime.
 
-File extension optional. But ".cjs" extension is considered better than other.
+File extension is optional. But ".cjs" extension is considered better than other.
 
 We can load any files by giving fullname in require() function. 
 
@@ -160,11 +160,11 @@ Uses import to load modules.
 
 Uses export to export functions/variables.
 
-Asynchronous file loading.
+file is resolved and loaded before runtime begins.
 
-File extension mendatory  
+File extension is mendatory.  
 
-We can load only ".mjs" or ".js" file only. 
+We can load ".mjs" or ".js" file only. 
 
 Requires "type": "module" in package.json or .mjs extension.
 
@@ -204,7 +204,7 @@ These are the modules which are present in the node_modules folder.
 
 
 # CLI package :
-A package designed to be used from the command line. It provides commands you can run directly in your terminal or shell. Exampe: Vite.
+A package designed to be used from the command line. It provides commands that we can run directly in our terminal or shell. Exampe: Vite.
 <br>
 It generally comes under devDependecies. 
 
@@ -281,13 +281,43 @@ Search Step-5
 
 ```
 
+# How npm works : 
+
+```bash 
+What npm does?
+Searches for a file and executes it.
+
+Example : when we type "npm install loadash". 
+
+Search Step-1
+    Searches for package.json in current working directory
+    If found and lodash is not yet listed:
+    Adds lodash to the dependencies section.
+
+Search Step-2
+    Searches for node_modules/lodash in current working directory
+    If the correct version is already installed, it skips downloading
+    If version mismatch, it installs the correct one
+
+Search Step-3
+     Searches for loadash package in npn cache(C:\Users\admin\AppData\Roaming\npm)
+     If it's cached and matches version requirements then it
+     Uses the cached copy (no network request needed).
+
+Search Step-4
+     Searches for loadash package in npm registry
+     Prompts to install the package if found
+     Downloads and installs that package in the npm cache. 
+
+```
+
 
 # nodemon 
 Nodemon is a command-line tool that automatically restarts a Node.js application when it detects changes to the application's js files. 
 
 
 # multer-gridfs-storage:
-It is a Node js modules which acts as   storage engine for multer that allows you to store files directly in MongoDB using GridFS instead of saving them on the local disk.
+It is a Node js modules which acts as storage engine for multer that allows you to store files directly in MongoDB using GridFS instead of saving them on the local disk.
 
 # gridfs-stream
 It is a Node.js library that provides an interface for streaming files from MongoDB using GridFS. It is built on top of MongoDB's GridFS and allows you to read and write large files from and to MongoDB in a streaming manner.
@@ -296,6 +326,8 @@ This is useful when working with large files, as it allows chunked data processi
 
 # Learn more about Nodejs
 https://nodejs.org/en/learn/getting-started/introduction-to-nodejs
+<br>
+https://github.com/procodrr/nodejs-course
 
 # Learn more about npm packages : 
 https://www.npmjs.com/

@@ -1,6 +1,6 @@
 // The Buffer class in Node.js allows us to work with binary data directly. It’s essential when dealing with streams, files, TCP sockets, etc.
 
-//create buffer from string array and another buffer.
+//create buffer from string, array and another buffer.
 const buf = Buffer.from("Hello World");
 console.log(buf)
 

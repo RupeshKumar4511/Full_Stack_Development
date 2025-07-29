@@ -12,11 +12,11 @@ module.exports = obj;
 //   console.log("hello")
 // }
 
-// Both work because exports is just a shortcut that points to module.exports initially. But if you assign a new object to exports, it won’t change module.exports automatically and it causes errror. 
+// Both work because exports is just a shortcut that points to module.exports initially. But if you assign a new object to exports, it won’t change module.exports automatically and it causes error. 
 
 
 
-// By default module.export is an empty object. 
+// By default module.exports is an empty object. 
 
 
 // Bydefault module is also an object. 

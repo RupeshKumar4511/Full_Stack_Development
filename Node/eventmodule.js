@@ -1,7 +1,7 @@
 // The events module provides the EventEmitter class — it allows you to create and manage custom events, and handle asynchronous event-driven programming.
 
 // const EventEmitter = require('events');
-import {EventEmitter} from 'events'
+import { EventEmitter } from 'events'
 
 // console.log(EventEmitter)
 
@@ -53,7 +53,7 @@ we can set using .setMaxListeners().
 // }
 
 // myEmitter.once('shout', listener);
-// myEmitter.once('shout', ()=>{console.log('second shout')});
+// myEmitter.once('shout', () => { console.log('second shout') });
 // Attach a listener that runs only once, then automatically removed.
 // myEmitter.emit('shout') // run only once. 
 // myEmitter.emit('shout') // This will not run
@@ -78,7 +78,7 @@ we can set using .setMaxListeners().
 
 // myEmitter.on('newListener',(event,listener)=>{
 //     console.log("New event listener is addded for event : ",event)
-    
+
 // })
 // The event 'newListener' is a special event in Node's EventEmitter.
 
@@ -89,19 +89,19 @@ we can set using .setMaxListeners().
 // myEmitter.emit('test')
 
 
-myEmitter.on('removeListener',(event,listener)=>{
-    console.log("An event listener is removed for event : ",event)
-    
+myEmitter.on('removeListener', (event, listener) => {
+  console.log("An event listener is removed for event : ", event)
+
 })
 // The event 'removeListener' is a special event in Node's EventEmitter.
 
 // It is emitted automatically before a new listener is removed.
 
-function test(){
-    console.log("test event occured");
+function test() {
+  console.log("test event occured");
 }
-myEmitter.on('test',test)
+myEmitter.on('test', test)
 
-myEmitter.removeListener('test',test)
+myEmitter.removeListener('test', test)
 
 

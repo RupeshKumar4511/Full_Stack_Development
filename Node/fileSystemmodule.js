@@ -62,13 +62,15 @@
 // }
 // It overrites in the file. 
 
-// fs.appendFile('file.txt',"\nHello Nodejs");
 
+
+// fs.appendFile('file.txt',"\nHello Nodejs");
 // It append in the file. 
 
-// If the file does not exist then both
+
+// If the file does not exist then both writeFile and appendFile
 // method first create the file. 
-// This is suitable for small file But for large file we use stream. Because let say a file of 4GB and when we write it to another file then all data will be loaded into memory first and if our RAM is also of 4GB then it laptop may be hang. 
+// This is suitable for small file. But for large file we use stream. Because let say a file of 4GB and when we write it to another file then all data will be loaded into memory first and if our RAM is also of 4GB then laptop may stop working. 
 
 
 
