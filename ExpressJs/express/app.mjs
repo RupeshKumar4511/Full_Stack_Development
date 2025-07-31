@@ -14,6 +14,8 @@ import path from 'path'
 import mongoose from 'mongoose';
 import db from './config/mysql.db.mjs'
 import { users } from './models/github-user.js';
+import bodyParser from 'body-parser'
+import { ensureAuthenticated } from './middlewares/auth.mjs';
 
 config()
 const port = process.env.PORT;
@@ -26,6 +28,8 @@ app.set('views', path.resolve('./views'))
 
 app.use(cookieParser());
 // app.use(cookieParser('helloworld')) // "helloworld" is secret which is used to parse the signed cookie. 
+app.use(bodyParser.urlencoded({extended:true}))
+//is middleware that tells our Express app how to parse incoming application/x-www-form-urlencoded form data (like data submitted from an HTML <form>).
 
 
 
@@ -47,8 +51,12 @@ app.get('/create-user', async (req, res) => {
 
 
 // for ejs testing
-app.get('/', (req, res) => {
+app.get('/login', (req, res) => {
     res.render('index');
+})
+
+app.get('/',ensureAuthenticated,(req,res)=>{
+    res.send("success login")
 })
 
 

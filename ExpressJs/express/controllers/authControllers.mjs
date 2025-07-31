@@ -1,6 +1,5 @@
 import { generateState } from 'arctic';
 import github from '../strategies/github-strategy.mjs';
-import flash from 'connect-flash'
 import { createUserWithOauth, getUserWithOauthId, linkUserWithOauth } from '../services/auth.services.mjs';
 import { authenticateUser } from '../middlewares/github-authorization.mjs';
 
@@ -55,11 +54,11 @@ export const getGithubCallbackPage = async (req,res) => {
         // )
         console.log("errors",
             "Couldn't login with Github because of invalid attempts. Please try again.")
-        return res.redirect('/')
+        return res.redirect('/login')
 
     }
 
-    // uses the connect-flash middleware in an Express application to store a 
+    // flash uses the connect-flash middleware in an Express application to store a 
     // temporary flash message. These messages are typically used to display 
     // notifications, warnings, or error messages after a redirect.
 
@@ -79,7 +78,7 @@ export const getGithubCallbackPage = async (req,res) => {
         // } 
 
         //accessToken : this is used to validate the user and get the user details.
-        console.log(token.accessToken())
+        // console.log(token.accessToken())
         if (!token || !token.accessToken()) return handleFailedLogin();
 
     } catch (error) {
@@ -115,7 +114,7 @@ export const getGithubCallbackPage = async (req,res) => {
     const emails = await githubEmailResponse.json();
     const email = emails.filter(e => e.primary)[0].email;
 
-    console.log(email);
+    // console.log(email);
     if (!email) return handleFailedLogin();
 
 

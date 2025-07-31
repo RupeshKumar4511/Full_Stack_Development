@@ -33,7 +33,8 @@ Modifying request & response objects
 
 ```
 <br>
-Generally we don't render any thing inside middleware. We basically do some authentication like check and if some error found only then we render some error message. 
+Generally we don't render any thing inside middleware. We basically do some authentication like check and if any error occurs only then we render some error message. 
+<br>
 <br>
 
 ```bash
@@ -114,7 +115,7 @@ route.post('/',(request,response)=>{
 
 // Put Request is used when we want to update the whole data about any object.
 // In the put request we need to send the whole data about any object to server
-// to update even if we don't want to upadate whole data about any object. 
+// to update even if we don't want to update whole data about any object. 
 
 // In put request we never update "id" field. 
 
@@ -359,7 +360,8 @@ bcrypt is a password-hashing library used to securely hash and store passwords. 
 # cookie-parser : 
 cookie-parser is a external middleware for Express.js that allows you to parse cookies from incoming HTTP requests.
 <br>
-We can also send a cookie from the server to the client using res.cookie().
+We send a cookie from the server to the client using "res.cookie("token","This is a token")". 
+we receive the cookie from the request using "req.cookies.token".
 
 
 # multer 
@@ -371,7 +373,7 @@ It is a middleware for Express.js that allows you to override the HTTP method of
 In situations where browsers only support GET and POST methods for HTML forms, method-override allows you to send other HTTP methods by passing an additional _method field (or other custom fields) in the request body or query string.
 
 # JWT 
-jsonwebtoken (jwt) is a Node.js library used to create and verify JSON Web Tokens (JWTs) for authentication and secure data exchange.But it is not inbuilt, we need to install it explicitly.
+jsonwebtoken (jwt) is a Node.js library used to create and verify JSON Web Tokens (JWTs) for authentication and secure data exchange. But it is not inbuilt, we need to install it explicitly.
 
 # Passport.js 
 Passport.js is a popular authentication middleware for Node.js.
@@ -379,7 +381,7 @@ Passport.js is a popular authentication middleware for Node.js.
 It helps us handle user login, signup, social login (Google, Facebook, etc.), and more.
 
 # arctic : 
-Arctic is a collection of OAuth 2.0 clients for popular providers. Only the authorization code flow is supported. Built on top of the Fetch API, it's light weight, fully-typed, and runtime-agnostic.
+Arctic is an OAuth 2.0 authentication library for JavaScript. It's designed to help us easily integrate OAuth providers (like GitHub, Google, Discord, etc.) into our app without relying on Passport.js. Built on top of the Fetch API, it's lightweight and secure by default.
 
 # Mongoose module :
 Mongoose is an Object Data Modeling (ODM) library for MongoDB, used with Node.js. It helps in:
