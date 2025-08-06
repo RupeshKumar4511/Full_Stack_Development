@@ -363,6 +363,29 @@ cookie-parser is a external middleware for Express.js that allows you to parse c
 We send a cookie from the server to the client using "res.cookie("token","This is a token")". 
 we receive the cookie from the request using "req.cookies.token".
 
+# express-rate-limit : 
+```bash 
+import express from 'express';
+import rateLimit from 'express-rate-limit';
+
+const app = express();
+
+// Rate limiter for /api/login — 5 attempts per 5 minutes
+const loginRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 5 minutes
+  max: 5, // Limit each IP to 5 login requests per window
+  message:  'Too many login attempts. Please try again after 5 minutes.',
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false,  // Disable the `X-RateLimit-*` headers
+});
+
+// Apply to only this route
+app.post('/api/login', loginRateLimiter, (req, res) => {
+  // your login logic
+  res.json({ success: true, message: 'Login attempt received' });
+});
+
+```
 
 # multer 
 Multer is a middleware for handling multipart/form-data, which is primarily used for file uploads in Node.js and Express applications. It helps in storing files either on the server's disk or in memory before processing them.
