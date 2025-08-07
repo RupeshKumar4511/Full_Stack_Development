@@ -551,3 +551,50 @@ Learn from : https://orm.drizzle.team/docs/sql-schema-declaration
 
 
 
+# How authentication works in Mobile Application : 
+```bash 
+# token send by server 
+res.json({token});
+
+# send-back token by frontend
+const token = await AsyncStorage.getItem('token');
+
+const response = await fetch('https://your-api.com/api/user/profile', {
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  },
+});
+
+const data = await response.json();
+```
+
+<br>
+<br>
+
+```bash 
+# authentication
+
+const jwt = require('jsonwebtoken');
+
+const authenticate = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+
+```
