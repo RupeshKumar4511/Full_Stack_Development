@@ -4,28 +4,28 @@ import cartValidationSchema from '../utils/cartValidationSchema.mjs';
 import cartQueryValidationSchema from '../utils/cartQueryValidationSchema.mjs';
 const route = Router();
 import carts from '../Carts.mjs'
-route.get('/api/carts', (req, res) => {
-     if(!req.session.user){
-        return res.status(401).send({
-            msg:"Unauthorized access"
-        })
-    }
-    // res.send('<h1>Carts</h2>')
-    // res.send({
-    //     id:1,
-    //     name:"Butter",
-    //     price:45
-    // })
-    // res.json(
-    //     {
-    //     id:1,
-    //     name:"Butter",
-    //     price:45
-    // })
+// route.get('/api/carts', (req, res) => {
+//      if(!req.session.user){
+//         return res.status(401).send({
+//             msg:"Unauthorized access"
+//         })
+//     }
+//     // res.send('<h1>Carts</h2>')
+//     // res.send({
+//     //     id:1,
+//     //     name:"Butter",
+//     //     price:45
+//     // })
+//     // res.json(
+//     //     {
+//     //     id:1,
+//     //     name:"Butter",
+//     //     price:45
+//     // })
 
-    return res.send(carts)
+//     return res.send(carts)
 
-})
+// })
 
 
 
@@ -99,6 +99,20 @@ route.get('/api/carts',checkSchema(cartQueryValidationSchema), (req, res) => {
     return res.send(carts);
 })
 
+// pagination 
+route.get('/api/carts/page/',(req,res)=>{
+    const {page,limit} = req.query;
+    const pageNo = Number(page) || 1;
+    const CartLimit = Number(limit) || 3; 
+    const skip = (pageNo-1)*CartLimit;  // pagination formula 
+
+    // Works when carts are stored in database
+    // const requestedData = carts.skip(skip).limit(limit)
+
+    const data = carts.slice(skip,skip+limit);
+    res.send(data);
+
+})
 
 
 // how to validate body 
