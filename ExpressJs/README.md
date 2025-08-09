@@ -548,6 +548,20 @@ await userModel.findOneAndDelete({
 
 # How to work with Drizzle ORM module (for sql db): 
 Learn from : https://orm.drizzle.team/docs/sql-schema-declaration
+<br>
+
+```bash 
+# CREATE 
+await db.insert(users).values({
+  publicId: "uuid-generated",
+  name: "Alice",
+  age: 25,
+});
+
+
+
+
+```
 
 
 
