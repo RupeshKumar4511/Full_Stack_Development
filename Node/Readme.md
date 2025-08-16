@@ -4,7 +4,14 @@ Node.js is a runtime environment that allows you to run JavaScript on the server
 It was first developed by Ryan Dhal.    
 
 # Working of nodejs : 
-https://www.geeksforgeeks.org/node-js/explain-the-working-of-node-js/
+When a request hits a Node.js server, the single main thread running JavaScript receives it and quickly determines what needs to be done. If it's a simple task (like string concatenation), it executes immediately. If it involves I/O (like reading a file, querying a database, or calling an API), Node.js delegates that task to the libuv thread pool(if blocking request) or the OS kernel(if non blocking request), allowing the main thread to stay free and continue handling other incoming requests. Once the I/O operation completes, the result is placed in the event loop’s callback queue, and when the loop reaches it, the callback (or promise/async function) is executed, sending the response back to the client — all without blocking other requests.
+<br>
+Read more : https://www.geeksforgeeks.org/node-js/explain-the-working-of-node-js/
+
+# Asynchronous and non blocking I/O model:
+Node.js works on these two concepts : 
+<br>
+In Node.js, the asynchronous non-blocking I/O model uses a single-threaded event loop to manage multiple concurrent tasks. Instead of waiting for I/O operations (like file reads, database queries, or network requests) to complete, Node.js initiates the operation and continues executing other code. When the operation finishes, a callback (or a Promise) handles the result. This makes Node.js highly efficient and scalable, especially for I/O-heavy applications.
 
 
 # Node modules
@@ -42,8 +49,7 @@ PATCH: Bug fixes, backward-compatible
 
 ```
 
-# Asynchronous and non blocking I/O model:
-In Node.js, the asynchronous non-blocking I/O model uses a single-threaded event loop to manage multiple concurrent tasks. Instead of waiting for I/O operations (like file reads, database queries, or network requests) to complete, Node.js initiates the operation and continues executing other code. When the operation finishes, a callback (or a Promise) handles the result. This makes Node.js highly efficient and scalable, especially for I/O-heavy applications.
+
 
 # module : 
 In Node.js, every file is treated as a separate module.
@@ -315,14 +321,6 @@ Search Step-4
 # nodemon 
 Nodemon is a command-line tool that automatically restarts a Node.js application when it detects changes to the application's js files. 
 
-
-# multer-gridfs-storage:
-It is a Node js modules which acts as storage engine for multer that allows you to store files directly in MongoDB using GridFS instead of saving them on the local disk.
-
-# gridfs-stream
-It is a Node.js library that provides an interface for streaming files from MongoDB using GridFS. It is built on top of MongoDB's GridFS and allows you to read and write large files from and to MongoDB in a streaming manner.
-<br>
-This is useful when working with large files, as it allows chunked data processing without needing to load the entire file into memory at once.
 
 # Learn more about Nodejs
 https://nodejs.org/en/learn/getting-started/introduction-to-nodejs
