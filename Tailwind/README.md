@@ -18,7 +18,7 @@ By default Tailwind uses a mobile first breakpoint system.
 ```
 
 # How to apply custom css : 
-We can apply custom css inside square bracket. 
+We can apply our custom css inside square bracket. 
 <br>
 
 ```bash 
