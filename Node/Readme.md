@@ -306,7 +306,7 @@ Search Step-2
     If version mismatch, it installs the correct one
 
 Search Step-3
-     Searches for loadash package in npn cache(C:\Users\admin\AppData\Roaming\npm)
+     Searches for loadash package in npm cache(C:\Users\admin\AppData\Roaming\npm)
      If it's cached and matches version requirements then it
      Uses the cached copy (no network request needed).
 
