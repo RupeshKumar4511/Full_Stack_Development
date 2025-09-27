@@ -49,7 +49,7 @@ console.log(path.format({
 
 // Command Line Utility ; 
 
-cygpath is a command which can convert any path into unix-based path or windows path 
+cygpath is a command which can convert any path into unix-based path or windows path. 
 
 
 cygpath -w "/c/Users/Desktop/file1.txt";

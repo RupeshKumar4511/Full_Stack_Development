@@ -1,13 +1,13 @@
 import os from 'node:os';
 
-console.log(os.version()) // Windows 10 Pro
-console.log(os.type()) //Windows_NT
-console.log(os.platform()) // win32
-console.log(os.release()) // 10.0.19045 
-console.log(os.hostname()) // DESKTOP-2GBKJIV
-console.log(os.homedir()) // C:\Users\admin 
-console.log(os.arch()) // x64
-console.log(os.uptime()) //3119.64 second
+console.log(os.version()) //OS version :  Windows 10 Pro
+console.log(os.type()) // Operating system name : ("Windows_NT", "Linux", "Darwin")
+console.log(os.platform()) // Platform name ("win32", "linux", "darwin")
+console.log(os.release()) // OS release version:  10.0.19045 
+console.log(os.hostname()) //Computer hostname :  DESKTOP-2GBKJIV
+console.log(os.homedir()) // Path to current user's home directory:  C:\Users\admin 
+console.log(os.arch()) // CPU architecture ("x64", "arm64")
+console.log(os.uptime()) // System uptime 3119.64 second
 console.log(os.totalmem()) 
 // returns the total system memory(RAM) in bytes
 

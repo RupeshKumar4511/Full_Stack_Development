@@ -3,8 +3,23 @@ Node.js is a runtime environment that allows you to run JavaScript on the server
 <br>
 It was first developed by Ryan Dhal.    
 
-# Working of nodejs : 
-When a request hits a Node.js server, the single main thread running JavaScript receives it and quickly determines what needs to be done. If it's a simple task (like string concatenation), it executes immediately. If it involves I/O (like reading a file, querying a database, or calling an API), Node.js delegates that task to the libuv thread pool(if blocking request) or the OS kernel(if non blocking request), allowing the main thread to stay free and continue handling other incoming requests. Once the I/O operation completes, the result is placed in the event loop’s callback queue, and when the loop reaches it, the callback (or promise/async function) is executed, sending the response back to the client — all without blocking other requests.
+# Why Nodejs : 
+It is known for performance, scalability, and an extensive ecosystem. Below are some key features:
+<br>
+Event-Driven & Non-Blocking I/O: Handles multiple tasks simultaneously without waiting for previous ones to complete, making it efficient for real-time applications.
+<br>
+Single-Threaded Model: It manages numerous connections efficiently using a single thread with the help of its event loop mechanism.
+<br>
+Cross-Platform: NodeJS is cross-platform, which means that it can run on various operating systems like Windows, macOS, and Linux without modification.
+<br>
+Fast Execution: The V8 engine compiles JavaScript into machine code before execution, which helps NodeJS achieve high performance.
+<br>
+Package Management: npm (Node Package Manager) is a huge advantage, as it provides access to a wide range of libraries and tools that can be easily integrated into NodeJS applications.
+<br>
+Restful API and Microservices: It easily handles microservices and API due to its lightweight, scalable, and event-driven nature.
+
+# Working of Nodejs : 
+When a request hits a Node.js server, the single main thread running JavaScript receives it and quickly determines what needs to be done. If it's a simple task (like string concatenation), it executes immediately. If it involves I/O (like reading a file, querying a database, or calling an API), Node.js delegates that task to the libuv thread pool(if blocking request) or the OS kernel(if non blocking request), allowing the main thread to stay free and continue handling other incoming requests. Once the I/O operation completes, the result is placed in the event loop's callback queue, and when the loop reaches it, the callback (or promise/async function) is executed, sending the response back to the client — all without blocking other requests.
 <br>
 Read more : https://www.geeksforgeeks.org/node-js/explain-the-working-of-node-js/
 
@@ -52,6 +67,8 @@ PATCH: Bug fixes, backward-compatible
 
 
 # module : 
+A module is a self-contained block of code that can be exported and imported into different parts of an application.
+<br>
 In Node.js, every file is treated as a separate module.
 <br>
 When we write code in a file, Node.js wraps our code inside a special function to provide some helpful objects and variables — one of these is the module object.
@@ -180,7 +197,7 @@ mjs imports are hoisted.
 
 Top level await is allowed.
 
-We can export multiple value from cjs module. 
+We can export multiple value from mjs module. 
 
 We can get the filename and dirname from "import.meta". 
 
@@ -236,7 +253,8 @@ A package manager for JavaScript, especially for Node.js projects.
 A tool that helps you install, update, and manage dependencies. 
 <br>
 It is also a js file behind the scene. 
-
+<br>
+Important Point :
 <br>
 
 ```bash
@@ -299,7 +317,7 @@ Search Step-1
     Searches for package.json in current working directory
     If found and lodash is not yet listed:
     Adds lodash to the dependencies section.
-
+x
 Search Step-2
     Searches for node_modules/lodash in current working directory
     If the correct version is already installed, it skips downloading
