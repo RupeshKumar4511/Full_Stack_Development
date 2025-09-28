@@ -13,9 +13,11 @@ const app = express();
 // now "app" is the instance that will be used to configure and run the web server.
 ```
 
+# Routing : 
+Routing in Express.js defines how an application responds to client requests at specific endpoints (URIs) and HTTP methods (GET, POST, PUT, DELETE, etc.). It essentially maps incoming requests to corresponding handler functions that execute the necessary logic and send a response back to the client.    
+
 # Middlewares  
 Middleware in Express.js is a function that runs before the final request handler. It has access to the request (req), response (res), and next() function.
-we can also create middlewares in express.
 <br>
 
 ```bash 
@@ -358,7 +360,7 @@ my-app/
 bcrypt is a password-hashing library used to securely hash and store passwords. It helps protect against brute-force attacks, dictionary attacks, and rainbow table attacks by using salted hashing.
 
 # cookie-parser : 
-cookie-parser is a external middleware for Express.js that allows you to parse cookies from incoming HTTP requests.
+cookie-parser is a external middleware for Express.js that allows us to parse cookies from incoming HTTP requests.
 <br>
 We send a cookie from the server to the client using "res.cookie("token","This is a token")". 
 we receive the cookie from the request using "req.cookies.token".
