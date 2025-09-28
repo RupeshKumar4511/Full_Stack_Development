@@ -18,15 +18,21 @@ Package Management: npm (Node Package Manager) is a huge advantage, as it provid
 <br>
 Restful API and Microservices: It easily handles microservices and API due to its lightweight, scalable, and event-driven nature.
 
+# Architecture of Node.js : 
+https://www.geeksforgeeks.org/node-js/node-js-web-application-architecture/
+
 # Working of Nodejs : 
-When a request hits a Node.js server, the single main thread running JavaScript receives it and quickly determines what needs to be done. If it's a simple task (like string concatenation), it executes immediately. If it involves I/O (like reading a file, querying a database, or calling an API), Node.js delegates that task to the libuv thread pool(if blocking request) or the OS kernel(if non blocking request), allowing the main thread to stay free and continue handling other incoming requests. Once the I/O operation completes, the result is placed in the event loop's callback queue, and when the loop reaches it, the callback (or promise/async function) is executed, sending the response back to the client — all without blocking other requests.
+When a request hits a Node.js server, the requests enter the Event Queue first at the server-side. The Event queue passes the requests sequentially to the event loop. The event loop checks the nature of the request (blocking or non-blocking). For blocking requests, a single thread is assigned to the process from the libuv thread pool and non-blocking request is executed by the OS kernel, allowing the main thread to stay free and continue handling other incoming requests. Once the I/O operation completes, the result is placed in the event loop's callback queue, and when the loop reaches it, the callback (or promise/async function) is executed, sending the response back to the client — all without blocking other requests.
 <br>
 Read more : https://www.geeksforgeeks.org/node-js/explain-the-working-of-node-js/
 
 # Asynchronous and non blocking I/O model:
 Node.js works on these two concepts : 
 <br>
-In Node.js, the asynchronous non-blocking I/O model uses a single-threaded event loop to manage multiple concurrent tasks. Instead of waiting for I/O operations (like file reads, database queries, or network requests) to complete, Node.js initiates the operation and continues executing other code. When the operation finishes, a callback (or a Promise) handles the result. This makes Node.js highly efficient and scalable, especially for I/O-heavy applications.
+Asynchronous model = Nodejs takes multiple request and doesn’t wait for one to finish before starting another.
+It uses a single-threaded event loop to manage multiple concurrent tasks.
+<br>
+Non-blocking I/O = Instead of waiting for I/O operations (like file reads, database queries, or network requests) to complete, Node.js initiates the operation and continues executing other code. When the operation finishes, a callback (or a Promise) handles the result. This makes Node.js highly efficient and scalable, especially for I/O-heavy applications.
 
 
 # Node modules
@@ -338,6 +344,99 @@ Search Step-4
 
 # nodemon 
 Nodemon is a command-line tool that automatically restarts a Node.js application when it detects changes to the application's js files. 
+
+# Aysnchronous Programming :
+Asynchronous programming is a way of writing code where tasks don't block the execution of other tasks while waiting to complete. 
+
+# Call Stack : 
+The call stack is where JavaScript keeps track of what function is currently being executed.
+<br>
+
+```bash
+function a() {
+  b();
+}
+function b() {
+  console.log("Inside b");
+}
+a();
+
+```
+
+<br>
+Call stack execution:
+<br>
+Push a() -> run b()
+<br>
+Push b() -> run console.log
+<br>
+Pop b() -> pop a()
+
+# Callback Queue & Event Loop :
+The callback queue (sometimes called the task queue) is a place where completed asynchronous tasks put their callbacks so they can be executed later.
+<br>
+Event Loop is the task traffic controller that decides when callbacks, promises, and other tasks get executed.
+<br>
+When we use async operations (setTimeout, fs.readFile, HTTP requests, etc.), Node.js doesn't block the call stack. Instead:
+<br>
+The async task is handed off to Node's libuv thread pool or OS.
+<br>
+When it finishes, a callback is pushed into the callback queue.
+<br>
+The event loop checks if the call stack is empty — if yes, it pushes the callback from the queue onto the stack and executes it.
+
+# Callback Abstraction : 
+Instead of writing raw callbacks everywhere, abstract them to make code reusable and modular.
+<br>
+
+```bash 
+function fetchData(callback) {
+  setTimeout(() => {
+    callback("Here is your data");
+  }, 1000);
+}
+
+// Abstracted callback
+function handleData(data) {
+  console.log("Received:", data);
+}
+
+fetchData(handleData);
+
+```
+
+# Callback Chaining : 
+Callback chaining is a programming technique where multiple functions (callbacks) are executed in a specific sequence, with the output of one function becoming the input of the next, allowing for complex, sequential operations, particularly in asynchronous programming. 
+<br>
+
+```bash 
+
+function getData(dataId ,getNextData){
+    setTimeout(()=>{
+        console.log("data",dataId);
+        if(getNextData){
+
+            getNextData();
+        }
+
+    },3000);
+
+}
+
+
+
+getData(1,()=>{
+    getData(2,()=>{
+        getData(3,()=>{
+            getData(4);
+        })
+    });
+});
+
+
+
+
+```
 
 
 # Learn more about Nodejs
