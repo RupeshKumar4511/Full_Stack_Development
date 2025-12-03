@@ -1,9 +1,9 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+import http from 'http';
+import fs from 'fs';
+import path from 'path';
 const port = 3000;
 
-
+// console.log(http)
 const server = http.createServer((req,res)=>{
     // console.log(req.url);
     res.statusCode = 200;
@@ -15,7 +15,7 @@ const server = http.createServer((req,res)=>{
     }
     else if(req.url === '/index'){
         res.statusCode = 200;
-        const data = fs.readFileSync(path.join(__dirname,'index1.html'))
+        const data = readFileSync(join(__dirname,'index1.html'))
         res.end(data.toString()); 
         
     }

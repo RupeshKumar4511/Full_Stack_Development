@@ -24,6 +24,9 @@ const stringRepresentation = util.inspect(obj, { showHidden: false, depth: null,
 console.log(stringRepresentation)
 console.log(typeof stringRepresentation); // string
 // Returns a string representation of an object
+// It helps to see the nested objects which is not shown by console.log() like [objects][objects]
+
+
 
 
 // Useful options:

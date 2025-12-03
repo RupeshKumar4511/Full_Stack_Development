@@ -22,14 +22,39 @@ Restful API and Microservices: It easily handles microservices and API due to it
 https://www.geeksforgeeks.org/node-js/node-js-web-application-architecture/
 
 # Working of Nodejs : 
-When a request hits a Node.js server, the requests enter the Event Queue first at the server-side. The Event queue passes the requests sequentially to the event loop. The event loop checks the nature of the request (blocking or non-blocking). For blocking requests, a single thread is assigned to the process from the libuv thread pool and non-blocking request is executed by the OS kernel, allowing the main thread to stay free and continue handling other incoming requests. Once the I/O operation completes, the result is placed in the event loop's callback queue, and when the loop reaches it, the callback (or promise/async function) is executed, sending the response back to the client — all without blocking other requests.
+When a request hits a Node.js server, it is received through the OS kernel and picked up by libuv's I/O polling system. The event loop then invokes your request handler on the main JavaScript thread.
 <br>
-Read more : https://www.geeksforgeeks.org/node-js/explain-the-working-of-node-js/
+Inside your handler, the behavior depends on the type of operation you perform:
+<br>
+Synchronous (blocking) operations
+These run directly on the main thread and block the event loop until they finish.
+They do not use the libuv thread pool.
+<br>
+Asynchronous (non-blocking) operations
+These are offloaded as follows:
+<br>
+Network operations (HTTP, TCP, DNS lookup via OS)
+Handled asynchronously by the OS kernel, reported back to libuv when complete.
+<br>
+Asynchronous filesystem, crypto, zlib, DNS (lookup)
+Executed in the libuv thread pool.
+<br>
+While these async operations execute outside the main thread, Node.js remains free to process other incoming requests.
+<br>
+When an asynchronous operation finishes, its result (callback, promise resolution, async function continuation) is queued in the appropriate event loop phase, and the event loop eventually executes that callback, sending the response back to the client — all without blocking other requests.
+<br>
+libuv's I/O Polling System is the part of the event loop responsible for:
+<br>
+waiting for I/O events (network activity, timers ready, file I/O completions, etc.)
+<br>
+detecting when I/O operations are ready to continue
+<br>
+scheduling the corresponding callbacks to run
 
 # Asynchronous and non blocking I/O model:
 Node.js works on these two concepts : 
 <br>
-Asynchronous model = Nodejs takes multiple request and doesn’t wait for one to finish before starting another.
+Asynchronous model = Nodejs takes multiple request and doesn't wait for one to finish before starting another.
 It uses a single-threaded event loop to manage multiple concurrent tasks.
 <br>
 Non-blocking I/O = Instead of waiting for I/O operations (like file reads, database queries, or network requests) to complete, Node.js initiates the operation and continues executing other code. When the operation finishes, a callback (or a Promise) handles the result. This makes Node.js highly efficient and scalable, especially for I/O-heavy applications.
