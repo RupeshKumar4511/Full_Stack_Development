@@ -484,7 +484,7 @@ onKeydown((event) => console.log(event))
 # spread operator and Functional updates :
 spread operators : Used to maintain immutability while updateing array or objects . 
 But sometime it gives old values even after updation. 
-It is caused because React is async in nature. 
+It is caused because React updates state in batches (asynchronously). 
 <br>
 ```bash 
 
@@ -523,7 +523,7 @@ State changes causes the component to re-render.
 <br>
 For Functional component, use the "useState" hook. 
 <br>
-React Functions that starts with "use" words are called hooks. It is basically a inbuilt react function component.  
+React Functions that starts with "use" words are called hooks. It is basically a inbuilt react functional  component.  
 <br>
 Hooks should be used inside the Functional Component.
 <br>
@@ -1043,6 +1043,8 @@ const Component = () => {
 
 # Context API :
 It is basically a common Shared storage among all the components. It is used when several components are using same methods or state. 
+<br>
+React Context API is a built-in state management system that allows us to share data across components without prop drilling.
 <br>
 <img src="./Images/contextapi.jpg.jpg" alt="">
 <br>
