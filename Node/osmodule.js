@@ -25,3 +25,8 @@ console.log(os.tmpdir())
 
 console.log(os.userInfo())
 // Returns info about the current user.
+
+console.log(os.endianness())
+// Returns a string identifying the endianness of the CPU for which the Node.js binary was compiled.
+
+// Possible values are 'BE' for big endian and 'LE' for little endian.

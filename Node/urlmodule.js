@@ -26,6 +26,8 @@ myUrl.port = 5000;
 console.log(url.format(myUrl))
 // https://John:David%40123@www.example.com:5000/a/b/c?d=e#fgh
 
+const parsed = url.parse(myUrl.href,true);
+console.log(parsed.query)
 
 
 
@@ -37,3 +39,8 @@ const fileURL = url.pathToFileURL('test.txt');
 console.log(fileURL.href);
 // file:///D:/Full_Stack/Stack/Node/test.txt
 
+
+import querystring from 'querystring';
+const str = 'name=alice&age=25&city=Delhi';
+const parsed2 = querystring.parse(str);
+console.log(parsed2);

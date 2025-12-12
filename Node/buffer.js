@@ -32,9 +32,10 @@ console.log(buffer); // // <Buffer 00 00 00 00 00>
 
 
 // writing string into buffer
-const b = Buffer.alloc(11);
+const b = Buffer.alloc(15);
 b.write('Hello World');
-console.log(b.toString()); // Hello World
+// b.fill("Hel",12,15)
+console.log(b.toString('utf-8')); // Hello World
 
 
 //Read integers from buffer (signed or unsigned, 8/16/32 bit).
