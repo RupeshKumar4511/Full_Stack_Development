@@ -66,6 +66,11 @@ app.listen(3000, () => console.log('Server running on port 3000'));
 # Route parameter : 
 We can have many route parameter. 
 <br>
+In express.js Route parameter allows to create such routes where a part of URL is variable and that routes are
+called dynamic routes.
+<br>
+These variables are captured and made available in "req.params". 
+<br>
 
 ```bash 
 route.get('/:id',(req,res)=>{
