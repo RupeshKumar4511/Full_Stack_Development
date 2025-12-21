@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const userModel = require('./models/users');
 // const dbConnection = require('./config/db.js');
-const mysqlConnection = require('./config/mysql-db.js')
+// const connection = require('./config/mysql-db.js')
+const connection = require('./config/postgreSql.js')
 const studentRoutes = require('./routes/student.routes.js')
 require('dotenv').config();
 const app = express();
@@ -136,9 +137,19 @@ app.use(studentRoutes);
 
 
 // mysql connection
-mysqlConnection.query('SELECT 1').then(()=>{
+// connection.query('SELECT 1').then(()=>{
     
-    console.log("Mysql connected");
+//     console.log("Mysql connected");
+
+//     app.listen(port,()=>{
+//     console.log('Server is running on ',port);
+//     })
+// }
+// ).catch((error)=>console.log(error))
+
+connection.query('SELECT 1').then(()=>{
+    
+    console.log("PostgreSQL connected");
 
     app.listen(port,()=>{
     console.log('Server is running on ',port);

@@ -619,3 +619,23 @@ const authenticate = (req, res, next) => {
 
 
 ```
+
+
+
+# How to Work with PostgreSQL : 
+
+```bash 
+import pkg from "pg";
+const { Pool } = pkg;
+
+const pool = new Pool({
+  user: "postgres",
+  host: "localhost",
+  database: "mydb",
+  password: "password",
+  port: 5432,
+});
+
+module.exports = pool
+
+```
