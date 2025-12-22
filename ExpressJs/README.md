@@ -554,19 +554,105 @@ await userModel.findOneAndDelete({
 
 
 # How to work with Drizzle ORM module (for sql db): 
+Drizzle ORM is a type-safe, SQL-first ORM for Node.js that lets us define our database schema in TypeScript and generate migrations automatically.
+<br>
 Learn from : https://orm.drizzle.team/docs/sql-schema-declaration
 <br>
 
 ```bash 
-# CREATE 
-await db.insert(users).values({
-  publicId: "uuid-generated",
-  name: "Alice",
-  age: 25,
+# Install few packages : 
+npm i drizzle-orm
+npm i drizzle-kit
+npm i mysql2        // for mysql
+npm i pg           // for postgresql
+
+# Inside package.json : 
+Add in scripts:
+
+"scripts":{
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
+    }
+
+
+# Make a file named : drizzle.config.js (if not found) 
+
+import {defineConfig} from  'drizzle-kit';
+
+export default defineConfig({
+    out:"./drizzle",
+    schema:'./models/github-user.js', // change this path
+    dialect:"mysql",
+    dbCredentials:{
+        url:process.env.DATABASE_URL   // store URL in .env file
+    }
+}) 
+
+# Connect to  DB : 
+
+import {drizzle} from 'drizzle-orm/mysql2'; //for mysql
+import {drizzle} from 'drizzle-orm/node-postgres'; //for postgresql
+
+// A lightweight, fully type-safe ORM and SQL builder for JavaScript/TypeScript.
+// ORM stands for Object Relational Mapping
+import mysql from 'mysql2/promise';
+import  {config} from 'dotenv';
+config();
+
+const poolConnection = mysql.createPool({
+    host:process.env.HOST_NAME,
+    user:process.env.USER,
+    password:process.env.PASSWORD,
+    database:process.env.DATABASE
+})
+
+const db = drizzle(poolConnection)
+
+
+    # import pkg from "pg";
+    # const { Pool } = pkg;
+
+    # const pool = new Pool({
+    #   user: "postgres",
+    #   host: "localhost",
+    #   database: "mydb",
+    #   password: "password",
+    #   port: 5432,
+    # });
+
+    # const db = drizzle(pool)
+
+export default db;
+
+
+# Define schema and create model out of it : 
+Run few commands : 
+npm run db:generate // It generate migration files which are required to run migration on the db
+npm run db:migrate // It actually creat table inside db by run migration on db.
+
+#  To see schemas 
+Command : npm run db:studio
+
+
+```
+
+
+# How to Work with PostgreSQL : 
+
+```bash 
+import pkg from "pg";
+const { Pool } = pkg;
+
+const pool = new Pool({
+  user: "postgres",
+  host: "localhost",
+  database: "mydb",
+  password: "password",
+  port: 5432,
 });
 
-
-
+module.exports = pool
 
 ```
 
@@ -622,20 +708,3 @@ const authenticate = (req, res, next) => {
 
 
 
-# How to Work with PostgreSQL : 
-
-```bash 
-import pkg from "pg";
-const { Pool } = pkg;
-
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "mydb",
-  password: "password",
-  port: 5432,
-});
-
-module.exports = pool
-
-```
