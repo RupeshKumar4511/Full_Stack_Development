@@ -503,7 +503,7 @@ $(function () {
 
 //     // In attr method we have also a callback function which returns index of the current element in the list of selected element and its original value :
 //     $('a').on('click',function(){
-//        let a =  $('this').attr('href',function(index,originalValue){
+//        let a =  $(this).attr('href',function(index,originalValue){
 //            return originalValue;
 //         });
 //         console.log(a);
