@@ -583,7 +583,7 @@ import {defineConfig} from  'drizzle-kit';
 export default defineConfig({
     out:"./drizzle",
     schema:'./models/*.js', // change this path
-    dialect:"mysql", // tells the ORM which database language and behavior to use.
+    dialect:"mysql", // tells the ORM which database language and behavior to use. It can be (postgresql).
     dbCredentials:{
         url:process.env.DATABASE_URL   // store URL in .env file
     }
