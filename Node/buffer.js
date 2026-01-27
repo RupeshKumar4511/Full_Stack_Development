@@ -43,6 +43,51 @@ const IntegerBuffer = Buffer.from([1, 2, 3, 4]);
 console.log(IntegerBuffer.readInt8(0)); // 1
 
 
+// Example of Buffering with File System
+import fs from 'node:fs';
+import { Buffer } from 'node:buffer';
+
+fs.open('./test.txt', 'r+', (err, fd) => {
+  if (err) throw err;
+
+  fs.fstat(fd, (err, stats) => {
+    if (err) throw err;
+
+    const fileSize = stats.size;
+    const chunkSize = 100;
+
+    const tempBuffer = Buffer.alloc(chunkSize);
+    const actualBuffer = Buffer.alloc(fileSize);
+
+    let offset = 0;
+
+    function readNextChunk() {
+      if (offset >= fileSize) {
+        console.log(actualBuffer.toString());
+        fs.close(fd, () => {});
+        return;
+      }
+
+      fs.read(
+        fd,
+        tempBuffer,
+        0,
+        chunkSize,
+        offset,
+        (err, bytesRead) => {
+          if (err) throw err;
+
+          tempBuffer.copy(actualBuffer, offset, 0, bytesRead);
+          offset += bytesRead;
+
+          readNextChunk();
+        }
+      );
+    }
+
+    readNextChunk();
+  });
+});
 
 
 
