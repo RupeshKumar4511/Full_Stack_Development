@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { NextResponse } from 'next/server';
 
 const MONGODB_URL = process.env.MONGODB_URL;
 
@@ -21,8 +22,9 @@ const connection = async () => {
         if (connect) {
             console.log("Database Connected");
         }
-    } catch (error) {
+    } catch (error:any) {
         console.log(error)
+        return new NextResponse("Error in connecting database"+error.message,{status:500})
     }
 }
 
