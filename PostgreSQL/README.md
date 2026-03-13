@@ -301,3 +301,20 @@ EXECUTE FUNCTION set_updated_at();
 
 
 ```
+
+# How to scale up Postgres DB : 
+PostgreSQL defaults to max_connections = 100 as a safety measure. 
+<br>
+If you need to support 10,000 app users, you don't give them 10,000 Postgres connections. You use Connection Pooling:
+<br>
+Internal Pooling (TypeORM/Drizzle/Prisma): Your Express server keeps a "pool" of 20 connections open and rotates them. User A finishes a request, and User B immediately grabs that same connection.
+<br>
+External Pooling (PgBouncer): This sits between Express and Postgres. Express thinks it has 5,000 connections, but PgBouncer funnels all that traffic into just 100 "real" Postgres processes. This saves massive amounts of RAM.
+<br>
+
+```bash 
+docker run -d --name pgbouncer -p 6432:6432 \
+  -e DATABASE_URL="postgres://user:pass@host:5432/db" \
+  -e POOL_MODE=transaction edoburu/pgbouncer
+
+```
